@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class Clicker : MonoBehaviour
 {
+    [SerializeField] private int _damage;
     private Camera _mainCamera;
 
     private void Awake()
@@ -25,7 +26,13 @@ public class Clicker : MonoBehaviour
         if (hit != true) return;
         if (hit.collider.TryGetComponent(out IClickable clickable))
         {
-            clickable.OnClick();
+            var info = new ClickInfo
+            {
+                ClickType = EClickType.Manual,
+                Damage = _damage,
+                ClickPosition = hit.point
+            };
+            clickable.OnClick(info);
         }
     }
 }
