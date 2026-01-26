@@ -2,7 +2,6 @@ using UnityEngine;
 
 public class Clicker : MonoBehaviour
 {
-    [SerializeField] private int _damage;
     private Camera _mainCamera;
 
     private void Awake()
@@ -29,7 +28,7 @@ public class Clicker : MonoBehaviour
             var info = new ClickInfo
             {
                 Type = EClickType.Manual,
-                Damage = _damage,
+                Damage = GameManager.Instance.ManualDamage,
                 Position = hit.point
             };
             clickable.OnClick(info);

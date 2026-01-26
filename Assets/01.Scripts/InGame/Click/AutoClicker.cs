@@ -3,7 +3,6 @@ using UnityEngine.UIElements;
 
 public class AutoClicker : MonoBehaviour
 {
-    [SerializeField] private int _damage;
     [SerializeField] private float _interval;
     private float _timer;
 
@@ -20,7 +19,7 @@ public class AutoClicker : MonoBehaviour
             ClickInfo clickInfo = new ClickInfo
             {
                 Type = EClickType.Auto,
-                Damage = _damage,
+                Damage = GameManager.Instance.AutoDamage,
                 Position = clickable.transform.position
             };
                 

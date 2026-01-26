@@ -3,9 +3,20 @@ using UnityEngine;
 public class ClickTarget : MonoBehaviour, IClickable
 {
     [SerializeField] private string _planetName;
+    private IFeedback[] _feedbacks;
+
+    private void Awake()
+    {
+        _feedbacks = GetComponentsInChildren<IFeedback>();
+    }
+    
     public bool OnClick(ClickInfo clickInfo)
     {
-        Debug.Log($"{_planetName} 파괴 진행 중");
+        foreach (IFeedback feedback in _feedbacks)
+        {
+            feedback.Play(clickInfo);
+        }
         return true;
     }
+    
 }
