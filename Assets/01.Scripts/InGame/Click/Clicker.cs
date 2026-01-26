@@ -29,7 +29,7 @@ public class Clicker : MonoBehaviour
             {
                 Type = EClickType.Manual,
                 Damage = GameManager.Instance.ManualDamage,
-                Position = hit.point
+                Position = mousePos
             };
             clickable.OnClick(info);
         }
