@@ -25,13 +25,16 @@ public class Clicker : MonoBehaviour
         if (hit != true) return;
         if (hit.collider.TryGetComponent(out IClickable clickable))
         {
+            int damage = GameManager.Instance.ManualDamage;
             var info = new ClickInfo
             {
                 Type = EClickType.PerClick,
-                Damage = GameManager.Instance.ManualDamage,
+                Damage = damage,
                 Position = mousePos
             };
             clickable.OnClick(info);
+
+            GameManager.Instance.AddGold(damage);
         }
     }
 }

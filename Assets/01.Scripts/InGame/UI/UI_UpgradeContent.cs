@@ -15,29 +15,55 @@ public class UI_UpgradeContent : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _type;
     [SerializeField] private TextMeshProUGUI _count;
 
-    private UpgradeData _upgradeData;
+    private UpgradeContentData _contentData;
 
     private void Awake()
     {
         _button.onClick.AddListener(Upgrade);
+        _button.interactable = true;
     }
 
-    // 데이터 설정 메서드
-    public void SetData(UpgradeData data)
+    private void OnEnable()
     {
-        _upgradeData = data;
-        
-        _icon.sprite = data.Icon;
-        _name.text = data.UpgradeName;
-        _price.text = data.Price.ToString();
-        _reward.text = data.RewardAmount.ToString();
-        _type.text = data.Type.ToString();
-        _count.text = $"x{data.Count}";
+        if (GameManager.Instance != null)
+        {
+            GameManager.Instance.OnUpgradeCompleted += UpdateUI;
+        }
+    }
+
+    private void OnDisable()
+    {
+        if (GameManager.Instance != null)
+        {
+            GameManager.Instance.OnUpgradeCompleted -= UpdateUI;
+        }
+    }
+
+    public void SetData(UpgradeContentData contentData)
+    {
+        _contentData = contentData;
+        UpdateUI();
+    }
+
+    public void UpdateUI()
+    {
+        if (_contentData == null) return;
+
+        var baseData = _contentData.BaseData;
+
+        _icon.sprite = baseData.Icon;
+        _name.text = baseData.UpgradeName;
+        _price.text = _contentData.CurrentPrice.ToString();
+        _reward.text = _contentData.GetCurrentReward().ToString();
+        _type.text = baseData.Type.ToString();
+        _count.text = $"Lv.{_contentData.CurrentLevel + 1}";
     }
 
     private void Upgrade()
     {
-        // 업그레이드 로직
-        Debug.Log("Upgrade");
+        if (GameManager.Instance.TryUpgrade(_contentData))
+        {
+            UpdateUI();
+        }
     }
 }

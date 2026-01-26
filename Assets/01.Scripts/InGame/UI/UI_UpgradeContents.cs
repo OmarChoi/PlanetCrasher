@@ -1,25 +1,25 @@
-using UnityEngine;
-using System.Collections.Generic;
+﻿using UnityEngine;
 
 public class UI_UpgradeContents : MonoBehaviour
 {
     [SerializeField] private Transform _contentParent;
     [SerializeField] private GameObject _upgradeContentPrefab;
-    
-    [SerializeField] private List<UpgradeData> _upgradeDataList;
+    [SerializeField] private UpgradeContents _upgradeContents;
 
     private void Start()
     {
-        InitializeUpgrades();
+        InitializeUI();
     }
 
-    private void InitializeUpgrades()
+    private void InitializeUI()
     {
-        foreach (var data in _upgradeDataList)
+        foreach (var upgradeData in _upgradeContents.UpgradeDataList)
         {
             GameObject obj = Instantiate(_upgradeContentPrefab, _contentParent);
             UI_UpgradeContent content = obj.GetComponent<UI_UpgradeContent>();
-            content.SetData(data);
+
+            UpgradeContentData contentData = _upgradeContents.GetContentData(upgradeData);
+            content.SetData(contentData);
         }
     }
 }

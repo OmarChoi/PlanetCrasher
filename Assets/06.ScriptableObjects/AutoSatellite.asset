@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ba3fe524db456c94aad84ae33dca292e, type: 3}
-  m_Name: AutoTurret
+  m_Name: AutoSatellite
   m_EditorClassIdentifier: Assembly-CSharp::UpgradeData
-  UpgradeName: AutoTurret
+  UpgradeName: AutoSatellite
   Icon: {fileID: 0}
   Price: 100
   RewardAmount: 3

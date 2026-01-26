@@ -8,6 +8,7 @@ public class UpgradeData : ScriptableObject
     
     [Header("Cost")]
     public int Price;
+    public float PriceMultiplier = 1.15f;
 
     [Header("Reward")]
     public int RewardAmount;
