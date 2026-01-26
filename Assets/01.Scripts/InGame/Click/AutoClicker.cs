@@ -18,7 +18,7 @@ public class AutoClicker : MonoBehaviour
             IClickable clickableComponent = clickable.GetComponent<IClickable>();
             ClickInfo clickInfo = new ClickInfo
             {
-                Type = EClickType.Auto,
+                Type = EClickType.AutoClick,
                 Damage = GameManager.Instance.AutoDamage,
                 Position = clickable.transform.position
             };

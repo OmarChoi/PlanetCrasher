@@ -1,5 +1,5 @@
 ﻿public enum EClickType
 {
-    Manual,
-    Auto
+    PerClick,
+    AutoClick
 }

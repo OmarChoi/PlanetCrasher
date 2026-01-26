@@ -15,7 +15,7 @@ public class ColorFlashFeedback : MonoBehaviour, IFeedback
     
     public void Play(ClickInfo clickInfo)
     {
-        if (clickInfo.Type == EClickType.Auto) return;
+        if (clickInfo.Type == EClickType.AutoClick) return;
         if (_coroutine != null)
         {
             StopCoroutine(_coroutine);

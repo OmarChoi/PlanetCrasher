@@ -3,6 +3,7 @@ using UnityEngine;
 public class ClickTarget : MonoBehaviour, IClickable
 {
     [SerializeField] private string _planetName;
+    [SerializeField] private float _rotationSpeed = 30f;
     private IFeedback[] _feedbacks;
 
     private void Awake()
@@ -18,5 +19,9 @@ public class ClickTarget : MonoBehaviour, IClickable
         }
         return true;
     }
-    
+
+    private void Update()
+    {
+        transform.Rotate(0, 0, _rotationSpeed * Time.deltaTime);
+    }
 }
