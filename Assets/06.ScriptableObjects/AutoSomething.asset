@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba3fe524db456c94aad84ae33dca292e, type: 3}
   m_Name: AutoSomething
   m_EditorClassIdentifier: Assembly-CSharp::UpgradeData
-  UpgradeName: AutoSomething
+  UpgradeName: Something
   Icon: {fileID: 0}
   Price: 100
+  PriceMultiplier: 1.15
   RewardAmount: 3
   Type: 1
   Count: 0

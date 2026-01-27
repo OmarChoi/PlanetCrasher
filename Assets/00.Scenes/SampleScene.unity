@@ -1204,9 +1204,8 @@ GameObject:
   m_Component:
   - component: {fileID: 726452429}
   - component: {fileID: 726452431}
-  - component: {fileID: 726452430}
   m_Layer: 0
-  m_Name: Aim Beam
+  m_Name: Beam
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1221,26 +1220,12 @@ Transform:
   m_GameObject: {fileID: 726452428}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -1.63}
+  m_LocalPosition: {x: -0.15, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1214991558}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &726452430
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 726452428}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7ee766c97a12dc94f9b3263330c80de9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  lnRenderer: {fileID: 726452431}
-  visual_Distance: 15
 --- !u!120 &726452431
 LineRenderer:
   serializedVersion: 3
@@ -1322,8 +1307,8 @@ LineRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 0.41960785, g: 0, b: 0, a: 0.13725491}
-      key1: {r: 0, g: 0, b: 0, a: 0}
+      key0: {r: 0.41960785, g: 0, b: 0, a: 1}
+      key1: {r: 0, g: 0, b: 0, a: 1}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
@@ -1347,7 +1332,7 @@ LineRenderer:
       atime6: 0
       atime7: 0
       m_Mode: 0
-      m_ColorSpace: -1
+      m_ColorSpace: 0
       m_NumColorKeys: 2
       m_NumAlphaKeys: 2
     numCornerVertices: 0
@@ -1495,6 +1480,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
   _upgradeContents: {fileID: 969223050}
+  _manualDamage: 12345
+  _autoDamage: 12345
 --- !u!4 &878562452
 Transform:
   m_ObjectHideFlags: 0
@@ -1819,6 +1806,13 @@ MonoBehaviour:
   _parent: {fileID: 766146757}
   _orbitSpeed: -50
   _orbitDistance: 2
+  _beam: {fileID: 726452431}
+  _beamDistance: 1
+  _beamSegments: 20
+  _beamSpace: 0.25
+  _waveAmplitude: 0.1
+  _waveFrequency: 5
+  _waveSpeed: 5
 --- !u!1 &1287375958
 GameObject:
   m_ObjectHideFlags: 0
