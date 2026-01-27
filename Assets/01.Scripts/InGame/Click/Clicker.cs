@@ -38,8 +38,6 @@ public class Clicker : MonoBehaviour
                 EffectParticle = _clickParticle
             };
             clickable.OnClick(info);
-
-            GameManager.Instance.AddGold(damage);
         }
     }
 }
