@@ -29,7 +29,7 @@ public class Clicker : MonoBehaviour
         if (hit != true) return;
         if (hit.collider.TryGetComponent(out IClickable clickable))
         {
-            int damage = GameManager.Instance.ManualDamage;
+            double damage = GameManager.Instance.ManualDamage;
             var info = new ClickInfo
             {
                 Type = EClickType.PerClick,

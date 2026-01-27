@@ -31,7 +31,7 @@ public class UI_Gold : MonoBehaviour
         }
     }
 
-    private void OnGoldChanged(int gold)
+    private void OnGoldChanged(double gold)
     {
         _text.SetText(gold.ToString("N0"));
     }

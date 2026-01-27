@@ -817,7 +817,7 @@ GameObject:
   - component: {fileID: 566867486}
   - component: {fileID: 566867488}
   - component: {fileID: 566867487}
-  - component: {fileID: 566867489}
+  - component: {fileID: 566867491}
   - component: {fileID: 566867490}
   m_Layer: 4
   m_Name: Planet
@@ -1098,7 +1098,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SoundFeedback
   _audio: {fileID: 566867487}
---- !u!114 &566867489
+--- !u!114 &566867490
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 566867479}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 788128215ca2a954091b2945d22a313a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ParticleEffect
+--- !u!114 &566867491
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1113,18 +1125,6 @@ MonoBehaviour:
   _canvas: {fileID: 1489310034}
   _damageTextPrefab: {fileID: 8155602863646202873, guid: 1a54b247f7841034b9f5d30bb6b18e31, type: 3}
   _poolSize: 20
---- !u!114 &566867490
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 566867479}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 788128215ca2a954091b2945d22a313a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ParticleEffect
 --- !u!1 &593493034
 GameObject:
   m_ObjectHideFlags: 0
@@ -1321,6 +1321,78 @@ Transform:
   - {fileID: 1214991558}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &873657991
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 873657993}
+  - component: {fileID: 873657992}
+  - component: {fileID: 873657994}
+  m_Layer: 0
+  m_Name: DamageFloaterSpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &873657992
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 873657991}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eea08375da243a441b88d1e6b0713006, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: LeanPool::Lean.Pool.LeanGameObjectPool
+  prefab: {fileID: 6503622709965639628, guid: 884db1d9df1443e4eaf0a2813ec7e894, type: 3}
+  notification: 3
+  strategy: 0
+  preload: 20
+  capacity: 100
+  recycle: 1
+  persist: 0
+  stamp: 0
+  warnings: 1
+  spawnedClonesList: []
+  despawnedClones: []
+  delays: []
+  deactivatedChild: {fileID: 0}
+--- !u!4 &873657993
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 873657991}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &873657994
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 873657991}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a007385a4dc9bd34ea1c812f79ae43dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DamageFloaterSpawner
+  _pool: {fileID: 873657992}
+  _duration: 1
 --- !u!1 &878562450
 GameObject:
   m_ObjectHideFlags: 0
@@ -2136,3 +2208,4 @@ SceneRoots:
   - {fileID: 878562452}
   - {fileID: 969223051}
   - {fileID: 444568738}
+  - {fileID: 873657993}

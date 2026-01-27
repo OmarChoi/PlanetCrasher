@@ -16,7 +16,7 @@ public class AutoClicker : MonoBehaviour
         foreach (var clickable in clickables)
         {
             IClickable clickableComponent = clickable.GetComponent<IClickable>();
-            int damage = GameManager.Instance.AutoDamage;
+            double damage = GameManager.Instance.AutoDamage;
             ClickInfo clickInfo = new ClickInfo
             {
                 Type = EClickType.AutoClick,
