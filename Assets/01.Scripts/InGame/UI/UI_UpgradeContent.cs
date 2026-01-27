@@ -25,18 +25,12 @@ public class UI_UpgradeContent : MonoBehaviour
 
     private void OnEnable()
     {
-        if (GameManager.Instance != null)
-        {
-            GameManager.Instance.OnUpgradeCompleted += UpdateUI;
-        }
+        GameManager.OnUpgradeCompleted += UpdateUI;
     }
 
     private void OnDisable()
     {
-        if (GameManager.Instance != null)
-        {
-            GameManager.Instance.OnUpgradeCompleted -= UpdateUI;
-        }
+        GameManager.OnUpgradeCompleted -= UpdateUI;
     }
 
     public void SetData(UpgradeContentData contentData)
@@ -45,7 +39,7 @@ public class UI_UpgradeContent : MonoBehaviour
         UpdateUI();
     }
 
-    public void UpdateUI()
+    private void UpdateUI()
     {
         if (_contentData == null) return;
 
@@ -53,7 +47,7 @@ public class UI_UpgradeContent : MonoBehaviour
 
         _icon.sprite = baseData.Icon;
         _name.text = baseData.UpgradeName;
-        _price.text = _contentData.CurrentPrice.ToString();
+        _price.text = _contentData.CurrentPrice.ToFormattedString();
         _reward.text = _contentData.GetCurrentReward().ToString();
         _type.text = baseData.Type.ToString();
         _count.text = $"Lv.{_contentData.CurrentLevel + 1}";
@@ -61,9 +55,6 @@ public class UI_UpgradeContent : MonoBehaviour
 
     private void Upgrade()
     {
-        if (GameManager.Instance.TryUpgrade(_contentData))
-        {
-            UpdateUI();
-        }
+        GameManager.Instance.TryUpgrade(_contentData);
     }
 }

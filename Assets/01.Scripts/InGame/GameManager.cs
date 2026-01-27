@@ -9,16 +9,17 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private UpgradeContents _upgradeContents;
 
-    private double _manualDamage = 1;
-    private double _autoDamage = 1;
+    [SerializeField] private double _manualDamage = 1;
+    [SerializeField] private double _autoDamage = 1;
     private double _gold = 0;
 
     public double ManualDamage => _manualDamage;
     public double AutoDamage => _autoDamage;
     public double Gold => _gold;
 
-    public event Action<double> OnGoldChanged;
-    public event Action OnUpgradeCompleted;
+    public static event Action<double> OnGoldChanged;
+    public static event Action<double> OnAutoDamageChanged;
+    public static event Action OnUpgradeCompleted;
     
     private void Awake()
     {
@@ -33,6 +34,7 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         OnGoldChanged?.Invoke(_gold);
+        OnAutoDamageChanged?.Invoke(_autoDamage);
         OnUpgradeCompleted?.Invoke();
     }
 
@@ -50,6 +52,7 @@ public class GameManager : MonoBehaviour
                 break;
             case EClickType.AutoClick:
                 _autoDamage += contentData.GetCurrentReward();
+                OnAutoDamageChanged?.Invoke(_autoDamage);
                 break;
         }
 

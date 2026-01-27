@@ -4,7 +4,7 @@ public class UpgradeContentData
 {
     public UpgradeData BaseData { get; private set; }
     public int CurrentLevel { get; private set; }
-    public int CurrentPrice { get; private set; }
+    public double CurrentPrice { get; private set; }
 
     public UpgradeContentData(UpgradeData baseData)
     {
@@ -21,7 +21,7 @@ public class UpgradeContentData
 
     private void CalculateNextPrice()
     {
-        CurrentPrice = Mathf.RoundToInt(BaseData.Price * Mathf.Pow(BaseData.PriceMultiplier, CurrentLevel));
+        CurrentPrice = BaseData.Price * Mathf.Pow(BaseData.PriceMultiplier, CurrentLevel);
     }
 
     public int GetCurrentReward()
