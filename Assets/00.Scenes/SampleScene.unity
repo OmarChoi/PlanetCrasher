@@ -1550,6 +1550,7 @@ GameObject:
   - component: {fileID: 1214991558}
   - component: {fileID: 1214991557}
   - component: {fileID: 1214991559}
+  - component: {fileID: 1214991560}
   m_Layer: 0
   m_Name: GunSatellite
   m_TagString: Untagged
@@ -1654,6 +1655,31 @@ MonoBehaviour:
   _firePoints:
   - {fileID: 408819858}
   - {fileID: 2002320014}
+--- !u!114 &1214991560
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1214991556}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eea08375da243a441b88d1e6b0713006, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: LeanPool::Lean.Pool.LeanGameObjectPool
+  prefab: {fileID: 8988596558041942178, guid: 375d693e0b244644c9ba02d1d760a7b8, type: 3}
+  notification: 3
+  strategy: 0
+  preload: 4
+  capacity: 0
+  recycle: 1
+  persist: 0
+  stamp: 0
+  warnings: 1
+  spawnedClonesList: []
+  despawnedClones: []
+  delays: []
+  deactivatedChild: {fileID: 0}
 --- !u!1 &1287375958
 GameObject:
   m_ObjectHideFlags: 0

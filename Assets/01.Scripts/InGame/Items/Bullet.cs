@@ -7,37 +7,41 @@ public class Bullet : MonoBehaviour
 
     private Transform _target;
     private double _damage;
-    private const float HitDistance = 0.1f;
+    private GunSatellite _gunSatellite;
 
-    public void Initialize(Transform target, double damage)
+    public void Initialize(Transform target, double damage, GunSatellite gunSatellite)
     {
         _target = target;
         _damage = damage;
+        _gunSatellite = gunSatellite;
     }
 
     private void Update()
     {
         if (_target == null)
         {
-            Destroy(gameObject);
+            _gunSatellite.DespawnBullet(this);
             return;
         }
 
         Vector3 direction = (_target.position - transform.position).normalized;
-        transform.position += direction * _speed * Time.deltaTime;
+        transform.position += direction * (_speed * Time.deltaTime);
 
         float angleToTarget = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.Euler(0, 0, angleToTarget);
+    }
 
-        if (Vector3.Distance(transform.position, _target.position) < HitDistance)
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Clickable"))
         {
-            OnHit();
+            OnHit(collision.transform);
         }
     }
 
-    private void OnHit()
+    private void OnHit(Transform hitTarget)
     {
-        IClickable clickable = _target.GetComponent<IClickable>();
+        IClickable clickable = hitTarget.GetComponent<IClickable>();
         if (clickable != null)
         {
             ClickInfo clickInfo = new ClickInfo
@@ -45,16 +49,11 @@ public class Bullet : MonoBehaviour
                 Type = EClickType.AutoClick,
                 Damage = _damage,
                 Position = transform.position,
-                EffectParticle = null
+                EffectParticle = _hitEffect
             };
             clickable.OnClick(clickInfo);
         }
 
-        if (_hitEffect != null)
-        {
-            Instantiate(_hitEffect, transform.position, Quaternion.identity);
-        }
-
-        Destroy(gameObject);
+        _gunSatellite.DespawnBullet(this);
     }
 }

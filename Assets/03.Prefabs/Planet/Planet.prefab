@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 5495622513503399115}
   - component: {fileID: 3303445650443039275}
-  - component: {fileID: 9160866647472316598}
   - component: {fileID: 1831081534239904216}
   - component: {fileID: 4866505080742547009}
   - component: {fileID: 1767371700178132651}
@@ -18,9 +17,10 @@ GameObject:
   - component: {fileID: 3669442283188317664}
   - component: {fileID: 1958345966618702585}
   - component: {fileID: 3913534237396832867}
+  - component: {fileID: 6129596934235940384}
   m_Layer: 4
   m_Name: Planet
-  m_TagString: Untagged
+  m_TagString: Clickable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -99,52 +99,6 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
---- !u!61 &9160866647472316598
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2860484543954517639}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_CompositeOperation: 0
-  m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 2.3257143, y: 2.3257143}
-    newSize: {x: 3.4133334, y: 3.4133334}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Size: {x: 2.5, y: 2.5}
-  m_EdgeRadius: 0
 --- !u!114 &1831081534239904216
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -159,7 +113,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ClickTarget
   _planetData: {fileID: 11400000, guid: 54222ffef0d277d43914183b13b8ae9c, type: 2}
   _spriteRenderer: {fileID: 3303445650443039275}
-  _explodeParticles: {fileID: 0}
 --- !u!114 &4866505080742547009
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -322,3 +275,39 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 788128215ca2a954091b2945d22a313a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ParticleEffect
+--- !u!58 &6129596934235940384
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2860484543954517639}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0, y: 0}
+  m_Radius: 1.1628572

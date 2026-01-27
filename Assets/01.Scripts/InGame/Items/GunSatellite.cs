@@ -1,3 +1,4 @@
+using Lean.Pool;
 using UnityEngine;
 
 public class GunSatellite : MonoBehaviour
@@ -8,14 +9,19 @@ public class GunSatellite : MonoBehaviour
     [SerializeField] private float _orbitDistance;
 
     [Header("Shooting")]
-    [SerializeField] private GameObject _bulletPrefab;
     [SerializeField] private float _shootInterval = 1f;
     [SerializeField] private double _damage = 10;
     [SerializeField] private Transform[] _firePoints;
 
     private float _angle = 180.0f;
     private float _shootTimer;
-    
+    private LeanGameObjectPool _pool;
+
+    private void Awake()
+    {
+        _pool = GetComponent<LeanGameObjectPool>();
+    }
+
     private void Start()
     {
         UpdatePosition();
@@ -55,7 +61,7 @@ public class GunSatellite : MonoBehaviour
 
     private void Shoot()
     {
-        if (_bulletPrefab == null || _parent == null) return;
+        if (_parent == null) return;
 
         if (_firePoints == null || _firePoints.Length == 0)
         {
@@ -75,12 +81,17 @@ public class GunSatellite : MonoBehaviour
 
     private void SpawnBullet(Vector3 spawnPosition)
     {
-        GameObject bulletObj = Instantiate(_bulletPrefab, spawnPosition, transform.rotation);
+        GameObject bulletObj = _pool.Spawn(spawnPosition, transform.rotation);
 
         Bullet bullet = bulletObj.GetComponent<Bullet>();
         if (bullet != null)
         {
-            bullet.Initialize(_parent, _damage);
+            bullet.Initialize(_parent, _damage, this);
         }
+    }
+
+    public void DespawnBullet(Bullet bullet)
+    {
+        _pool.Despawn(bullet.gameObject);
     }
 }
