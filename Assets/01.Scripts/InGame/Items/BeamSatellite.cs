@@ -6,7 +6,7 @@ public enum ESatelliteType
     Projectile
 }
 
-public class Satellite : MonoBehaviour
+public class BeamSatellite : MonoBehaviour
 {
     [Header("Satellite")]
     [SerializeField] private Transform _parent;
