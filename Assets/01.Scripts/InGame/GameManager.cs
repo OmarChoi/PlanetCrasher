@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private UpgradeContents _upgradeContents;
 
     private double _manualDamage = 1;
-    private double _autoDamage = 0;
+    private double _autoDamage = 1;
     private double _gold = 0;
 
     public double ManualDamage => _manualDamage;
