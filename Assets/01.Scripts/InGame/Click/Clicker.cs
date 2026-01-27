@@ -3,10 +3,14 @@ using UnityEngine;
 public class Clicker : MonoBehaviour
 {
     private Camera _mainCamera;
+    [SerializeField] private GameObject _clickParticlePrefab; 
+    private ParticleSystem _clickParticle;
 
     private void Awake()
     {
         _mainCamera = Camera.main;
+        GameObject particle = Instantiate(_clickParticlePrefab, this.transform);
+        _clickParticle = particle.GetComponent<ParticleSystem>();
     }
     
     private void Update()
@@ -30,7 +34,8 @@ public class Clicker : MonoBehaviour
             {
                 Type = EClickType.PerClick,
                 Damage = damage,
-                Position = mousePos
+                Position = mousePos,
+                EffectParticle = _clickParticle
             };
             clickable.OnClick(info);
 

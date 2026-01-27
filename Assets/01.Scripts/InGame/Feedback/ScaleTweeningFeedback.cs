@@ -3,13 +3,13 @@ using DG.Tweening;
 
 public class ScaleTweeningFeedback : MonoBehaviour, IFeedback
 {
-    private ClickTarget _owner;
+    private Planet _owner;
     [SerializeField] private float _targetScale;
     [SerializeField] private float _targetDuration;
 
     private void Awake()
     {
-        _owner = GetComponent<ClickTarget>();
+        _owner = GetComponent<Planet>();
     }
     
     public void Play(ClickInfo clickInfo)

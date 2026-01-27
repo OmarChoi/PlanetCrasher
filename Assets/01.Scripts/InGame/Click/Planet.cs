@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class ClickTarget : MonoBehaviour, IClickable
+public class Planet : MonoBehaviour, IClickable
 {
     [SerializeField] private string _planetName;
     [SerializeField] private float _rotationSpeed = 30f;

@@ -6,7 +6,7 @@ public class UI_UpgradeContents : MonoBehaviour
     [SerializeField] private GameObject _upgradeContentPrefab;
     [SerializeField] private UpgradeContents _upgradeContents;
 
-    private void Start()
+    private void Awake()
     {
         InitializeUI();
     }

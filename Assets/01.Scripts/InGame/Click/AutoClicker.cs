@@ -21,7 +21,8 @@ public class AutoClicker : MonoBehaviour
             {
                 Type = EClickType.AutoClick,
                 Damage = damage,
-                Position = clickable.transform.position
+                Position = clickable.transform.position,
+                EffectParticle = null
             };
             
             clickableComponent.OnClick(clickInfo);
