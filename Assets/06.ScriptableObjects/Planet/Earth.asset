@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cfe93dd093e019344bb0abf15b306061, type: 3}
   m_Name: Earth
   m_EditorClassIdentifier: Assembly-CSharp::PlanetData
-  maxHealth: 100
-  planetImage: {fileID: 21300000, guid: 762a9530a0b13e347a9243ca9ffeb514, type: 3}
-  crackMaterial: {fileID: 2100000, guid: 0e641e6483782514e8b9d428b9cda715, type: 2}
+  MaxHealth: 100
+  PlanetMaterial: {fileID: 2100000, guid: 0e641e6483782514e8b9d428b9cda715, type: 2}
+  RotationSpeed: 30

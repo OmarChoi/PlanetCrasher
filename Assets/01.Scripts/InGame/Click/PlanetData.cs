@@ -4,7 +4,9 @@ using UnityEngine;
 public class PlanetData : ScriptableObject
 {
     [Header("Planet Settings")]
-    public float maxHealth = 100f;
-    public Sprite planetImage;
-    public Material crackMaterial;
+    public float MaxHealth = 100f;
+    public Material PlanetMaterial;
+
+    [Header("Rotation Settings")]
+    public float RotationSpeed = 30f;
 }

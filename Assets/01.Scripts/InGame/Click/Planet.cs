@@ -1,56 +1,73 @@
+using System;
 using UnityEngine;
 
 public class Planet : MonoBehaviour, IClickable
 {
     private static readonly int _progress = Shader.PropertyToID("_Progress");
-    [SerializeField] private string _planetName;
-    [SerializeField] private float _rotationSpeed = 30f;
     [SerializeField] private PlanetData _planetData;
     [SerializeField] private SpriteRenderer _spriteRenderer;
 
-    private double _health;
-    private double _maxHealth;
+    private double _health = 1;
+    private double _maxHealth = 1;
+    private const double HealthGrowthRate = 1.15;
     private IFeedback[] _feedbacks;
     private Material _crackMaterialInstance;
 
     private void Awake()
     {
         _feedbacks = GetComponentsInChildren<IFeedback>();
-
-        if (_planetData != null)
-        {
-            _maxHealth = _planetData.maxHealth;
-            _health = _maxHealth;
-
-            if (_spriteRenderer != null && _planetData.crackMaterial != null)
-            {
-                _crackMaterialInstance = Instantiate<Material>(_planetData.crackMaterial);
-                _spriteRenderer.material = _crackMaterialInstance;
-            }
-
-            if (_spriteRenderer != null && _planetData.planetImage != null)
-            {
-                _spriteRenderer.sprite = _planetData.planetImage;
-            }
-        }
-
         UpdateCrackProgress();
+    }
+
+    private double GetMaxHealth(int currentPlanetIndex)
+    {
+        double baseHealth = _planetData.MaxHealth;
+        return baseHealth * Math.Pow(HealthGrowthRate, currentPlanetIndex);
+    }
+    
+    public void Init(PlanetData data, int currentPlanetIndex)
+    {
+        _planetData = data;
+
+        _maxHealth = GetMaxHealth(currentPlanetIndex);
+        _health = _maxHealth;
+
+        if (_spriteRenderer == null || _planetData.PlanetMaterial == null) return;
+        _crackMaterialInstance = Instantiate<Material>(_planetData.PlanetMaterial);
+        _spriteRenderer.material = _crackMaterialInstance;
+        UpdateCrackProgress();
+        
+        gameObject.SetActive(true);
     }
     
     public bool OnClick(ClickInfo clickInfo)
     {
+        if (_health <= 0f) return false;
+        
+        _health -= clickInfo.Damage;
+        GameManager.Instance.AddGold(clickInfo.Damage);
+        
+        if (_health <= 0f)
+        {
+            _health = 0f;
+            Explode();
+            return true;
+        }
+        
         foreach (IFeedback feedback in _feedbacks)
         {
             feedback.Play(clickInfo);
         }
 
-        _health -= clickInfo.Damage;
-        if (_health < 0f) _health = 0f;
-
         UpdateCrackProgress();
 
-        GameManager.Instance.AddGold(clickInfo.Damage);
         return true;
+    }
+
+    private void Explode()
+    {
+        gameObject.SetActive(false);
+        GameManager.Instance.ChangePlanet();
     }
 
     private void UpdateCrackProgress()
@@ -65,6 +82,6 @@ public class Planet : MonoBehaviour, IClickable
     private void Update()
     {
         float hpPercent = (float)(_health / _maxHealth);
-        transform.Rotate(0, 0, _rotationSpeed * hpPercent * Time.deltaTime);
+        transform.Rotate(0, 0, _planetData.RotationSpeed * hpPercent * Time.deltaTime);
     }
 }

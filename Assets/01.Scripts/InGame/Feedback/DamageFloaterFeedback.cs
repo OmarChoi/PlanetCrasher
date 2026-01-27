@@ -1,5 +1,3 @@
-using DG.Tweening;
-using TMPro;
 using UnityEngine;
 
 public class DamageFloaterFeedback : MonoBehaviour, IFeedback

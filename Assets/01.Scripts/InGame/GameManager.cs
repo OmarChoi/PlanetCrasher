@@ -8,11 +8,19 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance => _instance;
 
     [SerializeField] private UpgradeContents _upgradeContents;
-
     [SerializeField] private double _manualDamage = 1;
     [SerializeField] private double _autoDamage = 1;
+    [SerializeField] private ParticleSystem _explodeParticles;
+    
+    
+    [Header("Planets")]
+    [SerializeField] private GameObject _planetPrefab;
+    [SerializeField] private List<PlanetData> _planetDatas;
+    private Planet _currentPlanet;
+    private int _currentPlanetIndex = 0;
+    
     private double _gold = 0;
-
+    
     public double ManualDamage => _manualDamage;
     public double AutoDamage => _autoDamage;
     public double Gold => _gold;
@@ -29,13 +37,19 @@ public class GameManager : MonoBehaviour
             return;
         }
         _instance = this;
+        
+        _currentPlanet = Instantiate(_planetPrefab, transform).GetComponent<Planet>();
+        _currentPlanet.gameObject.SetActive(false);
+        _currentPlanet.Init(_planetDatas[_currentPlanetIndex], _currentPlanetIndex);
     }
-    
+
     private void Start()
     {
         OnGoldChanged?.Invoke(_gold);
         OnAutoDamageChanged?.Invoke(_autoDamage);
         OnUpgradeCompleted?.Invoke();
+
+        _currentPlanet.Init(_planetDatas[_currentPlanetIndex], _currentPlanetIndex);
     }
 
     public bool TryUpgrade(UpgradeContentData contentData)
@@ -65,5 +79,14 @@ public class GameManager : MonoBehaviour
     {
         _gold += amount;
         OnGoldChanged?.Invoke(_gold);
+    }
+    
+    public void ChangePlanet()
+    {
+        _explodeParticles.Play();
+        
+        _currentPlanetIndex++;
+        int planetIndex = (_currentPlanetIndex) % _planetDatas.Count;
+        _currentPlanet.Init(_planetDatas[planetIndex], _currentPlanetIndex);
     }
 }
