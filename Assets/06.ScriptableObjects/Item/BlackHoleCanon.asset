@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: BlackHoleCanon
   m_EditorClassIdentifier: Assembly-CSharp::UpgradeData
   UpgradeName: BlackHoleCanon
-  Icon: {fileID: 0}
+  Icon: {fileID: 3301238525455117042, guid: 675c6d60b91bcbc4d8049202530163ef, type: 3}
   Price: 100
+  PriceMultiplier: 1.15
   RewardAmount: 15
   Type: 0
   Count: 0

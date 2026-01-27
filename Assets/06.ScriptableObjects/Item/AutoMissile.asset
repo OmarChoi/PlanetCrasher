@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ba3fe524db456c94aad84ae33dca292e, type: 3}
-  m_Name: AutoSomething
+  m_Name: AutoMissile
   m_EditorClassIdentifier: Assembly-CSharp::UpgradeData
-  UpgradeName: Something
-  Icon: {fileID: 0}
+  UpgradeName: Missile
+  Icon: {fileID: -4478703775913692564, guid: 253f4f0703145df41941a32b4ec54bd5, type: 3}
   Price: 100
   PriceMultiplier: 1.15
   RewardAmount: 3
