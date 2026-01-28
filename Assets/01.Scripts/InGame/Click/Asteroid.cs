@@ -55,7 +55,8 @@ public class Asteroid : MonoBehaviour, IClickable
         {
             feedback.Play(clickInfo);
         }
-        _spawner.ReleaseAsteroid(this, 0.5f);
+        _spawner.PlaySFX(clickInfo);
+        _spawner.ReleaseAsteroid(this);
         return true;
     }
 }

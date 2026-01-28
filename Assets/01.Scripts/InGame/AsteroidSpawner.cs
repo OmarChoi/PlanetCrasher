@@ -6,6 +6,12 @@ using UnityEngine;
 public class AsteroidSpawner : MonoBehaviour
 {
     [SerializeField] private List<Asteroid> _asteroidPrefabs;
+    
+    // Audio
+    private AudioSource _audioSource;
+    private AudioClip _audioClip;
+    
+    // SpawnPos
     private Camera _mainCamera;
     private Vector2 _screenCenter;
     private Vector2 _topLeft;
@@ -30,6 +36,9 @@ public class AsteroidSpawner : MonoBehaviour
         _screenWidth = _topRight.x - _topLeft.x;
         _screenHeight = _topLeft.y - _bottomLeft.y;
 
+        _audioSource = GetComponent<AudioSource>();
+        _audioClip = _audioSource.clip;
+        
         StartCoroutine(Spawn_Coroutine());
     }
 
@@ -78,5 +87,9 @@ public class AsteroidSpawner : MonoBehaviour
     public void ReleaseAsteroid(Asteroid asteroid, float duration = 0f)
     {
         LeanPool.Despawn(asteroid, duration);
+    }
+    public void PlaySFX(ClickInfo clickInfo)
+    {
+        _audioSource.PlayOneShot(_audioClip);
     }
 }

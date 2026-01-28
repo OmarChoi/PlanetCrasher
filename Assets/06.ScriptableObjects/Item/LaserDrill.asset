@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: LaserDrill
   m_EditorClassIdentifier: Assembly-CSharp::UpgradeData
   UpgradeName: LaserDrill
-  Icon: {fileID: 0}
+  Icon: {fileID: -3010401151903113755, guid: d1572aab46c25144d929638e42c752fd, type: 3}
   Price: 100
+  PriceMultiplier: 1.15
   RewardAmount: 10
   Type: 0
   Count: 0

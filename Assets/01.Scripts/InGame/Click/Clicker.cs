@@ -5,12 +5,14 @@ public class Clicker : MonoBehaviour
     private Camera _mainCamera;
     [SerializeField] private GameObject _clickParticlePrefab; 
     private ParticleSystem _clickParticle;
+    private AudioSource _clickAudio;
 
     private void Awake()
     {
         _mainCamera = Camera.main;
         GameObject particle = Instantiate(_clickParticlePrefab, this.transform);
         _clickParticle = particle.GetComponent<ParticleSystem>();
+        _clickAudio = GetComponent<AudioSource>();
     }
     
     private void Update()
@@ -38,6 +40,7 @@ public class Clicker : MonoBehaviour
                 EffectParticle = _clickParticle
             };
             clickable.OnClick(info);
+            _clickAudio.Play();
         }
     }
 }

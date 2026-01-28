@@ -7,6 +7,8 @@ public class GameManager : MonoBehaviour
     private static GameManager _instance;
     public static GameManager Instance => _instance;
 
+    private AudioSource _audioSource;
+    
     [SerializeField] private UpgradeContents _upgradeContents;
     [SerializeField] private double _manualDamage = 1;
     [SerializeField] private double _autoDamage = 1;
@@ -41,6 +43,8 @@ public class GameManager : MonoBehaviour
         _currentPlanet = Instantiate(_planetPrefab, transform).GetComponent<Planet>();
         _currentPlanet.gameObject.SetActive(false);
         _currentPlanet.Init(_planetDatas[_currentPlanetIndex], _currentPlanetIndex);
+        
+        _audioSource = GetComponent<AudioSource>();
     }
 
     private void Start()
@@ -84,6 +88,7 @@ public class GameManager : MonoBehaviour
     public void ChangePlanet()
     {
         _explodeParticles.Play();
+        _audioSource.Play();
         
         _currentPlanetIndex++;
         int planetIndex = (_currentPlanetIndex) % _planetDatas.Count;

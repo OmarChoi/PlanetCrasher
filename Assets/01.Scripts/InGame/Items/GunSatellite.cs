@@ -13,6 +13,7 @@ public class GunSatellite : MonoBehaviour
     [SerializeField] private double _damage = 10;
     [SerializeField] private Transform[] _firePoints;
 
+    private AudioSource _audioSource;
     private float _angle = 180.0f;
     private float _shootTimer;
     private LeanGameObjectPool _pool;
@@ -20,6 +21,7 @@ public class GunSatellite : MonoBehaviour
     private void Awake()
     {
         _pool = GetComponent<LeanGameObjectPool>();
+        _audioSource = GetComponent<AudioSource>();
     }
 
     private void Start()
@@ -62,29 +64,20 @@ public class GunSatellite : MonoBehaviour
     private void Shoot()
     {
         if (_parent == null) return;
-
-        if (_firePoints == null || _firePoints.Length == 0)
+        foreach (Transform firePoint in _firePoints)
         {
-            SpawnBullet(transform.position);
-        }
-        else
-        {
-            foreach (Transform firePoint in _firePoints)
+            if (firePoint != null)
             {
-                if (firePoint != null)
-                {
-                    SpawnBullet(firePoint.position);
-                }
+                SpawnBullet(firePoint.position);
             }
         }
+        _audioSource.Play();
     }
 
     private void SpawnBullet(Vector3 spawnPosition)
     {
         GameObject bulletObj = _pool.Spawn(spawnPosition, transform.rotation);
-
-        Bullet bullet = bulletObj.GetComponent<Bullet>();
-        if (bullet != null)
+        if (bulletObj.TryGetComponent(out Bullet bullet))
         {
             bullet.Initialize(_parent, _damage, this);
         }
