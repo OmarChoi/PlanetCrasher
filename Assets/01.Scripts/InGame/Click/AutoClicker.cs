@@ -25,7 +25,7 @@ public class AutoClicker : MonoBehaviour
             };
             
             clickableComponent.OnClick(clickInfo);
-            GameManager.Instance.AddGold(damage);
+            CurrencyManager.Instance.Add(ECurrencyType.Gold, damage);
         }
     }
 }

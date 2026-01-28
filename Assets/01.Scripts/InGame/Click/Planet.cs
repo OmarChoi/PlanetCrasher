@@ -45,7 +45,7 @@ public class Planet : MonoBehaviour, IClickable
         if (_health <= 0f) return false;
         
         _health -= clickInfo.Damage;
-        GameManager.Instance.AddGold(clickInfo.Damage);
+        CurrencyManager.Instance.Add(ECurrencyType.Gold, clickInfo.Damage);
         
         if (_health <= 0f)
         {

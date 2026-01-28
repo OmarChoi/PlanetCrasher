@@ -21,13 +21,8 @@ public class GameManager : MonoBehaviour
     private Planet _currentPlanet;
     private int _currentPlanetIndex = 0;
     
-    private double _gold = 0;
-    
     public double ManualDamage => _manualDamage;
     public double AutoDamage => _autoDamage;
-    public double Gold => _gold;
-
-    public static event Action<double> OnGoldChanged;
     public static event Action<double> OnAutoDamageChanged;
     public static event Action OnUpgradeCompleted;
     
@@ -49,7 +44,6 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        OnGoldChanged?.Invoke(_gold);
         OnAutoDamageChanged?.Invoke(_autoDamage);
         OnUpgradeCompleted?.Invoke();
 
@@ -58,10 +52,8 @@ public class GameManager : MonoBehaviour
 
     public bool TryUpgrade(UpgradeContentData contentData)
     {
-        if (contentData == null) return false;
-        if (_gold < contentData.CurrentPrice) return false;
-
-        AddGold(-contentData.CurrentPrice);
+        if (contentData == null) return false; 
+        CurrencyManager.Instance.TrySpendGold(ECurrencyType.Gold, contentData.CurrentPrice);
 
         switch (contentData.BaseData.Type)
         {
@@ -77,12 +69,6 @@ public class GameManager : MonoBehaviour
         contentData.LevelUp();
         OnUpgradeCompleted?.Invoke();
         return true;
-    }
-
-    public void AddGold(double amount)
-    {
-        _gold += amount;
-        OnGoldChanged?.Invoke(_gold);
     }
     
     public void ChangePlanet()

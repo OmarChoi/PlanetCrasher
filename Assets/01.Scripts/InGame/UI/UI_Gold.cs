@@ -7,17 +7,17 @@ public class UI_Gold : MonoBehaviour
 
     private void OnEnable()
     {
-        GameManager.OnGoldChanged -= OnGoldChanged;
-        GameManager.OnGoldChanged += OnGoldChanged;
+        CurrencyManager.OnDataChanged -= OnGoldChanged;
+        CurrencyManager.OnDataChanged += OnGoldChanged;
     }
 
     private void OnDisable()
     {
-        GameManager.OnGoldChanged -= OnGoldChanged;
+        CurrencyManager.OnDataChanged -= OnGoldChanged;
     }
 
-    private void OnGoldChanged(double gold)
+    private void OnGoldChanged()
     {
-        _text.text = gold.ToFormattedString();
+        _text.text = CurrencyManager.Instance.Gold.ToFormattedString();
     }
 }
