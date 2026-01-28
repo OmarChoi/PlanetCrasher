@@ -1,4 +1,5 @@
 using System;
+using UnityEditor.Overlays;
 using UnityEngine;
 
 public class CurrencyManager : MonoBehaviour
@@ -11,10 +12,18 @@ public class CurrencyManager : MonoBehaviour
     public static event Action OnDataChanged;
 
     private double[] _currencies = new double[(int)ECurrencyType.Count];
+    private ICurrencyRepository _repository;
     
     private void Awake()
     {
         Instance = this;
+        _repository = new LocalCurrencyRepository();
+        OnDataChanged += Save;
+    }
+
+    private void Start()
+    {
+        _currencies = _repository.Load().Currencies;
     }
 
     public double Get(ECurrencyType type)
@@ -43,5 +52,13 @@ public class CurrencyManager : MonoBehaviour
     public bool CanAfford(ECurrencyType type, double amount)
     {
         return _currencies[(int)type] >= amount;
+    }
+
+    private void Save()
+    {
+        _repository.Save(new CurrencySaveData()
+        {
+            Currencies = _currencies
+        });
     }
 }
