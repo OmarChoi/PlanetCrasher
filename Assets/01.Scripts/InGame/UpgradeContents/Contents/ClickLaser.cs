@@ -57,8 +57,8 @@ public class ClickLaser : MonoBehaviour
         if (!_isInitialized) return;
 
         // Move laser
-        transform.position += (Vector3)(_direction * _speed * Time.deltaTime);
-
+        MoveLaser();
+        
         // Check for damage every frame
         CheckDamage();
 
@@ -67,6 +67,12 @@ public class ClickLaser : MonoBehaviour
         {
             Despawn();
         }
+    }
+    
+    private void MoveLaser()
+    {
+        // _lineRenderer.SetPosition(0, Vector3.zero);
+        // _lineRenderer.SetPosition(1, new Vector3(_laserLength, 0, 0));
     }
 
     private void UpdateLineRenderer()

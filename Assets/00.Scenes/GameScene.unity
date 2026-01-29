@@ -1089,6 +1089,7 @@ MonoBehaviour:
   _waveAmplitude: 0.2
   _waveFrequency: 15
   _waveSpeed: 20
+  _damage: 20
 --- !u!212 &737934816
 SpriteRenderer:
   serializedVersion: 2
@@ -1283,7 +1284,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ae5ab563157d724a85a7e78ae39c2b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
-  _upgradeContents: {fileID: 969223050}
+  _upgradeContents: {fileID: 0}
   _manualDamage: 5
   _autoDamage: 5
   _explodeParticles: {fileID: 1294676917}
@@ -1406,7 +1407,7 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!1 &969223049
+--- !u!1 &1116126035
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1414,40 +1415,35 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 969223051}
-  - component: {fileID: 969223050}
+  - component: {fileID: 1116126037}
+  - component: {fileID: 1116126036}
   m_Layer: 0
-  m_Name: UpgradeContents
+  m_Name: UpgradeManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &969223050
+--- !u!114 &1116126036
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 969223049}
+  m_GameObject: {fileID: 1116126035}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: de425c0a5c3d0a04099d0a4258b82013, type: 3}
+  m_Script: {fileID: 11500000, guid: f2825679b835403bb2dba74bae6d7a28, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::UpgradeContents
-  _upgradeDataList:
-  - {fileID: 11400000, guid: ff2c365ee41c04f43b381369df9fabed, type: 2}
-  - {fileID: 11400000, guid: 850c3de7fce33ac4484494a9e0fdf68e, type: 2}
-  - {fileID: 11400000, guid: 1384195906c136a4691c2244b166bd35, type: 2}
-  - {fileID: 11400000, guid: e9ccdb670375f1348b6a0bc30e72f6ec, type: 2}
-  - {fileID: 11400000, guid: 09d5c5f6a17a0d44c952c5e3bb8a24d8, type: 2}
---- !u!4 &969223051
+  m_EditorClassIdentifier: Assembly-CSharp::UpgradeManager
+  _specTable: {fileID: 11400000, guid: f0ba777d564486b408726274d0fde0a6, type: 2}
+--- !u!4 &1116126037
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 969223049}
+  m_GameObject: {fileID: 1116126035}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
@@ -3084,12 +3080,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1949156730}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4d367e569c8e99c42934c402d1e0d824, type: 3}
+  m_Script: {fileID: 11500000, guid: 59e14555b9964be892d74234d70dc1cd, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::UI_UpgradeContents
+  m_EditorClassIdentifier: Assembly-CSharp::UI_UpgradePanel
   _contentParent: {fileID: 1837781481}
-  _upgradeContentPrefab: {fileID: 8909326403451994167, guid: ac912d57125b03640bc19180a60825e1, type: 3}
-  _upgradeContents: {fileID: 969223050}
+  _upgradeItemPrefab: {fileID: 8909326403451994167, guid: ac912d57125b03640bc19180a60825e1, type: 3}
 --- !u!1 &2002320013
 GameObject:
   m_ObjectHideFlags: 0
@@ -3169,10 +3164,10 @@ SceneRoots:
   - {fileID: 1590166391}
   - {fileID: 878562452}
   - {fileID: 593493037}
-  - {fileID: 969223051}
   - {fileID: 873657993}
   - {fileID: 1294975325}
   - {fileID: 524691713}
   - {fileID: 1294676916}
   - {fileID: 1925623864}
+  - {fileID: 1116126037}
   - {fileID: 1354364956}

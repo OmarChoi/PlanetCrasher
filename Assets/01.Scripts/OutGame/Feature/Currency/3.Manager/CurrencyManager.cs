@@ -41,7 +41,7 @@ public class CurrencyManager : MonoBehaviour
         OnDataChanged?.Invoke();
     }
     
-    public bool TrySpendGold(ECurrencyType type, Currency amount)
+    public bool TrySpend(ECurrencyType type, Currency amount)
     {
         if (_currencies[(int)type] >= amount)
         {
