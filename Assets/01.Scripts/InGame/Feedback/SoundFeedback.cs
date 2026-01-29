@@ -2,11 +2,11 @@ using UnityEngine;
 
 public class SoundFeedback : MonoBehaviour, IFeedback
 {
-    [SerializeField] private AudioSource _audio;
-    
+    [SerializeField] private AudioClip _clip;
+
     public void Play(ClickInfo clickInfo)
     {
-        _audio.pitch = Random.Range(0.8f, 1.2f);
-        _audio.Play();
+        float pitch = Random.Range(0.8f, 1.2f);
+        SoundManager.Instance.PlaySfx(_clip, pitch);
     }
 }

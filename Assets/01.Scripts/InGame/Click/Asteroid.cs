@@ -16,13 +16,14 @@ public struct AsteroidInfo
 
 public class Asteroid : MonoBehaviour, IClickable
 {
+    [SerializeField] private AudioClip _destroySfx;
+
     private AsteroidInfo _asteroidInfo;
     private IFeedback[] _feedbacks;
     private Vector2 _direction;
     private AsteroidSpawner _spawner;
     private bool _isActive;
 
-    
     private void Awake()
     {
         _feedbacks = GetComponentsInChildren<IFeedback>();
@@ -60,7 +61,7 @@ public class Asteroid : MonoBehaviour, IClickable
         {
             feedback.Play(clickInfo);
         }
-        _spawner.PlaySFX(clickInfo);
+        SoundManager.Instance.PlaySfx(_destroySfx);
         _spawner.ReleaseAsteroid(this);
         return true;
     }

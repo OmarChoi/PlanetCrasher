@@ -10,8 +10,8 @@ public class Clicker : MonoBehaviour
     private Camera _mainCamera;
     [SerializeField] private GameObject _clickParticlePrefab;
     [SerializeField] private LayerMask _clickableLayer;
+    [SerializeField] private AudioClip _clickSfx;
     private ParticleSystem _clickParticle;
-    private AudioSource _clickAudio;
     private readonly RaycastHit2D[] _hitBuffer = new RaycastHit2D[MaxHits];
 
     private void Awake()
@@ -19,7 +19,6 @@ public class Clicker : MonoBehaviour
         _mainCamera = Camera.main;
         GameObject particle = Instantiate(_clickParticlePrefab, this.transform);
         _clickParticle = particle.GetComponent<ParticleSystem>();
-        _clickAudio = GetComponent<AudioSource>();
     }
     
     private void Update()
@@ -64,7 +63,7 @@ public class Clicker : MonoBehaviour
             EffectParticle = _clickParticle
         };
         clickable.OnClick(info);
-        _clickAudio.Play();
+        SoundManager.Instance.PlaySfx(_clickSfx);
 
         OnClicked?.Invoke(info);
     }

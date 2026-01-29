@@ -71,7 +71,7 @@ public class SoundManager : MonoBehaviour
         _bgmAudioSource.Stop();
     }
 
-    public void PlaySfx(AudioClip clip)
+    public void PlaySfx(AudioClip clip, float pitch = 1f)
     {
         if (clip == null)
         {
@@ -80,8 +80,9 @@ public class SoundManager : MonoBehaviour
         AudioSource audioSource = LeanPool.Spawn(_sfxAudioSourcePrefab, transform);
         audioSource.clip = clip;
         audioSource.volume = _sfxSound.Volume;
+        audioSource.pitch = pitch;
         audioSource.Play();
-        StartCoroutine(PlaySfx_Coroutine(audioSource, clip.length));
+        StartCoroutine(PlaySfx_Coroutine(audioSource, clip.length / pitch));
     }
 
     private IEnumerator PlaySfx_Coroutine(AudioSource audioSource, float delay)

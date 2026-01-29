@@ -87,7 +87,7 @@ LineRenderer:
   - {x: 15, y: 0, z: 1}
   m_Parameters:
     serializedVersion: 3
-    widthMultiplier: 0.1
+    widthMultiplier: 0.2
     widthCurve:
       serializedVersion: 2
       m_Curve:
@@ -134,7 +134,7 @@ LineRenderer:
       m_NumColorKeys: 2
       m_NumAlphaKeys: 2
     numCornerVertices: 0
-    numCapVertices: 0
+    numCapVertices: 4
     alignment: 0
     textureMode: 0
     textureScale: {x: 1, y: 1}
@@ -157,7 +157,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ClickLaser
   _speed: 15
   _lineRenderer: {fileID: 5455415195424625909}
-  _laserLength: 2
   _targetLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64

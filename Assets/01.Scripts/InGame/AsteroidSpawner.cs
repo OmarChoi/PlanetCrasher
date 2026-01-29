@@ -7,15 +7,8 @@ public class AsteroidSpawner : MonoBehaviour
 {
     [SerializeField] private List<Asteroid> _asteroidPrefabs;
 
-    // Audio
-    private AudioSource _audioSource;
-    private AudioClip _audioClip;
-
     private void Awake()
     {
-        _audioSource = GetComponent<AudioSource>();
-        _audioClip = _audioSource.clip;
-
         StartCoroutine(Spawn_Coroutine());
     }
 
@@ -45,9 +38,5 @@ public class AsteroidSpawner : MonoBehaviour
     public void ReleaseAsteroid(Asteroid asteroid, float duration = 0f)
     {
         LeanPool.Despawn(asteroid, duration);
-    }
-    public void PlaySFX(ClickInfo clickInfo)
-    {
-        _audioSource.PlayOneShot(_audioClip);
     }
 }

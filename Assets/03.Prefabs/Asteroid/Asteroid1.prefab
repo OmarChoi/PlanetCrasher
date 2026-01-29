@@ -107,6 +107,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b658971796638145b6c66be644dc386, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Asteroid
+  _destroySfx: {fileID: 8300000, guid: 3f6f18ff4d8676f46b025b95e612903b, type: 3}
 --- !u!61 &321870134067575210
 BoxCollider2D:
   m_ObjectHideFlags: 0

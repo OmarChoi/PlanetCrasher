@@ -9,7 +9,7 @@ public class ClickLaserSpawner : MonoBehaviour
     [SerializeField] private double _baseDamage = 10;
 
     [Header("Audio")]
-    [SerializeField] private AudioSource _audioSource;
+    [SerializeField] private AudioClip _laserSfx;
 
     private LeanGameObjectPool _pool;
 
@@ -44,7 +44,7 @@ public class ClickLaserSpawner : MonoBehaviour
         GameObject laserObj = _pool.Spawn(startPos, Quaternion.identity);
         ClickLaser laser = laserObj.GetComponent<ClickLaser>();
         laser.Initialize(startPos, endPos, _baseDamage, this);
-        _audioSource.Play();
+        SoundManager.Instance.PlaySfx(_laserSfx);
     }
 
     public void DespawnLaser(ClickLaser laser)

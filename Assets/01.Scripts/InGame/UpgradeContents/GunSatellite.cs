@@ -12,8 +12,8 @@ public class GunSatellite : MonoBehaviour
     [SerializeField] private float _shootInterval = 1f;
     [SerializeField] private double _damage = 10;
     [SerializeField] private Transform[] _firePoints;
+    [SerializeField] private AudioClip _shootSfx;
 
-    private AudioSource _audioSource;
     private float _angle = 180.0f;
     private float _shootTimer;
     private LeanGameObjectPool _pool;
@@ -21,7 +21,6 @@ public class GunSatellite : MonoBehaviour
     private void Awake()
     {
         _pool = GetComponent<LeanGameObjectPool>();
-        _audioSource = GetComponent<AudioSource>();
     }
 
     private void Start()
@@ -71,7 +70,7 @@ public class GunSatellite : MonoBehaviour
                 SpawnBullet(firePoint.position);
             }
         }
-        _audioSource.Play();
+        SoundManager.Instance.PlaySfx(_shootSfx);
     }
 
     private void SpawnBullet(Vector3 spawnPosition)
