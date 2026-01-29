@@ -108,11 +108,6 @@ public class ClickLaser : MonoBehaviour
         Vector2 tailPos = Vector2.Lerp(_startPosition, _endPosition, _tailProgress / _totalDistance);
 
         int hitCount = Physics2D.Linecast(tailPos, headPos, _contactFilter, _hitBuffer);
-        if (hitCount > 1)
-        {
-            Debug.Log($"[ClickLaser] Hit count: {hitCount}");
-        }
-
         for (int i = 0; i < hitCount; i++)
         {
             RaycastHit2D hit = _hitBuffer[i];
