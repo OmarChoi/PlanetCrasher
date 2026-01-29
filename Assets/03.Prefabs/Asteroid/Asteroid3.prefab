@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: -1064932072904861521}
   - component: {fileID: -6767190760088008748}
   - component: {fileID: 8376091431464776473}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Asteroid3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -126,7 +126,7 @@ BoxCollider2D:
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
-  m_LayerOverridePriority: 1
+  m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
     m_Bits: 4294967295

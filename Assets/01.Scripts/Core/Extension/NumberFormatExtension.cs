@@ -13,7 +13,7 @@ public static class NumberFormatExtension
     
     public static string ToFormattedString(this double number)
     {
-        if (number < 1000) return number.ToString("N0");
+        if (number < 1000) return $"<sprite=0>{number:N0}";
 
         int suffixIndex = 0;
 
@@ -26,9 +26,9 @@ public static class NumberFormatExtension
 
         return value switch
         {
-            >= 100 => $"{value:F0}{_suffixes[suffixIndex]}",
-            >= 10  => $"{value:F1}{_suffixes[suffixIndex]}",
-            _      => $"{value:F2}{_suffixes[suffixIndex]}"
+            >= 100 => $"<sprite=0>{value:F0}{_suffixes[suffixIndex]}",
+            >= 10  => $"<sprite=0>{value:F1}{_suffixes[suffixIndex]}",
+            _      => $"<sprite=0>{value:F2}{_suffixes[suffixIndex]}"
         };
     }
 }

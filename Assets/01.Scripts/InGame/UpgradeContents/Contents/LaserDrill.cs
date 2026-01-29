@@ -6,7 +6,7 @@ public enum ESatelliteType
     Projectile
 }
 
-public class BeamSatellite : MonoBehaviour
+public class LaserDrill : MonoBehaviour
 {
     [Header("Satellite")]
     [SerializeField] private Transform _parent;
@@ -14,7 +14,7 @@ public class BeamSatellite : MonoBehaviour
     [SerializeField] private float _orbitDistance = 1.65f;
     
     [Space(10)]
-    [Header("Beam")]
+    [Header("Laser")]
     [SerializeField] private LineRenderer _beam;
     [SerializeField] private float _beamDistance = 1f;
     [SerializeField] private int _beamSegments = 20;
@@ -22,6 +22,10 @@ public class BeamSatellite : MonoBehaviour
     [SerializeField] private float _waveAmplitude = 0.1f;
     [SerializeField] private float _waveFrequency = 5f;
     [SerializeField] private float _waveSpeed = 5f;
+    
+    [Space(10)]
+    [Header("Damage")]
+    [SerializeField] private float _damage = 20f;
     
     private float _angle;
     

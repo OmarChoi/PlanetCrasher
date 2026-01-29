@@ -10,13 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ba3fe524db456c94aad84ae33dca292e, type: 3}
-  m_Name: AutoLaser
+  m_Name: Hammer
   m_EditorClassIdentifier: Assembly-CSharp::UpgradeData
-  UpgradeName: Laser
-  Icon: {fileID: -5446270416137504277, guid: 26a6568d62bf8fa47a6eb0c2962628d6, type: 3}
+  ItemType: 0
+  UpgradeName: Hammer
+  Icon: {fileID: 5393448996881579246, guid: c04ab3796fdb87745a984fe8a80641d6, type: 3}
   Price: 100
   PriceMultiplier: 1.15
-  RewardAmount: 3
-  Type: 1
+  RewardAmount: 15
+  ClickType: 0
   Count: 0
-  Description: +3 Damager Per Second
+  Description: +15 Damage

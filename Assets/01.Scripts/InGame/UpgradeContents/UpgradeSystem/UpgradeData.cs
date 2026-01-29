@@ -3,6 +3,8 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Upgrade", menuName = "Game/Upgrade Data")]
 public class UpgradeData : ScriptableObject
 {
+    [Header("Item Settings")]
+    public EUpgradeItem ItemType;
     public string UpgradeName;
     public Sprite Icon;
     
@@ -14,7 +16,7 @@ public class UpgradeData : ScriptableObject
     public int RewardAmount;
     
     [Header("Info")]
-    public EClickType Type;
+    public EClickType ClickType;
     public int Count = 1;
     
     [TextArea]

@@ -53,9 +53,9 @@ public class GameManager : MonoBehaviour
     public bool TryUpgrade(UpgradeContentData contentData)
     {
         if (contentData == null) return false; 
-        CurrencyManager.Instance.TrySpendGold(ECurrencyType.Gold, contentData.CurrentPrice);
+        if (!CurrencyManager.Instance.TrySpendGold(ECurrencyType.Gold, contentData.CurrentPrice)) return false;
 
-        switch (contentData.BaseData.Type)
+        switch (contentData.BaseData.ClickType)
         {
             case EClickType.PerClick:
                 _manualDamage += contentData.GetCurrentReward();

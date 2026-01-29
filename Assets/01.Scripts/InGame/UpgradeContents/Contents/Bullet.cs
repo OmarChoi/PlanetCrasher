@@ -8,19 +8,23 @@ public class Bullet : MonoBehaviour
     private Transform _target;
     private double _damage;
     private GunSatellite _gunSatellite;
+    private bool _isDespawned;
 
     public void Initialize(Transform target, double damage, GunSatellite gunSatellite)
     {
         _target = target;
         _damage = damage;
         _gunSatellite = gunSatellite;
+        _isDespawned = false;
     }
 
     private void Update()
     {
+        if (_isDespawned) return;
+
         if (_target == null)
         {
-            _gunSatellite.DespawnBullet(this);
+            Despawn();
             return;
         }
 
@@ -54,6 +58,13 @@ public class Bullet : MonoBehaviour
             clickable.OnClick(clickInfo);
         }
 
+        Despawn();
+    }
+
+    private void Despawn()
+    {
+        if (_isDespawned) return;
+        _isDespawned = true;
         _gunSatellite.DespawnBullet(this);
     }
 }

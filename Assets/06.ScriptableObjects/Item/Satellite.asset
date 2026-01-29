@@ -10,13 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ba3fe524db456c94aad84ae33dca292e, type: 3}
-  m_Name: AutoSatellite
+  m_Name: Satellite
   m_EditorClassIdentifier: Assembly-CSharp::UpgradeData
+  ItemType: 3
   UpgradeName: Satellite
   Icon: {fileID: -7709297464541498756, guid: 5a1ce5d17f833b747b8b2760f9b4a7a4, type: 3}
   Price: 100
   PriceMultiplier: 1.15
   RewardAmount: 3
-  Type: 1
+  ClickType: 1
   Count: 0
-  Description: +1 Damager Per Second
+  Description: +5 Satellite Damage

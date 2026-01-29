@@ -5,7 +5,7 @@ public class UpgradeContentData
     public UpgradeData BaseData { get; private set; }
     public int CurrentLevel { get; private set; }
     public double CurrentPrice { get; private set; }
-
+    
     public UpgradeContentData(UpgradeData baseData)
     {
         BaseData = baseData;
@@ -27,5 +27,10 @@ public class UpgradeContentData
     public int GetCurrentReward()
     {
         return BaseData.RewardAmount;
+    }
+    
+    public string GetDescription()
+    {
+        return BaseData.Description;
     }
 }

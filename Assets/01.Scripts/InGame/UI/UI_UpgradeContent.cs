@@ -10,7 +10,7 @@ public class UI_UpgradeContent : MonoBehaviour
     
     [SerializeField] private TextMeshProUGUI _name;
     [SerializeField] private TextMeshProUGUI _price;
-    [SerializeField] private TextMeshProUGUI _reward;
+    [SerializeField] private TextMeshProUGUI _description;
     
     [SerializeField] private TextMeshProUGUI _type;
     [SerializeField] private TextMeshProUGUI _count;
@@ -48,8 +48,8 @@ public class UI_UpgradeContent : MonoBehaviour
         _icon.sprite = baseData.Icon;
         _name.text = baseData.UpgradeName;
         _price.text = _contentData.CurrentPrice.ToFormattedString();
-        _reward.text = _contentData.GetCurrentReward().ToString();
-        _type.text = baseData.Type.ToString();
+        _description.text = _contentData.GetDescription();
+        _type.text = baseData.ClickType.ToString();
         _count.text = $"Lv.{_contentData.CurrentLevel + 1}";
     }
 

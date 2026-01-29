@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 1d3d0a2e49e740c4e817aef3cd5e8458
+guid: 12dd2bfcd141e5d4e86a9bc82fd0d4fd
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 4617453533366515490
-    second: grunge crack_0
+      213: -982176596425231462
+    second: "ChatGPT Image 2026\uB144 1\uC6D4 28\uC77C \uC624\uC804 02_46_17_0"
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -109,17 +109,30 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: grunge crack_0
+      name: "ChatGPT Image 2026\uB144 1\uC6D4 28\uC77C \uC624\uC804 02_46_17_0"
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 2048
-        height: 2048
+        width: 1536
+        height: 1024
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +141,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 227fe27368d741040800000000000000
-      internalID: 4617453533366515490
+      spriteID: a933f5fd69b9e52f0800000000000000
+      internalID: -982176596425231462
       vertices: []
       indices: 
       edges: []
@@ -148,7 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      grunge crack_0: 4617453533366515490
+      "ChatGPT Image 2026\uB144 1\uC6D4 28\uC77C \uC624\uC804 02_46_17_0": -982176596425231462
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

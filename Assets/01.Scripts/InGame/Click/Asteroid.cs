@@ -40,7 +40,12 @@ public class Asteroid : MonoBehaviour, IClickable
     private void Update()
     {
         if (!_isActive) return;
+
         transform.position += (Vector3)_direction * (_asteroidInfo.Speed * Time.deltaTime);
+
+        Vector3 pos = transform.position;
+        pos.z = -1f;
+        transform.position = pos;
 
         if (Vector2.Distance(transform.position, _asteroidInfo.EndPosition) < 0.1f)
         {
