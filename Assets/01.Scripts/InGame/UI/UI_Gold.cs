@@ -18,6 +18,6 @@ public class UI_Gold : MonoBehaviour
 
     private void OnGoldChanged()
     {
-        _text.text = CurrencyManager.Instance.Gold.ToFormattedString();
+        _text.text = CurrencyManager.Instance.Gold.ToString();
     }
 }

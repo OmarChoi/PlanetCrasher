@@ -103,3 +103,7 @@ InitTestScene*.unity*
 # Rider
 .idea/
 *.sln.iml
+
+# Claude
+.claude/
+CLAUDE.md

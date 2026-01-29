@@ -7,14 +7,13 @@ public class LocalCurrencyRepository : ICurrencyRepository
         for (int i = 0; i < (int)ECurrencyType.Count; i++)
         {
             var type = (ECurrencyType)i;
-            PlayerPrefs.SetString(type.ToString(), saveData.Currencies[(int)type].ToString("G17"));
+            PlayerPrefs.SetString(type.ToString(), saveData.Currencies[(int)type].ToString());
         }
     }
 
     public CurrencySaveData Load()
     {
-        CurrencySaveData saveData = new CurrencySaveData();
-        
+        CurrencySaveData saveData = CurrencySaveData.Default;
         for (int i = 0; i < (int)ECurrencyType.Count; i++)
         {
             if (PlayerPrefs.HasKey(i.ToString()))
