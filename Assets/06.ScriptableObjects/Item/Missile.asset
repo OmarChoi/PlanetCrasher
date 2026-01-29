@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba3fe524db456c94aad84ae33dca292e, type: 3}
+  m_Name: Missile
+  m_EditorClassIdentifier: Assembly-CSharp::UpgradeData
+  ItemType: 4
+  UpgradeName: Missile
+  Icon: {fileID: -4478703775913692564, guid: 253f4f0703145df41941a32b4ec54bd5, type: 3}
+  Price: 100
+  PriceMultiplier: 1.15
+  RewardAmount: 3
+  ClickType: 0
+  Count: 0
+  Description: +5% Spawn Missile

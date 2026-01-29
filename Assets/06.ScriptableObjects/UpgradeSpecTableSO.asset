@@ -1,0 +1,65 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1fb1cb38fe77dae45b35fd6001dca44c, type: 3}
+  m_Name: UpgradeSpecTableSO
+  m_EditorClassIdentifier: Assembly-CSharp::UpgradeSpecTableSO
+  UpgradeSpecDatas:
+  - Type: 0
+    ClickType: 0
+    Icon: {fileID: 5393448996881579246, guid: c04ab3796fdb87745a984fe8a80641d6, type: 3}
+    MaxLevel: 20
+    BaseCost: 10
+    BaseDamage: 100
+    CostMultiplier: 100
+    DamageMultiplier: 1.06
+    Name: Hammer
+    Description: "\uB370\uBBF8\uC9C0 +{0}"
+  - Type: 1
+    ClickType: 0
+    Icon: {fileID: -5446270416137504277, guid: 26a6568d62bf8fa47a6eb0c2962628d6, type: 3}
+    MaxLevel: 20
+    BaseCost: 100
+    BaseDamage: 500
+    CostMultiplier: 500
+    DamageMultiplier: 1.07
+    Name: Laser
+    Description: "\uB370\uBBF8\uC9C0 +{0}"
+  - Type: 2
+    ClickType: 1
+    Icon: {fileID: -3010401151903113755, guid: d1572aab46c25144d929638e42c752fd, type: 3}
+    MaxLevel: 20
+    BaseCost: 1000
+    BaseDamage: 2500
+    CostMultiplier: 2500
+    DamageMultiplier: 1.08
+    Name: Laser Drill
+    Description: "\uB370\uBBF8\uC9C0 +{0}"
+  - Type: 4
+    ClickType: 0
+    Icon: {fileID: -4478703775913692564, guid: 253f4f0703145df41941a32b4ec54bd5, type: 3}
+    MaxLevel: 20
+    BaseCost: 10000
+    BaseDamage: 12500
+    CostMultiplier: 12500
+    DamageMultiplier: 1.09
+    Name: Missile
+    Description: "\uB370\uBBF8\uC9C0 +{0}"
+  - Type: 3
+    ClickType: 1
+    Icon: {fileID: -7709297464541498756, guid: 5a1ce5d17f833b747b8b2760f9b4a7a4, type: 3}
+    MaxLevel: 20
+    BaseCost: 100000
+    BaseDamage: 62500
+    CostMultiplier: 62500
+    DamageMultiplier: 1.1
+    Name: Satellite
+    Description: "\uB370\uBBF8\uC9C0 +{0}"

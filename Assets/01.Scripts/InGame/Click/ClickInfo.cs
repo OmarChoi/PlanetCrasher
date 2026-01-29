@@ -2,7 +2,8 @@
 
 public struct ClickInfo
 {
-    public EClickType ClickType;
-    public int Damage;
-    public Vector2 ClickPosition;
+    public EClickType Type;
+    public double Damage;
+    public Vector2 Position;
+    public ParticleSystem EffectParticle;
 }
