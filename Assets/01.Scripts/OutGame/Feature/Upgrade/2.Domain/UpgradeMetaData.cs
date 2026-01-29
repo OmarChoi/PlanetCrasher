@@ -2,7 +2,7 @@
 using UnityEngine;
 
 [Serializable]
-public class UpgradeSpecData
+public class UpgradeMetaData
 {
     public EUpgradeType Type;
     public EClickType ClickType;

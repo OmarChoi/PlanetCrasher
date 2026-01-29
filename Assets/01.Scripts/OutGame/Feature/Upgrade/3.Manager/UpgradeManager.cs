@@ -19,7 +19,7 @@ public class UpgradeManager : MonoBehaviour
 
     private void InitializeUpgrades()
     {
-        foreach (UpgradeSpecData upgrade in _specTable.UpgradeSpecDatas)
+        foreach (UpgradeMetaData upgrade in _specTable.UpgradeSpecDatas)
         {
             if (_upgrades.ContainsKey(upgrade.Type))
             {
@@ -37,6 +37,7 @@ public class UpgradeManager : MonoBehaviour
     public bool CanLevelUp(EUpgradeType type)
     {
         if (!_upgrades.TryGetValue(type, out Upgrade upgrade)) return false;
+        if (upgrade.IsMaxLevel) return false;
         return CurrencyManager.Instance.CanAfford(ECurrencyType.Gold, upgrade.Cost);
     }
 
