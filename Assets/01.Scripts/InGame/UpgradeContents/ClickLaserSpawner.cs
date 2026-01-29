@@ -4,7 +4,6 @@ using UnityEngine;
 public class ClickLaserSpawner : MonoBehaviour
 {
     [Header("Spawn Settings")]
-    [SerializeField] private ClickLaser _laserPrefab;
     [SerializeField] [Range(0f, 1f)] private float _spawnChance = 0.1f;
     [SerializeField] private double _baseDamage = 10;
 
@@ -37,8 +36,6 @@ public class ClickLaserSpawner : MonoBehaviour
 
     private void SpawnLaser()
     {
-        if (_laserPrefab == null) return;
-
         (Vector2 startPos, Vector2 endPos) = ScreenEdgeUtility.GetRandomEdgePositions();
 
         GameObject laserObj = _pool.Spawn(startPos, Quaternion.identity);
