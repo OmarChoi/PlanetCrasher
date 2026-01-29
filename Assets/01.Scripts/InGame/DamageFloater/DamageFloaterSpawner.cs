@@ -1,12 +1,11 @@
-using System.Collections;
 using Lean.Pool;
 using UnityEngine;
 
 public class DamageFloaterSpawner : MonoBehaviour
 {
     public static DamageFloaterSpawner Instance { get; private set; }
-    [SerializeField] private LeanGameObjectPool _pool;
     [SerializeField] private float _duration;
+    private LeanGameObjectPool _pool;
     
     private void Awake()
     {
