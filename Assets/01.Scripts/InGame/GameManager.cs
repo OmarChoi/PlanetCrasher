@@ -9,7 +9,6 @@ public class GameManager : MonoBehaviour
 
     private AudioSource _audioSource;
     
-    [SerializeField] private UpgradeContents _upgradeContents;
     [SerializeField] private double _manualDamage = 1;
     [SerializeField] private double _autoDamage = 1;
     [SerializeField] private ParticleSystem _explodeParticles;
@@ -50,27 +49,6 @@ public class GameManager : MonoBehaviour
         _currentPlanet.Init(_planetDatas[_currentPlanetIndex], _currentPlanetIndex);
     }
 
-    public bool TryUpgrade(UpgradeContentData contentData)
-    {
-        if (contentData == null) return false; 
-        if (!CurrencyManager.Instance.TrySpend(ECurrencyType.Gold, contentData.CurrentPrice)) return false;
-
-        switch (contentData.BaseData.ClickType)
-        {
-            case EClickType.PerClick:
-                _manualDamage += contentData.GetCurrentReward();
-                break;
-            case EClickType.AutoClick:
-                _autoDamage += contentData.GetCurrentReward();
-                OnAutoDamageChanged?.Invoke(_autoDamage);
-                break;
-        }
-
-        contentData.LevelUp();
-        OnUpgradeCompleted?.Invoke();
-        return true;
-    }
-    
     public void ChangePlanet()
     {
         _explodeParticles.Play();
