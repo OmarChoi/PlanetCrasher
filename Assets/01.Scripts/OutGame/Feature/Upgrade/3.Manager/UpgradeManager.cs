@@ -28,35 +28,45 @@ public class UpgradeManager : MonoBehaviour
     
     private void InitializeUpgrades()
     {
-        int[] levels = _upgradeRepository.Load().Levels;
+        _upgrades.Clear();
+
         UpgradeMetaData[] upgradeDatas = _specTable.UpgradeSpecDatas;
-    
-        if (levels.Length != upgradeDatas.Length)
+
+        UpgradeSaveData saveData = _upgradeRepository.Load();
+
+        // Null 체크 및 기본값 처리
+        if (saveData?.Upgrades == null)
         {
-            throw new InvalidOperationException
-            (
-                $"[UpgradeManager.cs] Mismatch between saved levels ({levels.Length}) and upgrade specs ({upgradeDatas.Length})"
-            );
+            saveData = UpgradeSaveData.Default;
         }
-        for (int i = 0; i < upgradeDatas.Length; i++)
+
+        // Dictionary 용량 미리 지정 (리사이징 비용 절감)
+        Dictionary<EUpgradeType, int> savedLevels = new Dictionary<EUpgradeType, int>(saveData.Upgrades.Length);
+        foreach (UpgradeEntry entry in saveData.Upgrades)
         {
-            UpgradeMetaData upgrade = upgradeDatas[i];
-        
-            if (_upgrades.ContainsKey(upgrade.Type))
+            if (entry == null) continue;
+            savedLevels[entry.Type] = entry.Level;
+        }
+
+        foreach (UpgradeMetaData metaData in upgradeDatas)
+        {
+            if (_upgrades.ContainsKey(metaData.Type))
             {
                 throw new InvalidOperationException
                 (
-                    $"[UpgradeManager.cs] Duplicate upgrade type: {upgrade.Type}"
+                    $"[UpgradeManager.cs] Duplicate upgrade type: {metaData.Type}"
                 );
             }
-        
-            _upgrades.Add(upgrade.Type, new Upgrade(upgrade, levels[i]));
+
+            // 저장된 레벨이 있으면 사용, 없으면 0
+            int level = savedLevels.GetValueOrDefault(metaData.Type, 0);
+            _upgrades.Add(metaData.Type, new Upgrade(metaData, level));
         }
         OnDataChanged?.Invoke();
     }
 
     public Upgrade Get(EUpgradeType type) => _upgrades[type] ?? null;
-    
+
     public List<Upgrade> GetAll() => _upgrades.Values.ToList();
     
     public bool CanLevelUp(EUpgradeType type)
@@ -78,15 +88,24 @@ public class UpgradeManager : MonoBehaviour
     #region Save/Load
     private void SaveData()
     {
+        List<UpgradeEntry> upgrades = new List<UpgradeEntry>(_upgrades.Count);
+
+        foreach (KeyValuePair<EUpgradeType, Upgrade> kvp in _upgrades)
+        {
+            if (kvp.Value.Level > 0)
+            {
+                upgrades.Add(new UpgradeEntry
+                {
+                    Type = kvp.Key,
+                    Level = kvp.Value.Level
+                });
+            }
+        }
+
         UpgradeSaveData data = new UpgradeSaveData
         {
-            Levels = new int[_upgrades.Count]
+            Upgrades = upgrades.ToArray()
         };
-
-        for (int i = 0; i < _upgrades.Count; i++)
-        {
-            data.Levels[i] = _upgrades[(EUpgradeType)i].Level;
-        }
         _upgradeRepository.Save(data);
     }
 
