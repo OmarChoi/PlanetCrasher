@@ -99,6 +99,22 @@ public class UI_Login : MonoBehaviour
         _messageTextUI.text = message;
         _messageTextUI.color = _errorColor;
     }
+
+    public void OnEmailTextChanged(string email)
+    {
+        var emailSpec = new AccountEmailSpecification();
+        if (!emailSpec.IsSatisfiedBy(email))
+        {
+            _loginButton.enabled = false;
+            ShowErrorMessage(emailSpec.ErrorMessage);
+            
+        }
+        else
+        {
+            _loginButton.enabled = true;
+            ClearMessage();
+        }
+    }
     
     private void ClearMessage()
     {

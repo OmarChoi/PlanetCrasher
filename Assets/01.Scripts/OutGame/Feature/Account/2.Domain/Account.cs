@@ -6,15 +6,14 @@ public class Account
     public readonly string Email;
     public readonly string Password;
     
-    private const string EmailPattern =
-        @"^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$";
     private const string PasswordPattern =
         @"^(?=.*[a-z])(?=.*[A-Z])(?=.*[\W_])[A-Za-z\d\W_]{7,20}$";
     
     public Account(string email, string password)
     {
-        if (string.IsNullOrEmpty(email)) throw new System.ArgumentException("Email cannot be null or empty.");
-        if (!Regex.IsMatch(email, EmailPattern)) throw new ArgumentException("Email must be a valid email address.");
+        var emailSpec = new AccountEmailSpecification();
+        if (!emailSpec.IsSatisfiedBy(email)) throw new ArgumentException(emailSpec.ErrorMessage);
+        
         if (string.IsNullOrEmpty(password)) throw new ArgumentException("Password cannot be null or empty.");
         if (!Regex.IsMatch(password, PasswordPattern)) throw new ArgumentException("Password must be a valid password.");
         
