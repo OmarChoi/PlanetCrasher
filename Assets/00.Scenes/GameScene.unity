@@ -2107,7 +2107,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MissileLauncher
   _target: {fileID: 713409973}
   _targetRadius: 1
-  _shootInterval: 2
+  _shootInterval: 0.2
   _damage: 50
   _shootSfx: {fileID: 8300000, guid: c6f1839863a77254fbde7b90372c58a7, type: 3}
   _viewportHeight: 0.2
