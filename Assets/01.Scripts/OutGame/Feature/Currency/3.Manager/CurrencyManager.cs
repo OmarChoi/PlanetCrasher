@@ -17,18 +17,10 @@ public class CurrencyManager : MonoBehaviour
     {
         Instance = this;
         _repository = new LocalCurrencyRepository();
-        OnDataChanged += Save;
+        LoadData();
+        OnDataChanged += SaveData;
     }
-
-    private void Start()
-    {
-        double[] currencyValues = _repository.Load().Currencies;
-        for (int i = 0; i < _currencies.Length; i++)
-        {
-            _currencies[i] = currencyValues[i];
-        }
-    }
-
+    
     public Currency Get(ECurrencyType type)
     {
         return _currencies[(int)type];
@@ -57,12 +49,30 @@ public class CurrencyManager : MonoBehaviour
         return _currencies[(int)type] >= amount;
     }
 
-    private void Save()
+    #region Save/Load
+    private void SaveData()
     {
+        double[] values = new double[_currencies.Length];
+        for (int i = 0; i < _currencies.Length; i++)
+        {
+            values[i] = (double)_currencies[i];
+        }
+        
         var saveData = new CurrencySaveData
         {
-            Currencies = new double[_currencies.Length]
+            Currencies = values
         };
         _repository.Save(saveData);
     }
+
+    private void LoadData()
+    {
+        double[] currencyValues = _repository.Load().Currencies;
+        for (int i = 0; i < _currencies.Length; i++)
+        {
+            _currencies[i] = currencyValues[i];
+        }
+        OnDataChanged?.Invoke();
+    }
+    #endregion Save/Load
 }

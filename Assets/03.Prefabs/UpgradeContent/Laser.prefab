@@ -87,12 +87,12 @@ LineRenderer:
   - {x: 15, y: 0, z: 1}
   m_Parameters:
     serializedVersion: 3
-    widthMultiplier: 1
+    widthMultiplier: 0.2
     widthCurve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
-        time: 0
+        time: 1
         value: 1
         inSlope: 0
         outSlope: 0
@@ -134,7 +134,7 @@ LineRenderer:
       m_NumColorKeys: 2
       m_NumAlphaKeys: 2
     numCornerVertices: 0
-    numCapVertices: 0
+    numCapVertices: 4
     alignment: 0
     textureMode: 0
     textureScale: {x: 1, y: 1}
@@ -155,9 +155,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89b665e3736416946958838cebb8c2e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ClickLaser
-  _speed: 15
+  _speed: 30
   _lineRenderer: {fileID: 5455415195424625909}
-  _laserLength: 2
   _targetLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64

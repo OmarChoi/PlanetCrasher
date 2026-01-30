@@ -28,14 +28,14 @@ public class UI_UpgradeItem : MonoBehaviour
     {
         if (upgrade == null) return;
         _upgrade = upgrade;
-        _icon.sprite = upgrade.SpecData.Icon;
-        _name.text = upgrade.SpecData.Name;
+        _icon.sprite = upgrade.MetaData.Icon;
+        _name.text = upgrade.MetaData.Name;
         _price.text = upgrade.Cost.ToString();
-        _description.text = upgrade.SpecData.Description;
-        _type.text = upgrade.SpecData.ClickType.ToString();
+        _description.text = upgrade.MetaData.Description;
+        _type.text = upgrade.MetaData.ClickType.ToString();
         _count.text = $"Lv.{upgrade.Level + 1}";
         
-        bool canLevelUp = UpgradeManager.Instance.CanLevelUp(upgrade.SpecData.Type);
+        bool canLevelUp = UpgradeManager.Instance.CanLevelUp(upgrade.MetaData.Type);
         _blockImage.gameObject.SetActive(!canLevelUp);
     }
 
@@ -43,8 +43,8 @@ public class UI_UpgradeItem : MonoBehaviour
     {
         if (_upgrade == null) return;
 
-        if (!UpgradeManager.Instance.CanLevelUp(_upgrade.SpecData.Type)) return;
-        UpgradeManager.Instance.TryLevelUp(_upgrade.SpecData.Type);
+        if (!UpgradeManager.Instance.CanLevelUp(_upgrade.MetaData.Type)) return;
+        UpgradeManager.Instance.TryLevelUp(_upgrade.MetaData.Type);
         // todo. 이펙트, 애니메이션, 트위닝
     }
 }

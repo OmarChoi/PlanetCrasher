@@ -1,0 +1,91 @@
+using Lean.Pool;
+using UnityEngine;
+
+public class MissileLauncher : MonoBehaviour
+{
+    [Header("Target")]
+    [SerializeField] private Transform _target;
+    [SerializeField] private float _targetRadius = 1f;
+
+    [Header("Shooting")]
+    [SerializeField] private float _shootInterval = 2f;
+    [SerializeField] private double _damage = 50;
+    [SerializeField] private AudioClip _shootSfx;
+
+    [Header("Spawn Position")]
+    [SerializeField] private float _viewportHeight = 0.3f;
+    [SerializeField] private float _viewportMargin = 0.1f;
+
+    private float _shootTimer;
+    private bool _spawnFromLeft = true;
+    private LeanGameObjectPool _pool;
+    private Camera _mainCamera;
+    private IClickable _targetClickable;
+
+    private void Awake()
+    {
+        _pool = GetComponent<LeanGameObjectPool>();
+        _mainCamera = Camera.main;
+        CacheTargetClickable();
+    }
+
+    private void CacheTargetClickable()
+    {
+        if (_target != null)
+        {
+            _target.TryGetComponent(out _targetClickable);
+        }
+    }
+
+    private void Update()
+    {
+        _shootTimer += Time.deltaTime;
+        if (_shootTimer >= _shootInterval)
+        {
+            _shootTimer = 0f;
+            Shoot();
+        }
+    }
+
+    private void Shoot()
+    {
+        if (_target == null) return;
+
+        Vector3 spawnPosition = GetSpawnPosition();
+        SpawnMissile(spawnPosition);
+
+        if (_shootSfx != null)
+        {
+            SoundManager.Instance.PlaySfx(_shootSfx);
+        }
+
+        _spawnFromLeft = !_spawnFromLeft;
+    }
+
+    private Vector3 GetSpawnPosition()
+    {
+        float viewportX = _spawnFromLeft ? _viewportMargin : 1f - _viewportMargin;
+        float cameraDistance = Mathf.Abs(_mainCamera.transform.position.z - _target.position.z);
+
+        Vector3 viewportPoint = new Vector3(viewportX, _viewportHeight, cameraDistance);
+        return _mainCamera.ViewportToWorldPoint(viewportPoint);
+    }
+
+    private void SpawnMissile(Vector3 spawnPosition)
+    {
+        Vector3 direction = (_target.position - spawnPosition).normalized;
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        Quaternion rotation = Quaternion.Euler(0, 0, angle);
+
+        GameObject missileObj = _pool.Spawn(spawnPosition, rotation);
+        if (missileObj.TryGetComponent(out Missile missile))
+        {
+            missile.Initialize(_target, _targetClickable, _damage, _targetRadius, this);
+        }
+    }
+
+    public void DespawnMissile(Missile missile)
+    {
+        _pool.Despawn(missile.gameObject);
+    }
+}

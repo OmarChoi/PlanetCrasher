@@ -6,6 +6,7 @@ public class Planet : MonoBehaviour, IClickable
     private static readonly int _progress = Shader.PropertyToID("_Progress");
     [SerializeField] private PlanetData _planetData;
     [SerializeField] private SpriteRenderer _spriteRenderer;
+    [SerializeField] private AudioClip _explodeSfx;
 
     private double _health = 1;
     private double _maxHealth = 1;
@@ -66,6 +67,7 @@ public class Planet : MonoBehaviour, IClickable
 
     private void Explode()
     {
+        SoundManager.Instance.PlaySfx(_explodeSfx);
         gameObject.SetActive(false);
         GameManager.Instance.ChangePlanet();
     }
