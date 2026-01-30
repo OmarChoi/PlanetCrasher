@@ -16,9 +16,10 @@ public class LocalCurrencyRepository : ICurrencyRepository
         CurrencySaveData saveData = CurrencySaveData.Default;
         for (int i = 0; i < (int)ECurrencyType.Count; i++)
         {
-            if (PlayerPrefs.HasKey(i.ToString()))
+            var type = (ECurrencyType)i;
+            if (PlayerPrefs.HasKey(type.ToString()))
             {
-                saveData.Currencies[i] = double.Parse(PlayerPrefs.GetString(i.ToString(), "0"));
+                saveData.Currencies[i] = double.Parse(PlayerPrefs.GetString(type.ToString(), "0"));
             }
         }
         return saveData;

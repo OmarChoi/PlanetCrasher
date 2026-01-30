@@ -1,4 +1,5 @@
 using System;
+using UnityEditor.Overlays;
 using UnityEngine;
 
 public class CurrencyManager : MonoBehaviour
@@ -27,6 +28,7 @@ public class CurrencyManager : MonoBehaviour
         {
             _currencies[i] = currencyValues[i];
         }
+        OnDataChanged?.Invoke();
     }
 
     public Currency Get(ECurrencyType type)
@@ -59,9 +61,15 @@ public class CurrencyManager : MonoBehaviour
 
     private void Save()
     {
+        double[] values = new double[_currencies.Length];
+        for (int i = 0; i < _currencies.Length; i++)
+        {
+            values[i] = (double)_currencies[i];
+        }
+        
         var saveData = new CurrencySaveData
         {
-            Currencies = new double[_currencies.Length]
+            Currencies = values
         };
         _repository.Save(saveData);
     }

@@ -1635,7 +1635,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9704733225b47c846a10e775a9e4bab2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ClickLaserSpawner
-  _spawnChance: 0
+  _spawnChance: 1
   _baseDamage: 10
   _laserSfx: {fileID: 8300000, guid: 3abf532b94368b14a9fd1ce641358a98, type: 3}
 --- !u!4 &1220998446
