@@ -11,21 +11,46 @@ public class UpgradeManager : MonoBehaviour
     private readonly Dictionary<EUpgradeType, Upgrade> _upgrades = new Dictionary<EUpgradeType, Upgrade>();
     [SerializeField] private UpgradeSpecTableSO _specTable;
 
+    private IUpgradeRepository _upgradeRepository;
     private void Awake()
     {
+        if (Instance != null)
+        {
+            Destroy(gameObject);
+            return;
+        }
         Instance = this;
+        
+        _upgradeRepository = new LocalUpgradeRepository();
         InitializeUpgrades();
+        OnDataChanged += SaveData;
     }
-
+    
     private void InitializeUpgrades()
     {
-        foreach (UpgradeMetaData upgrade in _specTable.UpgradeSpecDatas)
+        int[] levels = _upgradeRepository.Load().Levels;
+        UpgradeMetaData[] upgradeDatas = _specTable.UpgradeSpecDatas;
+    
+        if (levels.Length != upgradeDatas.Length)
         {
+            throw new InvalidOperationException
+            (
+                $"[UpgradeManager.cs] Mismatch between saved levels ({levels.Length}) and upgrade specs ({upgradeDatas.Length})"
+            );
+        }
+        for (int i = 0; i < upgradeDatas.Length; i++)
+        {
+            UpgradeMetaData upgrade = upgradeDatas[i];
+        
             if (_upgrades.ContainsKey(upgrade.Type))
             {
-                throw new Exception("[UpgradeManager] Duplicate upgrade type: " + upgrade.Type);
+                throw new InvalidOperationException
+                (
+                    $"[UpgradeManager.cs] Duplicate upgrade type: {upgrade.Type}"
+                );
             }
-            _upgrades.Add(upgrade.Type, new Upgrade(upgrade));
+        
+            _upgrades.Add(upgrade.Type, new Upgrade(upgrade, levels[i]));
         }
         OnDataChanged?.Invoke();
     }
@@ -49,4 +74,21 @@ public class UpgradeManager : MonoBehaviour
         OnDataChanged?.Invoke();
         return true;
     }
+
+    #region Save/Load
+    private void SaveData()
+    {
+        UpgradeSaveData data = new UpgradeSaveData
+        {
+            Levels = new int[_upgrades.Count]
+        };
+
+        for (int i = 0; i < _upgrades.Count; i++)
+        {
+            data.Levels[i] = _upgrades[(EUpgradeType)i].Level;
+        }
+        _upgradeRepository.Save(data);
+    }
+
+    #endregion Save/Load
 }

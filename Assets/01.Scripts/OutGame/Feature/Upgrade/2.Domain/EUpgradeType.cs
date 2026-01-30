@@ -6,5 +6,6 @@ public enum EUpgradeType
     Laser,
     LaserDrill,
     Satellite,
-    Missile
+    Missile,
+    Count
 }

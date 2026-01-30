@@ -13,8 +13,9 @@ public class Upgrade
     public double DamageIncreasement => Level * MetaData.DamageMultiplier;
     public bool IsMaxLevel => Level >= MetaData.MaxLevel;
     
-    public Upgrade(UpgradeMetaData metaData)
+    public Upgrade(UpgradeMetaData metaData, int level = 0)
     {
+        if (level > metaData.MaxLevel) throw new System.IO.InvalidDataException("[Upgrade.cs] Level Data exceeds MaxLevel");
         if (metaData.Icon == null) throw new NullReferenceException("[Upgrade.cs] Icon is null");
         if (metaData.MaxLevel < 0) throw new System.ArgumentException("[Upgrade.cs] Max Level cannot be less than 0.");
         if (metaData.BaseCost <= 0) throw new System.ArgumentException("[Upgrade.cs] Base Cost cannot be less than 0.");
@@ -24,6 +25,7 @@ public class Upgrade
         if (string.IsNullOrEmpty(metaData.Name)) throw new System.ArgumentException("[Upgrade.cs] Name cannot be null or empty.");
         if (string.IsNullOrEmpty(metaData.Description)) throw new System.ArgumentException("[Upgrade.cs] Description cannot be null or empty.");
         MetaData = metaData;
+        Level = level;
     }
 
     public bool CanLevelUp()
