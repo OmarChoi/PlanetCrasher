@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class LoginScene : MonoBehaviour
+public class UI_Login : MonoBehaviour
 {
     private enum ESceneMode
     {
