@@ -13,10 +13,10 @@ public class Account
     
     public Account(string email, string password)
     {
-        if (string.IsNullOrEmpty(email)) throw new System.ArgumentException("[Account.cs] Email cannot be null or empty.");
-        if (!Regex.IsMatch(email, EmailPattern)) throw new ArgumentException("[Account.cs] Email must be a valid email address.");
-        if (string.IsNullOrEmpty(password)) throw new ArgumentException("[Account.cs] Password cannot be null or empty.");
-        if (!Regex.IsMatch(password, PasswordPattern)) throw new ArgumentException("[Account.cs] Password must be a valid password.");
+        if (string.IsNullOrEmpty(email)) throw new System.ArgumentException("Email cannot be null or empty.");
+        if (!Regex.IsMatch(email, EmailPattern)) throw new ArgumentException("Email must be a valid email address.");
+        if (string.IsNullOrEmpty(password)) throw new ArgumentException("Password cannot be null or empty.");
+        if (!Regex.IsMatch(password, PasswordPattern)) throw new ArgumentException("Password must be a valid password.");
         
         Email = email;
         Password = password;

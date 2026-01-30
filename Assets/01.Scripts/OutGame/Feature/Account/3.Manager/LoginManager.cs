@@ -18,11 +18,6 @@ public class LoginManager : MonoBehaviour
         _instance = this;
     }
 
-    public string GetLastLoginId()
-    {
-        return PlayerPrefs.GetString(LastLoginIdKey, "");
-    }
-    
     public bool Register(string id, string password, out string message)
     {
         string key = $"{UserIdPrefix}{id}";

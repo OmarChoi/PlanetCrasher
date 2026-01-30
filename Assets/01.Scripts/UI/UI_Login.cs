@@ -34,17 +34,11 @@ public class UI_Login : MonoBehaviour
     private const string LoginErrorMessage = "잘못된 아이디 또는 비밀번호 입니다.";
     private string _errorMessage;
 
-    // 정규 표현식
-    private const string EmailPattern =
-        @"^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$";
-    private const string PasswordPattern =
-        @"^(?=.*[a-z])(?=.*[A-Z])(?=.*[\W_])[A-Za-z\d\W_]{7,20}$";
-    
     private void Start()
     {
         AddButtonEvents();
         Refresh();
-        _idInputField.text = LoginManager.Instance.GetLastLoginId();
+        _idInputField.text = AccountManager.Instance.GetLastLoginId();
         ClearMessage();
     }
 
@@ -69,99 +63,41 @@ public class UI_Login : MonoBehaviour
     private void Login()
     {
         string id = _idInputField.text;
-        if (!IsValidID(id))
-        {
-            ShowErrorMessage(LoginErrorMessage);
-            return;
-        }
-        
         string password = _passwordInputField.text;
-        if (!IsValidPassword(password))
+        AuthResult result = AccountManager.Instance.TryLogin(id, password);
+        if (!result.Success)
         {
-            ShowErrorMessage(LoginErrorMessage);
-            return;
+            ShowErrorMessage(result.ErrorMessage);
         }
-
-        bool success = LoginManager.Instance.TryLogin(id, password);
-        if (!success)
-        {
-            ShowErrorMessage(LoginErrorMessage);
-            return;
-        }
-        SceneManager.LoadSceneAsync("GameScene");
     }
 
     private void Register()
     {
         string id = _idInputField.text;
-
-        if (!IsValidID(id))
-        {
-            ShowErrorMessage(_errorMessage);
-            return;
-        }
-
         string password = _passwordInputField.text;
-        if (!IsValidPassword(password))
-        {
-            ShowErrorMessage(_errorMessage);
-            return;
-        }
-
         string confirmPassword = _passwordConfirmInputField.text;
         if (string.IsNullOrEmpty(confirmPassword) || password != confirmPassword)
         {
             ShowErrorMessage("패스워드를 확인해주세요.");
             return;
         }
-        
-        bool success = LoginManager.Instance.Register(id, password, out string message);
-        
-        if (!success)
-        {
-            ShowErrorMessage(message);
-            return;
-        }
-        GotoLogin();
-    }
-    
-    private bool IsValidPassword(string password)
-    {
-        if (string.IsNullOrEmpty(password))
-        {
-            ShowErrorMessage("패스워드를 입력해주세요.");
-            return false;
-        }
-        if (!Regex.IsMatch(password, PasswordPattern))
-        {
-            ShowErrorMessage("잘못된 비밀번호 형식입니다.");
-            return false;
-        }
-        return true;
-    }
 
-    private bool IsValidID(string id)
-    {
-        if (string.IsNullOrEmpty(id))
+        AuthResult result = AccountManager.Instance.TryRegister(id, password);
+        if (result.Success)
         {
-            _errorMessage = "아이디를 확인해주세요.";
-            return false;
+            GotoLogin();
         }
-        if (!Regex.IsMatch(id, EmailPattern))
+        else
         {
-            _errorMessage = "잘못된 아이디 형식입니다.";
-            return false;
+            ShowErrorMessage(result.ErrorMessage);
         }
-        return true;
     }
     
     private void ShowErrorMessage(string message)
     {
-        if (_messageTextUI != null)
-        {
-            _messageTextUI.text = message;
-            _messageTextUI.color = _errorColor;
-        }
+        if (_messageTextUI == null) return;
+        _messageTextUI.text = message;
+        _messageTextUI.color = _errorColor;
     }
     
     private void ClearMessage()
