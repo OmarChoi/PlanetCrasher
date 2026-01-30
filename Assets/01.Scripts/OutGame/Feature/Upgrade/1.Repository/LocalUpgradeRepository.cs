@@ -15,6 +15,5 @@ public class LocalUpgradeRepository : IUpgradeRepository
         string json = PlayerPrefs.GetString(Key, "");
         if (string.IsNullOrEmpty(json)) return UpgradeSaveData.Default;
         return JsonUtility.FromJson<UpgradeSaveData>(json);
-        
     }
 }

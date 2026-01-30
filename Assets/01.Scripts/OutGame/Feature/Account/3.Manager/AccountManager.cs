@@ -12,6 +12,8 @@ public class AccountManager : MonoBehaviour
     public string Email => _currentAccount.Email;
     private const string LastLoginEmail = "LastLoginEmail";
 
+    private IAccountRepository _accountRepository;
+    
     private void Awake()
     {
         if (Instance != null)
@@ -20,11 +22,31 @@ public class AccountManager : MonoBehaviour
             return;
         }
         Instance = this;
+
+        _accountRepository = new LocalAccountRepository();
     }
 
     public AuthResult TryLogin(string email, string password)
     {
-        // todo. Repository에 있는 계정인지 확인 작업 진행
+        if (!_accountRepository.Exists(email))
+        {
+            return new AuthResult
+            {
+                Success = false,
+                ErrorMessage = "존재하지 않는 이메일 입니다."
+            };
+        }
+
+        string hashedPassword = _accountRepository.LoadPassword(email);
+        if (!PasswordHashService.VerifyPassword(password, hashedPassword))
+        {
+            return new AuthResult
+            {
+                Success = false,
+                ErrorMessage = "잘못된 비밀번호 입니다."
+            };
+        }
+
         Account account = null;
         try
         {
@@ -39,25 +61,11 @@ public class AccountManager : MonoBehaviour
             };
         }
 
-        if (!PlayerPrefs.HasKey(email))
-        {
-            return new AuthResult
-            {
-                Success = false,
-                ErrorMessage = "존재하지 않는 이메일 입니다."
-            };
-        }
-        string hashedPassword = PlayerPrefs.GetString(email);
-        if (!PasswordHashService.VerifyPassword(password, hashedPassword))
-        {
-            return new AuthResult
-            {
-                Success = false,
-                ErrorMessage = "잘못된 비밀번호 입니다."
-            };
-        }
         _currentAccount = account;
+        PlayerPrefs.SetString(LastLoginEmail, email);
+        PlayerPrefs.Save();
         SceneManager.LoadSceneAsync("GameScene");
+
         return new AuthResult
         {
             Success = true,
@@ -67,7 +75,7 @@ public class AccountManager : MonoBehaviour
 
     public AuthResult TryRegister(string email, string password)
     {
-        if (PlayerPrefs.HasKey(email))
+        if (_accountRepository.Exists(email))
         {
             return new AuthResult
             {
@@ -75,6 +83,7 @@ public class AccountManager : MonoBehaviour
                 ErrorMessage = "중복된 이메일 입니다.",
             };
         }
+
         Account account = null;
         try
         {
@@ -89,10 +98,8 @@ public class AccountManager : MonoBehaviour
             };
         }
 
-        // todo. 새로운 계정 Repository에 등록(저장)
         string hashedPassword = PasswordHashService.ConvertPasswordToHash(password);
-        PlayerPrefs.SetString(email, hashedPassword);
-        PlayerPrefs.Save();
+        _accountRepository.SavePassword(email, hashedPassword);
 
         return new AuthResult
         {
