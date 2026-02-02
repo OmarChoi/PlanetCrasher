@@ -16,7 +16,7 @@ public class CurrencyManager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
-        _repository = new LocalCurrencyRepository();
+        _repository = new LocalCurrencyRepository(AccountManager.Instance.Email);
         LoadData();
         OnDataChanged += SaveData;
     }

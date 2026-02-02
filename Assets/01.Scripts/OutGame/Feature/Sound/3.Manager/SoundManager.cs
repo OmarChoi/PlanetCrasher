@@ -23,7 +23,7 @@ public class SoundManager : MonoBehaviour
             return;
         }
         Instance = this;
-        _repository = new LocalSoundRepository();
+        _repository = new LocalSoundRepository(AccountManager.Instance.Email);
     }
 
     private void Start()
