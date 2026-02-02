@@ -21,11 +21,26 @@ public class UpgradeManager : MonoBehaviour
             return;
         }
         Instance = this;
+        DontDestroyOnLoad(gameObject);
         
         _upgradeRepository = new LocalUpgradeRepository(AccountManager.Instance.Email);
         InitializeUpgrades();
         OnDataChanged += SaveData;
     }
+
+    private void Start()
+    {
+        OnDataChanged?.Invoke();
+    }
+    
+    private void OnDestroy()                                                 
+    {                                                                        
+        OnDataChanged -= SaveData;
+        if (Instance == this)
+        {
+            Instance = null;
+        }                               
+    } 
     
     private void InitializeUpgrades()
     {
@@ -63,7 +78,6 @@ public class UpgradeManager : MonoBehaviour
             int level = savedLevels.GetValueOrDefault(metaData.Type, 0);
             _upgrades.Add(metaData.Type, new Upgrade(metaData, level));
         }
-        OnDataChanged?.Invoke();
     }
 
     public Upgrade Get(EUpgradeType type) => _upgrades[type];

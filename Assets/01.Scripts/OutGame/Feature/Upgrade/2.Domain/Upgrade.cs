@@ -24,7 +24,7 @@ public class Upgrade
         if (level > metaData.MaxLevel) throw new ArgumentOutOfRangeException("[Upgrade.cs] Level Data exceeds MaxLevel");
         if (metaData.Icon == null) throw new NullReferenceException("[Upgrade.cs] Icon is null");
         if (metaData.MaxLevel < 0) throw new ArgumentException("[Upgrade.cs] Max Level cannot be less than 0.");
-        if (metaData.BaseCost <= 0) throw new ArgumentException("[Upgrade.cs] Base Cost cannot be less than 0.");
+        if (metaData.BaseCost <= 0) throw new ArgumentException("[Upgrade.cs] Base Cost must be greater than 0.");
         if (metaData.CostMultiplier <= 0) throw new ArgumentException("[Upgrade.cs] CostMultiplier cannot be less than 0.");
         if (metaData.Effects == null || metaData.Effects.Length == 0) throw new ArgumentException("[Upgrade.cs] Effects cannot be null or empty.");
         if (string.IsNullOrEmpty(metaData.Name)) throw new ArgumentException("[Upgrade.cs] Name cannot be null or empty.");
