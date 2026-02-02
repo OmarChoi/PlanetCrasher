@@ -11,9 +11,10 @@ public class AccountManager : MonoBehaviour
     public string Email => _currentAccount?.Email;
 
     private IAccountRepository _accountRepository;
-    
-    PasswordSpecification _passwordSpecification;
-    
+
+    private PasswordSpecification _passwordSpecification;
+    private EmailSpecification _emailSpecification;
+
     private void Awake()
     {
         if (Instance != null)
@@ -22,9 +23,16 @@ public class AccountManager : MonoBehaviour
             return;
         }
         Instance = this;
+        DontDestroyOnLoad(gameObject);
 
         _accountRepository = new LocalAccountRepository();
         _passwordSpecification = new PasswordSpecification();
+        _emailSpecification = new EmailSpecification();
+    }
+
+    public ValidationResult ValidateEmail(string email)
+    {
+        return _emailSpecification.IsSatisfiedBy(email);
     }
 
     public AuthResult TryLogin(string email, string password)

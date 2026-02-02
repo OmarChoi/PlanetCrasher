@@ -1,4 +1,3 @@
-using System.Text.RegularExpressions;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -101,8 +100,7 @@ public class UI_Login : MonoBehaviour
 
     public void OnEmailTextChanged(string email)
     {
-        var emailSpec = new EmailSpecification();
-        var result = emailSpec.IsSatisfiedBy(email);
+        var result = AccountManager.Instance.ValidateEmail(email);
         if (!result.IsValid)
         {
             _loginButton.enabled = false;
