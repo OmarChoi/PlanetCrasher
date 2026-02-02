@@ -31,7 +31,7 @@ public class UI_UpgradeItem : MonoBehaviour
         _icon.sprite = upgrade.MetaData.Icon;
         _name.text = upgrade.MetaData.Name;
         _price.text = upgrade.Cost.ToString();
-        _description.text = upgrade.MetaData.Description;
+        _description.text = UpgradeManager.Instance.GetDescription(upgrade);
         _type.text = upgrade.MetaData.ClickType.ToString();
         _count.text = $"Lv.{upgrade.Level + 1}";
         

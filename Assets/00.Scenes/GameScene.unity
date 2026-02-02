@@ -1246,7 +1246,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &766146757
 Transform:
   m_ObjectHideFlags: 0
@@ -1449,6 +1449,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UpgradeManager
   _specTable: {fileID: 11400000, guid: f0ba777d564486b408726274d0fde0a6, type: 2}
+  _effectDescriptionTable: {fileID: 11400000, guid: 228fbe83ba298b149864d63feac65f91, type: 2}
 --- !u!4 &1116126037
 Transform:
   m_ObjectHideFlags: 0
@@ -2107,8 +2108,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MissileLauncher
   _target: {fileID: 713409973}
   _targetRadius: 1
-  _shootInterval: 0.2
-  _damage: 50
+  _shootInterval: 1
+  _damage: 10
   _shootSfx: {fileID: 8300000, guid: c6f1839863a77254fbde7b90372c58a7, type: 3}
   _viewportHeight: 0.2
   _viewportMargin: -0.1

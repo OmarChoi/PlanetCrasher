@@ -11,7 +11,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] private double _autoDamage = 1;
     [SerializeField] private ParticleSystem _explodeParticles;
     
-    
     [Header("Planets")]
     [SerializeField] private GameObject _planetPrefab;
     [SerializeField] private List<PlanetData> _planetDatas;
@@ -41,8 +40,6 @@ public class GameManager : MonoBehaviour
     {
         OnAutoDamageChanged?.Invoke(_autoDamage);
         OnUpgradeCompleted?.Invoke();
-
-        _currentPlanet.Init(_planetDatas[_currentPlanetIndex], _currentPlanetIndex);
     }
 
     public void ChangePlanet()

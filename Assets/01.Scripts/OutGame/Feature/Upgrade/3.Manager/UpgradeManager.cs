@@ -10,6 +10,7 @@ public class UpgradeManager : MonoBehaviour
 
     private readonly Dictionary<EUpgradeType, Upgrade> _upgrades = new Dictionary<EUpgradeType, Upgrade>();
     [SerializeField] private UpgradeSpecTableSO _specTable;
+    [SerializeField] private EffectDescriptionTableSO _effectDescriptionTable;
 
     private IUpgradeRepository _upgradeRepository;
     private void Awake()
@@ -65,9 +66,11 @@ public class UpgradeManager : MonoBehaviour
         OnDataChanged?.Invoke();
     }
 
-    public Upgrade Get(EUpgradeType type) => _upgrades[type] ?? null;
+    public Upgrade Get(EUpgradeType type) => _upgrades[type];
 
     public List<Upgrade> GetAll() => _upgrades.Values.ToList();
+
+    public string GetDescription(Upgrade upgrade) => UpgradeDescriptionBuilder.GenerateAll(_effectDescriptionTable, upgrade);
     
     public bool CanLevelUp(EUpgradeType type)
     {

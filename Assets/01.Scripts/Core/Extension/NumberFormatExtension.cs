@@ -31,4 +31,25 @@ public static class NumberFormatExtension
             _      => $"<sprite=0>{value:F2}{_suffixes[suffixIndex]}"
         };
     }
+
+    public static string ToCompactString(this double number)
+    {
+        if (number < 1000) return number == (int)number ? $"{(int)number}" : $"{number:F1}";
+
+        int suffixIndex = 0;
+
+        double value = number;
+        while (value >= 1000 && suffixIndex < _suffixes.Length - 1)
+        {
+            value /= 1000;
+            suffixIndex++;
+        }
+
+        return value switch
+        {
+            >= 100 => $"{value:F0}{_suffixes[suffixIndex]}",
+            >= 10  => $"{value:F1}{_suffixes[suffixIndex]}",
+            _      => $"{value:F2}{_suffixes[suffixIndex]}"
+        };
+    }
 }
