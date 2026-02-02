@@ -32,11 +32,12 @@ public class AccountManager : MonoBehaviour
         var passwordResult = _passwordSpecification.IsSatisfiedBy(password);
         if (!passwordResult.IsValid)
         {
-            return new AuthResult()
-            {
-                Success = false,
-                ErrorMessage = passwordResult.ErrorMessage,
-            };
+            return new AuthResult
+            (
+                success: false,
+                errorMessage: passwordResult.ErrorMessage,
+                account: null
+            );
         }
 
         AuthResult result = _accountRepository.Login(email, password);
@@ -52,11 +53,12 @@ public class AccountManager : MonoBehaviour
         var passwordResult = _passwordSpecification.IsSatisfiedBy(password);
         if (!passwordResult.IsValid)
         {
-            return new AuthResult()
-            {
-                Success = false,
-                ErrorMessage = passwordResult.ErrorMessage,
-            };
+            return new AuthResult
+            (
+                success: false,
+                errorMessage: passwordResult.ErrorMessage,
+                account: null
+            );
         }
         AuthResult result = _accountRepository.Register(email, password);
         return result;

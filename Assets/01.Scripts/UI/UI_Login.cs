@@ -22,7 +22,7 @@ public class UI_Login : MonoBehaviour
     [SerializeField] private Button _registerButton;
 
     [Header("Text")]
-    [SerializeField] private TMP_InputField _idInputField;
+    [SerializeField] private TMP_InputField _emailInputField;
     [SerializeField] private TMP_InputField _passwordInputField;
     [SerializeField] private TMP_InputField _passwordConfirmInputField;
     [SerializeField] private TextMeshProUGUI _messageTextUI;
@@ -57,9 +57,9 @@ public class UI_Login : MonoBehaviour
 
     private void Login()
     {
-        string id = _idInputField.text;
+        string email = _emailInputField.text;
         string password = _passwordInputField.text;
-        AuthResult result = AccountManager.Instance.TryLogin(id, password);
+        AuthResult result = AccountManager.Instance.TryLogin(email, password);
         if (result.Success)
         {
             SceneManager.LoadScene("GameScene"); 
@@ -72,7 +72,7 @@ public class UI_Login : MonoBehaviour
 
     private void Register()
     {
-        string id = _idInputField.text;
+        string email = _emailInputField.text;
         string password = _passwordInputField.text;
         string confirmPassword = _passwordConfirmInputField.text;
         if (string.IsNullOrEmpty(confirmPassword) || password != confirmPassword)
@@ -81,7 +81,7 @@ public class UI_Login : MonoBehaviour
             return;
         }
 
-        AuthResult result = AccountManager.Instance.TryRegister(id, password);
+        AuthResult result = AccountManager.Instance.TryRegister(email, password);
         if (result.Success)
         {
             GotoLogin();

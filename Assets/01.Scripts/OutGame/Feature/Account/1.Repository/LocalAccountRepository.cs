@@ -7,20 +7,22 @@ public class LocalAccountRepository : IAccountRepository
         if (IsExist(email))
         {
             return new AuthResult
-            {
-                Success = false,
-                ErrorMessage = "This account already exists."
-            };
+            (
+                success: false,
+                errorMessage: "This account already exists.",
+                account: null
+            );
         }
         
         string hashedPassword = Crypto.ConvertPasswordToHash(password);
         PlayerPrefs.SetString(email, hashedPassword);
 
-        return new AuthResult()
-        {
-            Success = true,
-            Account = new Account(email, hashedPassword)
-        };
+        return new AuthResult
+        (
+            success: true,
+            errorMessage: string.Empty,
+            account: new Account(email, hashedPassword)
+        );
     }
     
     public AuthResult Login(string email, string password)
@@ -28,30 +30,34 @@ public class LocalAccountRepository : IAccountRepository
         if (!IsExist(email))
         {
             return new AuthResult
-            {
-                Success = false,
-                ErrorMessage = "Please check your ID or password."
-            };
+            (
+                success: false,
+                errorMessage: "Please check your ID or password.",
+                account: null
+            );
         }
         
-        string myPassword = PlayerPrefs.GetString(email);
-        if (Crypto.VerifyPassword(password, myPassword))
+        string storedPassword = PlayerPrefs.GetString(email);
+        if (Crypto.VerifyPassword(password, storedPassword))
         {
-            return new AuthResult()
-            {
-                Success = true,
-                Account = new Account(email, myPassword)
-            };
+            return new AuthResult
+            (
+                success: true,
+                errorMessage: string.Empty,
+                account: new Account(email, storedPassword)
+            );
         }
         else
         {
-            return new AuthResult()
-            {
-                Success = false,
-                ErrorMessage = "Please check your ID or password."
-            };
+            return new AuthResult
+            (
+                success: false,
+                errorMessage: "Please check your ID or password.",
+                account: null
+            );
         }
     }
+    
     public void Logout()
     {
         // todo. 데이터 저장 및 로그아웃 관련 코드 작성

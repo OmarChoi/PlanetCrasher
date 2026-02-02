@@ -417,7 +417,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uC0C8\uB85C \uC0DD\uC131"
+  m_text: Create Account
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: e9847096a9cfd934bab60507b040d007, type: 2}
   m_sharedMaterial: {fileID: 342738722483196424, guid: e9847096a9cfd934bab60507b040d007, type: 2}
@@ -445,7 +445,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 40
+  m_fontSize: 36.3
   m_fontSizeBase: 40
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -484,7 +484,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: 10, y: 10, z: 10, w: 10}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -927,7 +927,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uB4F1\uB85D"
+  m_text: Register
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: e9847096a9cfd934bab60507b040d007, type: 2}
   m_sharedMaterial: {fileID: 342738722483196424, guid: e9847096a9cfd934bab60507b040d007, type: 2}
@@ -955,7 +955,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 40
+  m_fontSize: 35.35
   m_fontSizeBase: 40
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -994,7 +994,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: 10, y: 10, z: 10, w: 10}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -1796,7 +1796,7 @@ GameObject:
   - component: {fileID: 8313066797742648798}
   - component: {fileID: 3591448953563232970}
   m_Layer: 5
-  m_Name: IDInputField
+  m_Name: EmailInputField
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1939,7 +1939,19 @@ MonoBehaviour:
       m_Calls: []
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 376005409491601696}
+        m_TargetAssemblyTypeName: UI_Login, Assembly-CSharp
+        m_MethodName: OnEmailTextChanged
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_OnTouchScreenKeyboardStatusChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -2141,7 +2153,7 @@ MonoBehaviour:
   m_ChildAlignment: 1
   m_Spacing: 50
   m_ChildForceExpandWidth: 1
-  m_ChildForceExpandHeight: 1
+  m_ChildForceExpandHeight: 0
   m_ChildControlWidth: 1
   m_ChildControlHeight: 0
   m_ChildScaleWidth: 0
@@ -2687,7 +2699,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uB85C\uADF8\uC778"
+  m_text: Log In
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: e9847096a9cfd934bab60507b040d007, type: 2}
   m_sharedMaterial: {fileID: 342738722483196424, guid: e9847096a9cfd934bab60507b040d007, type: 2}
@@ -2754,7 +2766,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: 10, y: 10, z: 10, w: 10}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -2817,7 +2829,7 @@ MonoBehaviour:
   _loginButton: {fileID: 550922276774524284}
   _gotoLoginButton: {fileID: 6994823014736210412}
   _registerButton: {fileID: 8563198749223675835}
-  _idInputField: {fileID: 3591448953563232970}
+  _emailInputField: {fileID: 3591448953563232970}
   _passwordInputField: {fileID: 4818031472964608885}
   _passwordConfirmInputField: {fileID: 3787520494990232837}
   _messageTextUI: {fileID: 866728172762228205}
@@ -3129,7 +3141,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uB4A4\uB85C \uAC00\uAE30"
+  m_text: Back to Login
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: e9847096a9cfd934bab60507b040d007, type: 2}
   m_sharedMaterial: {fileID: 342738722483196424, guid: e9847096a9cfd934bab60507b040d007, type: 2}
@@ -3196,7 +3208,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: 10, y: 10, z: 10, w: 10}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
