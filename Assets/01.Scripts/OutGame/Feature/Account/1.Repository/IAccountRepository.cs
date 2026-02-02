@@ -1,6 +1,7 @@
 public interface IAccountRepository
 {
-    void SavePassword(string email, string hashedPassword);
-    string LoadPassword(string email);
-    bool Exists(string email);
+    AuthResult Register(string email, string hashedPassword);
+    AuthResult Login(string email, string hashedPassword);
+    void Logout();
+    bool IsExist(string email);
 }

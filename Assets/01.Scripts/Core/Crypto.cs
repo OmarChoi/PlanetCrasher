@@ -1,7 +1,7 @@
 using System;
 using System.Security.Cryptography;
 
-public static class PasswordHashService
+public static class Crypto
 {
     private const int SaltSize = 16;
     private const int HashSize = 32;

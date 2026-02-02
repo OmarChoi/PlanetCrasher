@@ -29,16 +29,11 @@ public class UI_Login : MonoBehaviour
     
     [Header("Message Colors")]
     [SerializeField] private Color _errorColor = Color.red;
-    
-    // Error Message
-    private const string LoginErrorMessage = "잘못된 아이디 또는 비밀번호 입니다.";
-    private string _errorMessage;
 
     private void Start()
     {
         AddButtonEvents();
         Refresh();
-        _idInputField.text = AccountManager.Instance.GetLastLoginId();
         ClearMessage();
     }
 
@@ -107,7 +102,6 @@ public class UI_Login : MonoBehaviour
         {
             _loginButton.enabled = false;
             ShowErrorMessage(emailSpec.ErrorMessage);
-            
         }
         else
         {

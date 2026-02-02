@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
 // 1. 도메인 관리 : CRUD(생성/조회/수정/삭제)와 같은 비즈니스 로직
@@ -10,9 +9,10 @@ public class AccountManager : MonoBehaviour
     private Account _currentAccount = null;
     public bool IsLogin => _currentAccount != null;
     public string Email => _currentAccount.Email;
-    private const string LastLoginEmail = "LastLoginEmail";
 
     private IAccountRepository _accountRepository;
+    
+    AccountPasswordSpecification _passwordSpecification;
     
     private void Awake()
     {
@@ -24,97 +24,45 @@ public class AccountManager : MonoBehaviour
         Instance = this;
 
         _accountRepository = new LocalAccountRepository();
+        _passwordSpecification = new AccountPasswordSpecification();
     }
 
     public AuthResult TryLogin(string email, string password)
     {
-        if (!_accountRepository.Exists(email))
+        if (!_passwordSpecification.IsSatisfiedBy(password))
         {
-            return new AuthResult
+            return new AuthResult()
             {
                 Success = false,
-                ErrorMessage = "존재하지 않는 이메일 입니다."
+                ErrorMessage = _passwordSpecification.ErrorMessage,
             };
         }
-
-        string hashedPassword = _accountRepository.LoadPassword(email);
-        if (!PasswordHashService.VerifyPassword(password, hashedPassword))
+        
+        AuthResult result = _accountRepository.Login(email, password);
+        if (result.Success)
         {
-            return new AuthResult
-            {
-                Success = false,
-                ErrorMessage = "잘못된 비밀번호 입니다."
-            };
+            _currentAccount = result.Account;
+            SceneManager.LoadScene("GameScene");
         }
-
-        Account account = null;
-        try
-        {
-            account = new Account(email, password);
-        }
-        catch (Exception e)
-        {
-            return new AuthResult
-            {
-                Success = false,
-                ErrorMessage = e.Message
-            };
-        }
-
-        _currentAccount = account;
-        PlayerPrefs.SetString(LastLoginEmail, email);
-        PlayerPrefs.Save();
-        SceneManager.LoadSceneAsync("GameScene");
-
-        return new AuthResult
-        {
-            Success = true,
-            Account = account
-        };
+        return result;
     }
 
     public AuthResult TryRegister(string email, string password)
     {
-        if (_accountRepository.Exists(email))
+        if (!_passwordSpecification.IsSatisfiedBy(password))
         {
-            return new AuthResult
+            return new AuthResult()
             {
                 Success = false,
-                ErrorMessage = "중복된 이메일 입니다.",
+                ErrorMessage = _passwordSpecification.ErrorMessage,
             };
         }
-
-        Account account = null;
-        try
-        {
-            account = new Account(email, password);
-        }
-        catch (Exception e)
-        {
-            return new AuthResult
-            {
-                Success = false,
-                ErrorMessage = e.Message
-            };
-        }
-
-        string hashedPassword = PasswordHashService.ConvertPasswordToHash(password);
-        _accountRepository.SavePassword(email, hashedPassword);
-
-        return new AuthResult
-        {
-            Success = true,
-            Account = account
-        };
+        AuthResult result = _accountRepository.Register(email, password);
+        return result;
     }
     
-    public string GetLastLoginId()
-    {
-        return PlayerPrefs.GetString(LastLoginEmail, "");
-    }
-
     public void Logout()
     {
-
+        _accountRepository.Logout();
     }
 }

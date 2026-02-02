@@ -4,21 +4,16 @@ using System.Text.RegularExpressions;
 public class Account
 {
     public readonly string Email;
-    public readonly string Password;
+    public readonly string HashedPassword;
+
     
-    private const string PasswordPattern =
-        @"^(?=.*[a-z])(?=.*[A-Z])(?=.*[\W_])[A-Za-z\d\W_]{7,20}$";
-    
-    public Account(string email, string password)
+    public Account(string email, string hashedPassword)
     {
         var emailSpec = new AccountEmailSpecification();
         if (!emailSpec.IsSatisfiedBy(email)) throw new ArgumentException(emailSpec.ErrorMessage);
         
-        if (string.IsNullOrEmpty(password)) throw new ArgumentException("Password cannot be null or empty.");
-        if (!Regex.IsMatch(password, PasswordPattern)) throw new ArgumentException("Password must be a valid password.");
-        
         Email = email;
-        Password = password;
+        HashedPassword = hashedPassword;
     }
 }
 
@@ -29,6 +24,6 @@ public class Account
 //
 // 비밀번호 규칙
 // 비어있으면 안된다.
-// 6자리 이상 12자 이하여야 한다.
+// 7자리 이상 20자 이하여야 한다.
 // 대문자를 1개 이상 포함해야 한다.
 // 특수문자를 1개 이상 포함해야 한다.
