@@ -42,7 +42,6 @@ public class AccountManager : MonoBehaviour
         if (result.Success)
         {
             _currentAccount = result.Account;
-            SceneManager.LoadScene("GameScene");
         }
         return result;
     }

@@ -2,12 +2,19 @@ using UnityEngine;
 
 public class LocalCurrencyRepository : ICurrencyRepository
 {
+    private readonly string _userId;
+
+    public LocalCurrencyRepository(string userId)
+    {
+        _userId = userId;
+    }
+    
     public void Save(CurrencySaveData saveData)
     {
         for (int i = 0; i < (int)ECurrencyType.Count; i++)
         {
             var type = (ECurrencyType)i;
-            PlayerPrefs.SetString(type.ToString(), saveData.Currencies[(int)type].ToString());
+            PlayerPrefs.SetString($"{_userId}_{type.ToString()}", saveData.Currencies[(int)type].ToString());
         }
     }
 
@@ -17,9 +24,9 @@ public class LocalCurrencyRepository : ICurrencyRepository
         for (int i = 0; i < (int)ECurrencyType.Count; i++)
         {
             var type = (ECurrencyType)i;
-            if (PlayerPrefs.HasKey(type.ToString()))
+            if (PlayerPrefs.HasKey($"{_userId}_{type.ToString()}"))
             {
-                saveData.Currencies[i] = double.Parse(PlayerPrefs.GetString(type.ToString(), "0"));
+                saveData.Currencies[i] = double.Parse(PlayerPrefs.GetString($"{_userId}_{type.ToString()}", "0"));
             }
         }
         return saveData;

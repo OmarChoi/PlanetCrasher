@@ -6,7 +6,6 @@ public class Account
     public readonly string Email;
     public readonly string HashedPassword;
 
-    
     public Account(string email, string hashedPassword)
     {
         var emailSpec = new AccountEmailSpecification();

@@ -21,7 +21,7 @@ public class UpgradeManager : MonoBehaviour
         }
         Instance = this;
         
-        _upgradeRepository = new LocalUpgradeRepository();
+        _upgradeRepository = new LocalUpgradeRepository(AccountManager.Instance.Email);
         InitializeUpgrades();
         OnDataChanged += SaveData;
     }

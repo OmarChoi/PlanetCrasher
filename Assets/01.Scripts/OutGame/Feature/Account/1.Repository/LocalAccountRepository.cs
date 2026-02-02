@@ -4,7 +4,7 @@ public class LocalAccountRepository : IAccountRepository
 {
     public AuthResult Register(string email, string password)
     {
-        if (!IsExist(email))
+        if (IsExist(email))
         {
             return new AuthResult
             {

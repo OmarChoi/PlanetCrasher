@@ -60,7 +60,11 @@ public class UI_Login : MonoBehaviour
         string id = _idInputField.text;
         string password = _passwordInputField.text;
         AuthResult result = AccountManager.Instance.TryLogin(id, password);
-        if (!result.Success)
+        if (result.Success)
+        {
+            SceneManager.LoadScene("GameScene"); 
+        }
+        else
         {
             ShowErrorMessage(result.ErrorMessage);
         }
