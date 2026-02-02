@@ -9,7 +9,7 @@ public class LocalAccountRepository : IAccountRepository
             return new AuthResult
             {
                 Success = false,
-                ErrorMessage = "중복된 계정입니다."
+                ErrorMessage = "This account already exists."
             };
         }
         
@@ -30,7 +30,7 @@ public class LocalAccountRepository : IAccountRepository
             return new AuthResult
             {
                 Success = false,
-                ErrorMessage = "아이디와 비밀번호를 확인해주세요."
+                ErrorMessage = "Please check your ID or password."
             };
         }
         
@@ -48,7 +48,7 @@ public class LocalAccountRepository : IAccountRepository
             return new AuthResult()
             {
                 Success = false,
-                ErrorMessage = "아이디와 비밀번호를 확인해주세요."
+                ErrorMessage = "Please check your ID or password."
             };
         }
     }

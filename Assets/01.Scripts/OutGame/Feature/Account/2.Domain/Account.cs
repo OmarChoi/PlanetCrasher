@@ -8,8 +8,9 @@ public class Account
 
     public Account(string email, string hashedPassword)
     {
-        var emailSpec = new AccountEmailSpecification();
-        if (!emailSpec.IsSatisfiedBy(email)) throw new ArgumentException(emailSpec.ErrorMessage);
+        var emailSpec = new EmailSpecification();
+        var result = emailSpec.IsSatisfiedBy(email);
+        if (!result.IsValid) throw new ArgumentException(result.ErrorMessage);
         
         Email = email;
         HashedPassword = hashedPassword;

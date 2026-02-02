@@ -77,7 +77,7 @@ public class UI_Login : MonoBehaviour
         string confirmPassword = _passwordConfirmInputField.text;
         if (string.IsNullOrEmpty(confirmPassword) || password != confirmPassword)
         {
-            ShowErrorMessage("패스워드를 확인해주세요.");
+            ShowErrorMessage("Please check your password.");
             return;
         }
 
@@ -101,11 +101,12 @@ public class UI_Login : MonoBehaviour
 
     public void OnEmailTextChanged(string email)
     {
-        var emailSpec = new AccountEmailSpecification();
-        if (!emailSpec.IsSatisfiedBy(email))
+        var emailSpec = new EmailSpecification();
+        var result = emailSpec.IsSatisfiedBy(email);
+        if (!result.IsValid)
         {
             _loginButton.enabled = false;
-            ShowErrorMessage(emailSpec.ErrorMessage);
+            ShowErrorMessage(result.ErrorMessage);
         }
         else
         {

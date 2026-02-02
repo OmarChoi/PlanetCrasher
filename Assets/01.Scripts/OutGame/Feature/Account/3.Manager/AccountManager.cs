@@ -8,11 +8,11 @@ public class AccountManager : MonoBehaviour
     public static AccountManager Instance { get; private set; }
     private Account _currentAccount = null;
     public bool IsLogin => _currentAccount != null;
-    public string Email => _currentAccount.Email;
+    public string Email => _currentAccount?.Email;
 
     private IAccountRepository _accountRepository;
     
-    AccountPasswordSpecification _passwordSpecification;
+    PasswordSpecification _passwordSpecification;
     
     private void Awake()
     {
@@ -24,20 +24,21 @@ public class AccountManager : MonoBehaviour
         Instance = this;
 
         _accountRepository = new LocalAccountRepository();
-        _passwordSpecification = new AccountPasswordSpecification();
+        _passwordSpecification = new PasswordSpecification();
     }
 
     public AuthResult TryLogin(string email, string password)
     {
-        if (!_passwordSpecification.IsSatisfiedBy(password))
+        var passwordResult = _passwordSpecification.IsSatisfiedBy(password);
+        if (!passwordResult.IsValid)
         {
             return new AuthResult()
             {
                 Success = false,
-                ErrorMessage = _passwordSpecification.ErrorMessage,
+                ErrorMessage = passwordResult.ErrorMessage,
             };
         }
-        
+
         AuthResult result = _accountRepository.Login(email, password);
         if (result.Success)
         {
@@ -48,12 +49,13 @@ public class AccountManager : MonoBehaviour
 
     public AuthResult TryRegister(string email, string password)
     {
-        if (!_passwordSpecification.IsSatisfiedBy(password))
+        var passwordResult = _passwordSpecification.IsSatisfiedBy(password);
+        if (!passwordResult.IsValid)
         {
             return new AuthResult()
             {
                 Success = false,
-                ErrorMessage = _passwordSpecification.ErrorMessage,
+                ErrorMessage = passwordResult.ErrorMessage,
             };
         }
         AuthResult result = _accountRepository.Register(email, password);
