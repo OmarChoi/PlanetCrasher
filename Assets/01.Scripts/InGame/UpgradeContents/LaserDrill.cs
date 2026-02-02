@@ -1,11 +1,5 @@
 using UnityEngine;
 
-public enum ESatelliteType
-{
-    Beam,
-    Projectile
-}
-
 public class LaserDrill : MonoBehaviour
 {
     [Header("Satellite")]

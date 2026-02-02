@@ -17,49 +17,72 @@ MonoBehaviour:
     ClickType: 0
     Icon: {fileID: 5393448996881579246, guid: c04ab3796fdb87745a984fe8a80641d6, type: 3}
     MaxLevel: 20
-    BaseCost: 10
-    BaseDamage: 100
-    CostMultiplier: 100
-    DamageMultiplier: 1.06
     Name: Hammer
-    Description: "\uB370\uBBF8\uC9C0 +{0}"
+    BaseCost: 10
+    CostMultiplier: 100
+    CostCalculationType: 2
+    Effects:
+    - Type: 0
+      BaseValue: 10
+      Multiplier: 15
+      CalculationType: 0
   - Type: 1
     ClickType: 0
     Icon: {fileID: -5446270416137504277, guid: 26a6568d62bf8fa47a6eb0c2962628d6, type: 3}
     MaxLevel: 20
-    BaseCost: 100
-    BaseDamage: 500
-    CostMultiplier: 500
-    DamageMultiplier: 1.07
     Name: Laser
-    Description: "\uB370\uBBF8\uC9C0 +{0}"
+    BaseCost: 100
+    CostMultiplier: 500
+    CostCalculationType: 2
+    Effects:
+    - Type: 0
+      BaseValue: 50
+      Multiplier: 75
+      CalculationType: 0
+    - Type: 1
+      BaseValue: 10
+      Multiplier: 2
+      CalculationType: 0
   - Type: 2
     ClickType: 1
     Icon: {fileID: -3010401151903113755, guid: d1572aab46c25144d929638e42c752fd, type: 3}
     MaxLevel: 20
-    BaseCost: 1000
-    BaseDamage: 2500
-    CostMultiplier: 2500
-    DamageMultiplier: 1.08
     Name: Laser Drill
-    Description: "\uB370\uBBF8\uC9C0 +{0}"
+    BaseCost: 1000
+    CostMultiplier: 2500
+    CostCalculationType: 2
+    Effects:
+    - Type: 0
+      BaseValue: 200
+      Multiplier: 300
+      CalculationType: 0
   - Type: 4
     ClickType: 0
     Icon: {fileID: -4478703775913692564, guid: 253f4f0703145df41941a32b4ec54bd5, type: 3}
     MaxLevel: 20
-    BaseCost: 10000
-    BaseDamage: 12500
-    CostMultiplier: 12500
-    DamageMultiplier: 1.09
     Name: Missile
-    Description: "\uB370\uBBF8\uC9C0 +{0}"
+    BaseCost: 10000
+    CostMultiplier: 12500
+    CostCalculationType: 2
+    Effects:
+    - Type: 0
+      BaseValue: 1000
+      Multiplier: 1500
+      CalculationType: 0
+    - Type: 2
+      BaseValue: 10
+      Multiplier: 0.86
+      CalculationType: 1
   - Type: 3
     ClickType: 1
     Icon: {fileID: -7709297464541498756, guid: 5a1ce5d17f833b747b8b2760f9b4a7a4, type: 3}
     MaxLevel: 20
-    BaseCost: 100000
-    BaseDamage: 62500
-    CostMultiplier: 62500
-    DamageMultiplier: 1.1
     Name: Satellite
-    Description: "\uB370\uBBF8\uC9C0 +{0}"
+    BaseCost: 100000
+    CostMultiplier: 62500
+    CostCalculationType: 2
+    Effects:
+    - Type: 0
+      BaseValue: 5000
+      Multiplier: 7500
+      CalculationType: 0

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using UnityEngine;
 
 [Serializable]
@@ -8,10 +8,13 @@ public class UpgradeMetaData
     public EClickType ClickType;
     public Sprite Icon;
     public int MaxLevel;
-    public double BaseCost;
-    public double BaseDamage;
-    public double CostMultiplier;
-    public double DamageMultiplier;
     public string Name;
-    public string Description;
+
+    // Cost 설정
+    public double BaseCost;
+    public double CostMultiplier;
+    public EIncreaseType CostIncreaseType;
+
+    // 효과 배열 (복수 효과 지원)
+    public UpgradeEffect[] Effects;
 }

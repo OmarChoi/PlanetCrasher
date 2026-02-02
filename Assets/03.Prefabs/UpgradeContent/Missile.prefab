@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Missile
   _speed: 20
-  _hitEffect: {fileID: 756461025639723155, guid: 29b1489c3576cd847a9c7a965e5d77e2, type: 3}
+  _hitEffect: {fileID: 8672013463789113526, guid: 0c8799cca830acb4d9f56e1f96cadef1, type: 3}
   _explosionSfx: {fileID: 8300000, guid: 6b8ee76fce4134e43aa71502628517e0, type: 3}
   _endScaleMultiplier: 0.3
   _scaleEase: 17

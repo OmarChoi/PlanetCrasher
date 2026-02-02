@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 878964f64c680ae498c1fe47abc33851, type: 3}
+  m_Name: EffectDescriptionTableSO
+  m_EditorClassIdentifier: Assembly-CSharp::EffectDescriptionTableSO
+  _entries:
+  - Type: 0
+    Format: Damage +{0}
+  - Type: 1
+    Format: Spawn Rate +{0}%
+  - Type: 2
+    Format: Cooldown -{0}s
+  - Type: 3
+    Format: Crit Chance +{0}%
+  - Type: 4
+    Format: Crit Damage +{0}%

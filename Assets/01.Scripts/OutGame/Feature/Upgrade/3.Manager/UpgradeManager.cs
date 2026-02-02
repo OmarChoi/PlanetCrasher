@@ -10,6 +10,7 @@ public class UpgradeManager : MonoBehaviour
 
     private readonly Dictionary<EUpgradeType, Upgrade> _upgrades = new Dictionary<EUpgradeType, Upgrade>();
     [SerializeField] private UpgradeSpecTableSO _specTable;
+    [SerializeField] private EffectDescriptionTableSO _effectDescriptionTable;
 
     private IUpgradeRepository _upgradeRepository;
     private void Awake()
@@ -20,11 +21,26 @@ public class UpgradeManager : MonoBehaviour
             return;
         }
         Instance = this;
+        DontDestroyOnLoad(gameObject);
         
         _upgradeRepository = new LocalUpgradeRepository(AccountManager.Instance.Email);
         InitializeUpgrades();
         OnDataChanged += SaveData;
     }
+
+    private void Start()
+    {
+        OnDataChanged?.Invoke();
+    }
+    
+    private void OnDestroy()                                                 
+    {                                                                        
+        OnDataChanged -= SaveData;
+        if (Instance == this)
+        {
+            Instance = null;
+        }                               
+    } 
     
     private void InitializeUpgrades()
     {
@@ -62,12 +78,13 @@ public class UpgradeManager : MonoBehaviour
             int level = savedLevels.GetValueOrDefault(metaData.Type, 0);
             _upgrades.Add(metaData.Type, new Upgrade(metaData, level));
         }
-        OnDataChanged?.Invoke();
     }
 
-    public Upgrade Get(EUpgradeType type) => _upgrades[type] ?? null;
+    public Upgrade Get(EUpgradeType type) => _upgrades[type];
 
     public List<Upgrade> GetAll() => _upgrades.Values.ToList();
+
+    public string GetDescription(Upgrade upgrade) => UpgradeDescriptionBuilder.GenerateAll(_effectDescriptionTable, upgrade);
     
     public bool CanLevelUp(EUpgradeType type)
     {
