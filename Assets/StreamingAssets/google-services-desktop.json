@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "519410439641",
+    "project_id": "planet-crasher",
+    "storage_bucket": "planet-crasher.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:519410439641:android:b7cd82659492166d0af5c8",
+        "android_client_info": {
+          "package_name": "com.orbis.planet_crasher"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBd5Fe8pakOBOG5dEQg5aQxmH0mjKx_31A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
