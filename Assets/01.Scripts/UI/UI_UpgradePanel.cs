@@ -11,18 +11,12 @@ public class UI_UpgradePanel : MonoBehaviour
     private void Awake()
     {
         UpgradeManager.OnDataChanged += Init;
-        
-        UpgradeManager.OnDataChanged -= Refresh;
-        UpgradeManager.OnDataChanged += Refresh;
-        
-        // 구매 가능해 졌는지 확인하기 위한 구독
-        CurrencyManager.OnDataChanged -= Refresh;
-        CurrencyManager.OnDataChanged += Refresh;
     }
 
     private void OnDestroy()
     {
         UpgradeManager.OnDataChanged -= Refresh;
+        CurrencyManager.OnDataChanged -= Refresh;
     }
 
     private void Init()
@@ -36,6 +30,8 @@ public class UI_UpgradePanel : MonoBehaviour
             item.Refresh(upgradeData);
         }
         UpgradeManager.OnDataChanged -= Init;
+        UpgradeManager.OnDataChanged += Refresh;
+        CurrencyManager.OnDataChanged += Refresh;
     }
     
     private void Refresh()

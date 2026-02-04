@@ -44,7 +44,6 @@ public class FirebaseInitializer : MonoBehaviour
         catch (Exception e)
         {
             Debug.LogError("[FirebaseInitializer.cs] Failed to initialize with unknown error : " + e.Message);
-            throw;
         }
     }
 }

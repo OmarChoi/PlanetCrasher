@@ -60,19 +60,22 @@ public class FirebaseAccountRepository : IAccountRepository
         }
         catch (FirebaseException fe)
         {
-            errorMessage = "Failed to sign in user " + fe.ErrorCode;
+            return new AccountResult
+            (
+                success: false,
+                errorMessage: "Failed to sign in user " + fe.ErrorCode,
+                account: new Account(email, password)
+            );
         }
         catch (Exception e)
         {
-            errorMessage = "Failed to sign in user " + e.Message;
+            return new AccountResult
+            (
+                success: false,
+                errorMessage: "Failed to sign in user " + e.Message,
+                account: new Account(email, password)
+            );
         }
-        
-        return new AccountResult
-        (
-            success: true,
-            errorMessage: errorMessage,
-            account: new Account(email, password)
-        );
     }
     
     
