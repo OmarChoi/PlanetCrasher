@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class UI_UpgradePanel : MonoBehaviour
@@ -7,11 +8,21 @@ public class UI_UpgradePanel : MonoBehaviour
     [SerializeField] private GameObject _upgradeItemPrefab;
     private readonly List<UI_UpgradeItem> _upgradeItems = new List<UI_UpgradeItem>();
 
-    private void Start()
+    private void Awake()
     {
-        CurrencyManager.OnDataChanged += Refresh;
+        UpgradeManager.OnDataChanged += Init;
+        
+        UpgradeManager.OnDataChanged -= Refresh;
         UpgradeManager.OnDataChanged += Refresh;
-        Init();
+        
+        // 구매 가능해 졌는지 확인하기 위한 구독
+        CurrencyManager.OnDataChanged -= Refresh;
+        CurrencyManager.OnDataChanged += Refresh;
+    }
+
+    private void OnDestroy()
+    {
+        UpgradeManager.OnDataChanged -= Refresh;
     }
 
     private void Init()
@@ -24,6 +35,7 @@ public class UI_UpgradePanel : MonoBehaviour
             _upgradeItems.Add(item);
             item.Refresh(upgradeData);
         }
+        UpgradeManager.OnDataChanged -= Init;
     }
     
     private void Refresh()

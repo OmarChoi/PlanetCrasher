@@ -2,6 +2,6 @@
 
 public interface ICurrencyRepository
 {
-    public UniTaskVoid Save(CurrencySaveData saveData);
-    public UniTask<CurrencySaveData> Load();
+    UniTaskVoid Save(CurrencySaveData saveData);
+    UniTask<CurrencySaveData> Load();
 }

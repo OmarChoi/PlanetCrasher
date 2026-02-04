@@ -9,8 +9,8 @@ public class FirebaseCurrencyRepository : ICurrencyRepository
 {
     private const string CURRENCY_COLLECTION_NAME = "Currency";
     
-    private FirebaseAuth _auth = FirebaseAuth.DefaultInstance;
-    private FirebaseFirestore _db = FirebaseFirestore.DefaultInstance;
+    private readonly FirebaseAuth _auth = FirebaseAuth.DefaultInstance;
+    private readonly FirebaseFirestore _db = FirebaseFirestore.DefaultInstance;
     
     public async UniTaskVoid Save(CurrencySaveData saveData)
     {
@@ -36,13 +36,7 @@ public class FirebaseCurrencyRepository : ICurrencyRepository
             string email = _auth.CurrentUser.Email;
             DocumentSnapshot snapshot = await _db.Collection(CURRENCY_COLLECTION_NAME).Document(email).GetSnapshotAsync();
             CurrencySaveData data = snapshot.ConvertTo<CurrencySaveData>();
-            if (data != null)
-            {
-                return data;
-            }
-            
-            return CurrencySaveData.Default;
-
+            return data ?? CurrencySaveData.Default;
         }
         catch (FirebaseException fe)
         {
