@@ -17,7 +17,7 @@ public class FirebaseTutorial : MonoBehaviour
     
     private void Start()
     {
-        _= Init();
+        Init().Forget();
     }
 
     private async UniTaskVoid Init()
@@ -53,13 +53,17 @@ public class FirebaseTutorial : MonoBehaviour
     {
         try
         {
-            var result = await FirebaseApp.CheckAndFixDependenciesAsync();
+            DependencyStatus result = await FirebaseApp.CheckAndFixDependenciesAsync().AsUniTask();
             if (result == DependencyStatus.Available)
             {
                 _app = FirebaseApp.DefaultInstance;
                 _auth = FirebaseAuth.DefaultInstance;
                 _db = FirebaseFirestore.DefaultInstance;
-                Debug.Log("Firebase is available.");
+                Debug.Log("[FirebaseTutorial.cs] Firebase is available.");
+            }
+            else
+            {
+                Debug.LogError("[FirebaseTutorial.cs] Failed to initialize all Firebase objects.");
             }
         }
         catch (FirebaseException fe)
@@ -76,10 +80,10 @@ public class FirebaseTutorial : MonoBehaviour
     private void Update()
     {
         if (_app == null) return;
-        _= ProcessInput();
+        ProcessInput();
     }
 
-    private async UniTaskVoid ProcessInput()
+    private void ProcessInput()
     {
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
@@ -88,7 +92,7 @@ public class FirebaseTutorial : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
-            await LoginAsync("omarchoi80@skkukdp.re.kr", "12345678");
+            LoginAsync("omarchoi80@skkukdp.re.kr", "12345678").Forget();
         }
 
         if (Input.GetKeyDown(KeyCode.Alpha3))
@@ -103,7 +107,7 @@ public class FirebaseTutorial : MonoBehaviour
         
         if (Input.GetKeyDown(KeyCode.Alpha5))
         {
-            await SaveDogsAsync();
+            SaveDogsAsync().Forget();
         }
         
         if (Input.GetKeyDown(KeyCode.Alpha6))
@@ -135,31 +139,28 @@ public class FirebaseTutorial : MonoBehaviour
         }
     }
     
-    private void Register(string email, string password)
+    private async UniTask Register(string email, string password)
     {
-        _auth.CreateUserWithEmailAndPasswordAsync(email, password).ContinueWithOnMainThread(task => {
-            if (task.IsCanceled) 
-            {
-                Debug.LogError("Canceled to Register");
-                return;
-            }
-            if (task.IsFaulted) 
-            {
-                Debug.LogError("Failed to Register with Error : " + task.Exception);
-                return;
-            }
-
-            Firebase.Auth.AuthResult result = task.Result;
-            
+        try
+        {
+            var result = await _auth.CreateUserWithEmailAndPasswordAsync(email, password).AsUniTask();
             Debug.LogFormat("Firebase user created successfully: {0} ({1})", result.User.DisplayName, result.User.UserId);
-        });
+        }
+        catch (FirebaseException fe)
+        {
+            Debug.LogError("[FirebaseTutorial.cs] Failed to create user with firebase error: " + fe.Message);
+        }
+        catch (Exception e)
+        {
+            Debug.LogError("[FirebaseTutorial.cs] Failed to create user with unknown error: " + e.Message);
+        }
     }
 
     private async UniTask LoginAsync(string email, string password)
     {
         try
         {
-            var result = await _auth.SignInWithEmailAndPasswordAsync(email, password);
+            var result = await _auth.SignInWithEmailAndPasswordAsync(email, password).AsUniTask();
             Debug.LogFormat("User signed in successfully: {0} ({1})", result.User.Email, result.User.UserId);
         }
         catch (FirebaseException fe)
@@ -188,7 +189,7 @@ public class FirebaseTutorial : MonoBehaviour
 
         try
         {
-            await _db.Collection("Dogs").Document("Omar_Dog").SetAsync(dogSaveData);
+            await _db.Collection("Dogs").Document("Omar_Dog").SetAsync(dogSaveData).AsUniTask();
             Debug.Log("Saved Dog Completely");
         }
         catch (FirebaseException fe)
