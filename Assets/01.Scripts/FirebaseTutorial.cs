@@ -1,3 +1,4 @@
+using System;
 using Cysharp.Threading.Tasks;
 using Firebase;
 using Firebase.Auth;
@@ -50,18 +51,25 @@ public class FirebaseTutorial : MonoBehaviour
 
     private async UniTask InitFirebase()
     {
-        var result = await FirebaseApp.CheckAndFixDependenciesAsync();
-        
-        if (result == DependencyStatus.Available)
+        try
         {
-            _app = FirebaseApp.DefaultInstance;
-            _auth = FirebaseAuth.DefaultInstance;
-            _db = FirebaseFirestore.DefaultInstance;
-            Debug.Log("Firebase is available.");
+            var result = await FirebaseApp.CheckAndFixDependenciesAsync();
+            if (result == DependencyStatus.Available)
+            {
+                _app = FirebaseApp.DefaultInstance;
+                _auth = FirebaseAuth.DefaultInstance;
+                _db = FirebaseFirestore.DefaultInstance;
+                Debug.Log("Firebase is available.");
+            }
         }
-        else
+        catch (FirebaseException fe)
         {
-            Debug.LogError("Failed to initialize Firebase " + result);
+            Debug.LogError("[FirebaseTutorial.cs] Failed to initialize with firebase error : " + fe.Message);
+        }
+        catch (Exception e)
+        {
+            Debug.LogError("[FirebaseTutorial.cs] Failed to initialize with unknown error : " + e.Message);
+            throw;
         }
     }
 
@@ -154,9 +162,13 @@ public class FirebaseTutorial : MonoBehaviour
             var result = await _auth.SignInWithEmailAndPasswordAsync(email, password);
             Debug.LogFormat("User signed in successfully: {0} ({1})", result.User.Email, result.User.UserId);
         }
-        catch (System.Exception ex)
+        catch (FirebaseException fe)
         {
-            Debug.LogError("Failed to Login with Error : " + ex);
+            Debug.LogError("[FirebaseTutorial.cs] Failed to sign in with firebase error : " + fe.Message);
+        }
+        catch (Exception e)
+        {
+            Debug.LogError("[FirebaseTutorial.cs] Failed to sign in with unknown error : " + e.Message);
         }
     }
 
@@ -179,9 +191,13 @@ public class FirebaseTutorial : MonoBehaviour
             await _db.Collection("Dogs").Document("Omar_Dog").SetAsync(dogSaveData);
             Debug.Log("Saved Dog Completely");
         }
-        catch (System.Exception ex)
+        catch (FirebaseException fe)
         {
-            Debug.LogError("Failed to SaveDogs: " + ex);
+            Debug.LogError("[FirebaseTutorial.cs] Failed to save dog with firebase error : " + fe.Message);
+        }
+        catch (Exception e)
+        {
+            Debug.LogError("[FirebaseTutorial.cs] Failed to save dog with unknown error : " + e.Message);
         }
     }
 
