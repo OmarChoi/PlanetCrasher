@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -39,9 +40,9 @@ public class UI_Login : MonoBehaviour
     private void AddButtonEvents()
     {
         _gotoRegisterButton.onClick.AddListener(GotoRegister);
-        _loginButton.onClick.AddListener(Login);
+        _loginButton.onClick.AddListener(() => Login().Forget());
         _gotoLoginButton.onClick.AddListener(GotoLogin);
-        _registerButton.onClick.AddListener(Register);
+        _registerButton.onClick.AddListener(() => Register().Forget());
     }
 
     private void Refresh()
@@ -54,11 +55,11 @@ public class UI_Login : MonoBehaviour
         ClearMessage();
     }
 
-    private void Login()
+    private async UniTaskVoid Login()
     {
         string email = _emailInputField.text;
         string password = _passwordInputField.text;
-        AuthResult result = AccountManager.Instance.TryLogin(email, password);
+        AccountResult result = await AccountManager.Instance.TryLogin(email, password);
         if (result.Success)
         {
             SceneManager.LoadScene("GameScene"); 
@@ -69,7 +70,7 @@ public class UI_Login : MonoBehaviour
         }
     }
 
-    private void Register()
+    private async UniTaskVoid Register()
     {
         string email = _emailInputField.text;
         string password = _passwordInputField.text;
@@ -80,7 +81,7 @@ public class UI_Login : MonoBehaviour
             return;
         }
 
-        AuthResult result = AccountManager.Instance.TryRegister(email, password);
+        AccountResult result = await AccountManager.Instance.TryRegister(email, password);
         if (result.Success)
         {
             GotoLogin();

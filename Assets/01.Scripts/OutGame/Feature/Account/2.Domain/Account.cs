@@ -4,16 +4,20 @@ using System.Text.RegularExpressions;
 public class Account
 {
     public readonly string Email;
-    public readonly string HashedPassword;
+    public readonly string Password;
 
-    public Account(string email, string hashedPassword)
+    public Account(string email, string password)
     {
         var emailSpec = new EmailSpecification();
-        var result = emailSpec.IsSatisfiedBy(email);
-        if (!result.IsValid) throw new ArgumentException(result.ErrorMessage);
+        var passwordSpec = new PasswordSpecification();
+        var emailResult = emailSpec.IsSatisfiedBy(email);
+        if (!emailResult.IsValid) throw new ArgumentException(emailResult.ErrorMessage);
+        
+        var passwordResult = passwordSpec.IsSatisfiedBy(password);
+        if (!passwordResult.IsValid) throw new ArgumentException(passwordResult.ErrorMessage);
         
         Email = email;
-        HashedPassword = hashedPassword;
+        Password = password;
     }
 }
 

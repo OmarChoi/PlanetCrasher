@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Cysharp.Threading.Tasks;
+using UnityEngine;
 
 public class LocalUpgradeRepository : IUpgradeRepository
 {
@@ -10,14 +11,14 @@ public class LocalUpgradeRepository : IUpgradeRepository
         _userId = userId;
     }
     
-    public void Save(UpgradeSaveData data)
+    public async UniTaskVoid Save(UpgradeSaveData data)
     {
         string json = JsonUtility.ToJson(data);
         PlayerPrefs.SetString($"{_userId}_{Key}", json);
         PlayerPrefs.Save();
     }
     
-    public UpgradeSaveData Load()
+    public async UniTask<UpgradeSaveData> Load()
     {
         string json = PlayerPrefs.GetString($"{_userId}_{Key}", "");
         if (string.IsNullOrEmpty(json)) return UpgradeSaveData.Default;

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 public class UpgradeManager : MonoBehaviour
@@ -22,33 +23,29 @@ public class UpgradeManager : MonoBehaviour
         }
         Instance = this;
         DontDestroyOnLoad(gameObject);
-        
-        _upgradeRepository = new LocalUpgradeRepository(AccountManager.Instance.Email);
-        InitializeUpgrades();
-        OnDataChanged += SaveData;
-    }
 
-    private void Start()
-    {
-        OnDataChanged?.Invoke();
+        // _upgradeRepository = new LocalUpgradeRepository(AccountManager.Instance.Email);
+        _upgradeRepository = new FirebaseUpgradeRepository();
+        OnDataChanged += SaveData;
+        InitializeUpgrades().Forget();
     }
     
-    private void OnDestroy()                                                 
-    {                                                                        
+    private void OnDestroy()
+    {
         OnDataChanged -= SaveData;
         if (Instance == this)
         {
             Instance = null;
-        }                               
-    } 
-    
-    private void InitializeUpgrades()
+        }
+    }
+
+    private async UniTaskVoid InitializeUpgrades()
     {
         _upgrades.Clear();
 
         UpgradeMetaData[] upgradeDatas = _specTable.UpgradeSpecDatas;
 
-        UpgradeSaveData saveData = _upgradeRepository.Load();
+        UpgradeSaveData saveData = await _upgradeRepository.Load();
 
         // Null 체크 및 기본값 처리
         if (saveData?.Upgrades == null)
@@ -78,6 +75,8 @@ public class UpgradeManager : MonoBehaviour
             int level = savedLevels.GetValueOrDefault(metaData.Type, 0);
             _upgrades.Add(metaData.Type, new Upgrade(metaData, level));
         }
+        
+        OnDataChanged?.Invoke();
     }
 
     public Upgrade Get(EUpgradeType type) => _upgrades[type];
@@ -85,7 +84,7 @@ public class UpgradeManager : MonoBehaviour
     public List<Upgrade> GetAll() => _upgrades.Values.ToList();
 
     public string GetDescription(Upgrade upgrade) => UpgradeDescriptionBuilder.GenerateAll(_effectDescriptionTable, upgrade);
-    
+
     public bool CanLevelUp(EUpgradeType type)
     {
         if (!_upgrades.TryGetValue(type, out Upgrade upgrade)) return false;
@@ -109,7 +108,7 @@ public class UpgradeManager : MonoBehaviour
 
         foreach (KeyValuePair<EUpgradeType, Upgrade> kvp in _upgrades)
         {
-            if (kvp.Value.Level > 0)
+            if (kvp.Value.Level >= 0)
             {
                 upgrades.Add(new UpgradeEntry
                 {
@@ -125,6 +124,6 @@ public class UpgradeManager : MonoBehaviour
         };
         _upgradeRepository.Save(data);
     }
-
     #endregion Save/Load
+
 }

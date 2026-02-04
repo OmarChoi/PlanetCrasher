@@ -1,4 +1,5 @@
 using System;
+using Cysharp.Threading.Tasks;
 using UnityEngine;
 
 public class CurrencyManager : MonoBehaviour
@@ -16,8 +17,9 @@ public class CurrencyManager : MonoBehaviour
     private void Awake()
     {
         Instance = this;
-        _repository = new LocalCurrencyRepository(AccountManager.Instance.Email);
-        LoadData();
+        // _repository = new LocalCurrencyRepository(AccountManager.Instance.Email);
+        _repository = new FirebaseCurrencyRepository();
+        LoadData().Forget();
         OnDataChanged += SaveData;
     }
     
@@ -65,12 +67,12 @@ public class CurrencyManager : MonoBehaviour
         _repository.Save(saveData);
     }
 
-    private void LoadData()
+    private async UniTaskVoid LoadData()
     {
-        double[] currencyValues = _repository.Load().Currencies;
+        CurrencySaveData loadData = await _repository.Load();
         for (int i = 0; i < _currencies.Length; i++)
         {
-            _currencies[i] = currencyValues[i];
+            _currencies[i] = loadData.Currencies[i];
         }
         OnDataChanged?.Invoke();
     }
