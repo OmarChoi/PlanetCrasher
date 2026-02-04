@@ -1,5 +1,7 @@
-﻿public interface ICurrencyRepository
+﻿using Cysharp.Threading.Tasks;
+
+public interface ICurrencyRepository
 {
-    public void Save(CurrencySaveData saveData);
-    public CurrencySaveData Load();
+    public UniTaskVoid Save(CurrencySaveData saveData);
+    public UniTask<CurrencySaveData> Load();
 }
