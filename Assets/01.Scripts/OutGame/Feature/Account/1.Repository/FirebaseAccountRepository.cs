@@ -14,10 +14,9 @@ public class FirebaseAccountRepository : IAccountRepository
     
     public async UniTask<AccountResult> Register(string email, string password)
     {
-        string hashedPassword = Crypto.ConvertPasswordToHash(password);
         try
         {
-            var result = await _auth.CreateUserWithEmailAndPasswordAsync(email, hashedPassword).AsUniTask();
+            var result = await _auth.CreateUserWithEmailAndPasswordAsync(email, password).AsUniTask();
         }
         catch (FirebaseException fe)
         {
@@ -42,13 +41,12 @@ public class FirebaseAccountRepository : IAccountRepository
         (
             success: true,
             errorMessage: string.Empty,
-            account: new Account(email, hashedPassword)
+            account: new Account(email, password)
         );
     }
     
     public async UniTask<AccountResult> Login(string email, string password)
     {
-        string hashedPassword = Crypto.ConvertPasswordToHash(password);
         string errorMessage = string.Empty;
         try
         {
@@ -57,23 +55,23 @@ public class FirebaseAccountRepository : IAccountRepository
             (
                 success: true,
                 errorMessage: errorMessage,
-                account: new Account(email, hashedPassword)
+                account: new Account(email, password)
             );
         }
         catch (FirebaseException fe)
         {
-            errorMessage = "Failed to create user " + fe.ErrorCode;
+            errorMessage = "Failed to sign in user " + fe.ErrorCode;
         }
         catch (Exception e)
         {
-            errorMessage = "Failed to create user " + e.Message;
+            errorMessage = "Failed to sign in user " + e.Message;
         }
         
         return new AccountResult
         (
             success: true,
             errorMessage: errorMessage,
-            account: new Account(email, hashedPassword)
+            account: new Account(email, password)
         );
     }
     
