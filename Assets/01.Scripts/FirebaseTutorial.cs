@@ -87,7 +87,7 @@ public class FirebaseTutorial : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            Register("omarchoi80@skkukdp.re.kr", "12345678");
+            Register("omarchoi80@skkukdp.re.kr", "12345678").Forget();
         }
 
         if (Input.GetKeyDown(KeyCode.Alpha2))

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Cysharp.Threading.Tasks;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 // 1. 도메인 관리 : CRUD(생성/조회/수정/삭제)와 같은 비즈니스 로직
@@ -25,7 +26,7 @@ public class AccountManager : MonoBehaviour
         Instance = this;
         DontDestroyOnLoad(gameObject);
 
-        _accountRepository = new LocalAccountRepository();
+        _accountRepository = new FirebaseAccountRepository();
         _passwordSpecification = new PasswordSpecification();
         _emailSpecification = new EmailSpecification();
     }
@@ -35,12 +36,12 @@ public class AccountManager : MonoBehaviour
         return _emailSpecification.IsSatisfiedBy(email);
     }
 
-    public AuthResult TryLogin(string email, string password)
+    public async UniTask<AccountResult> TryLogin(string email, string password)
     {
         var passwordResult = _passwordSpecification.IsSatisfiedBy(password);
         if (!passwordResult.IsValid)
         {
-            return new AuthResult
+            return new AccountResult
             (
                 success: false,
                 errorMessage: passwordResult.ErrorMessage,
@@ -48,7 +49,7 @@ public class AccountManager : MonoBehaviour
             );
         }
 
-        AuthResult result = _accountRepository.Login(email, password);
+        AccountResult result = await _accountRepository.Login(email, password);
         if (result.Success)
         {
             _currentAccount = result.Account;
@@ -56,19 +57,19 @@ public class AccountManager : MonoBehaviour
         return result;
     }
 
-    public AuthResult TryRegister(string email, string password)
+    public async UniTask<AccountResult> TryRegister(string email, string password)
     {
         var passwordResult = _passwordSpecification.IsSatisfiedBy(password);
         if (!passwordResult.IsValid)
         {
-            return new AuthResult
+            return new AccountResult
             (
                 success: false,
                 errorMessage: passwordResult.ErrorMessage,
                 account: null
             );
         }
-        AuthResult result = _accountRepository.Register(email, password);
+        AccountResult result = await _accountRepository.Register(email, password);
         return result;
     }
     
