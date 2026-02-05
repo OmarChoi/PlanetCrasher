@@ -23,7 +23,6 @@ public class LaserDrill : UpgradeContent
     [Header("Base Settings")]
     [SerializeField] private float _baseAttackInterval = 1.0f;
 
-    // 런타임 계산 값
     private double _damage;
     private float _attackInterval;
     private float _attackTimer;
@@ -62,7 +61,7 @@ public class LaserDrill : UpgradeContent
         {
             Type = EClickType.AutoClick,
             Damage = _damage,
-            Position = new Vector3(_beamDistance, 0, 0),
+            Position = transform.TransformPoint(new Vector3(_beamDistance, 0, 0)),
         };
         clickObject.OnClick(clickInfo);
     }

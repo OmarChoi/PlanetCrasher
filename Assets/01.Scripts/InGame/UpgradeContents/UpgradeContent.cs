@@ -4,22 +4,27 @@ public abstract class UpgradeContent : MonoBehaviour
 {
     protected abstract EUpgradeType UpgradeType { get; }
 
-    private Upgrade _cachedCachedUpgrade;
-    protected Upgrade CachedUpgrade => _cachedCachedUpgrade;
+    private Upgrade _cachedUpgrade;
+    protected Upgrade CachedUpgrade => _cachedUpgrade;
 
-    protected double GetEffectValue(EUpgradeEffectType type) => _cachedCachedUpgrade.GetEffectValue(type);
+    protected double GetEffectValue(EUpgradeEffectType type) => _cachedUpgrade.GetEffectValue(type);
 
     private void Awake()
     {
         UpgradeManager.OnDataInitialized += InitializeUpgradeData;
         Init();
     }
+    
+    private void OnDestroy()
+    {
+        Cleanup();
+    }
 
     protected virtual void Init() { }
     
     private void OnUpgradeChanged()
     {
-        _cachedCachedUpgrade = UpgradeManager.Instance.Get(UpgradeType);
+        _cachedUpgrade = UpgradeManager.Instance.Get(UpgradeType);
         RefreshStats();
     }
 

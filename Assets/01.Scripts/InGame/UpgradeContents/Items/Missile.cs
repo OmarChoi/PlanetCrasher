@@ -88,7 +88,7 @@ public class Missile : MonoBehaviour
             {
                 Type = EClickType.AutoClick,
                 Damage = _damage,
-                Position = _destination + Vector3.back * 3,
+                Position = _destination + Vector3.back,
                 EffectParticle = _hitEffect
             };
             clickTarget.OnClick(clickInfo);
