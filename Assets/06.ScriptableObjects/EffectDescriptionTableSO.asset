@@ -18,7 +18,7 @@ MonoBehaviour:
   - Type: 1
     Format: Spawn Rate +{0}%
   - Type: 2
-    Format: Cooldown -{0}s
+    Format: Cooldown -{0}%
   - Type: 3
     Format: Crit Chance +{0}%
   - Type: 4

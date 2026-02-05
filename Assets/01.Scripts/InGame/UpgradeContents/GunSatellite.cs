@@ -1,30 +1,44 @@
 using Lean.Pool;
 using UnityEngine;
 
-public class GunSatellite : MonoBehaviour
+public class GunSatellite : UpgradeContent
 {
+    protected override EUpgradeType UpgradeType => EUpgradeType.Satellite;
+
     [Header("Satellite")]
-    [SerializeField] private Transform _parent;
+    [SerializeField] private Transform _target;
     [SerializeField] private float _orbitSpeed;
     [SerializeField] private float _orbitDistance;
 
-    [Header("Shooting")]
-    [SerializeField] private float _shootInterval = 1f;
-    [SerializeField] private double _damage = 10;
+    [Header("Base Settings")]
+    [SerializeField] private float _baseShootInterval = 1f;
     [SerializeField] private Transform[] _firePoints;
     [SerializeField] private AudioClip _shootSfx;
+
+    // 런타임 계산 값
+    private double _damage;
+    private float _shootInterval;
 
     private float _angle = 180.0f;
     private float _shootTimer;
     private LeanGameObjectPool _pool;
 
-    private void Awake()
+    protected override void RefreshStats()
+    {
+        _damage = GetEffectValue(EUpgradeEffectType.Damage);
+
+        double cooldownReduction = GetEffectValue(EUpgradeEffectType.CooldownReduction);
+        _shootInterval = _baseShootInterval * (1f - (float)cooldownReduction);
+    }
+
+    protected override void Init()
     {
         _pool = GetComponent<LeanGameObjectPool>();
     }
 
-    private void Start()
+    protected override void InitializeUpgradeData()
     {
+        base.InitializeUpgradeData();
         UpdatePosition();
     }
 
@@ -45,8 +59,8 @@ public class GunSatellite : MonoBehaviour
 
     private void UpdateRotation()
     {
-        Vector3 direction = _parent.position - transform.position;                                 
-        float angleToParent = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;               
+        Vector3 direction = _target.position - transform.position;
+        float angleToParent = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.Euler(0, 0, angleToParent);
     }
 
@@ -54,15 +68,15 @@ public class GunSatellite : MonoBehaviour
     {
         float radian = _angle * Mathf.Deg2Rad;
 
-        float x = _parent.position.x + Mathf.Cos(radian) * _orbitDistance;
-        float y = _parent.position.y + Mathf.Sin(radian) * _orbitDistance;
+        float x = _target.position.x + Mathf.Cos(radian) * _orbitDistance;
+        float y = _target.position.y + Mathf.Sin(radian) * _orbitDistance;
 
-        transform.position = new Vector3(x, y, _parent.position.z);
+        transform.position = new Vector3(x, y, _target.position.z);
     }
 
     private void Shoot()
     {
-        if (_parent == null) return;
+        if (_target == null) return;
         foreach (Transform firePoint in _firePoints)
         {
             if (firePoint != null)
@@ -78,7 +92,7 @@ public class GunSatellite : MonoBehaviour
         GameObject bulletObj = _pool.Spawn(spawnPosition, transform.rotation);
         if (bulletObj.TryGetComponent(out Bullet bullet))
         {
-            bullet.Initialize(_parent, _damage, this);
+            bullet.Initialize(_target, _damage, this);
         }
     }
 

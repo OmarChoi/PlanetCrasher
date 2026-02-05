@@ -8,19 +8,15 @@ public class Clicker : MonoBehaviour
     private const int MaxHits = 10;
 
     private Camera _mainCamera;
-    [SerializeField] private GameObject _clickParticlePrefab;
     [SerializeField] private LayerMask _clickableLayer;
     [SerializeField] private AudioClip _clickSfx;
-    private ParticleSystem _clickParticle;
     private readonly RaycastHit2D[] _hitBuffer = new RaycastHit2D[MaxHits];
 
     private void Awake()
     {
         _mainCamera = Camera.main;
-        GameObject particle = Instantiate(_clickParticlePrefab, this.transform);
-        _clickParticle = particle.GetComponent<ParticleSystem>();
     }
-    
+
     private void Update()
     {
         if (Input.GetMouseButtonDown(0))
@@ -53,18 +49,15 @@ public class Clicker : MonoBehaviour
         }
 
         if (clickable == null) return;
-        
-        double damage = GameManager.Instance.ManualDamage;
-        var info = new ClickInfo
+
+        ClickInfo clickInfo = new ClickInfo
         {
             Type = EClickType.PerClick,
-            Damage = damage,
+            Target = clickable,
             Position = mousePos,
-            EffectParticle = _clickParticle
         };
-        clickable.OnClick(info);
+        
+        OnClicked?.Invoke(clickInfo);
         SoundManager.Instance.PlaySfx(_clickSfx);
-
-        OnClicked?.Invoke(info);
     }
 }
