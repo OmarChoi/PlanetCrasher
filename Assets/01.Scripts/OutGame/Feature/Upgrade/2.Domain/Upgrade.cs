@@ -9,7 +9,7 @@ public class Upgrade
     // 런타임 데이터
     public int Level { get; private set; }
 
-    public Currency Cost => UpgradeCalculator.CalculateCost
+    public Currency Cost => IncreaseCalculator.CalculateCost
     (
         MetaData.CostIncreaseType,
         MetaData.BaseCost,
@@ -48,6 +48,6 @@ public class Upgrade
     {
         var effect = MetaData.Effects.FirstOrDefault(e => e.Type == effectType);
         if (effect == null) return 0;
-        return UpgradeCalculator.CalculateEffect(effect, Level);
+        return IncreaseCalculator.CalculateEffect(effect, Level);
     }
 }
