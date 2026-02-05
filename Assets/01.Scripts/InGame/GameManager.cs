@@ -34,4 +34,14 @@ public class GameManager : MonoBehaviour
         int planetIndex = (_currentPlanetIndex) % _planetDatas.Count;
         _currentPlanet.Init(_planetDatas[planetIndex], _currentPlanetIndex);
     }
+
+    public void PauseGame()
+    {
+        Time.timeScale = 0f;
+    }
+
+    public void ResumeGame()
+    {
+        Time.timeScale = 1f;
+    }
 }

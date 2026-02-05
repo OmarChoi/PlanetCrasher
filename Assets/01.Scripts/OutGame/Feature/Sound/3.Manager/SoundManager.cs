@@ -6,7 +6,6 @@ using UnityEngine;
 public class SoundManager : MonoBehaviour
 {
     public static SoundManager Instance { get; private set; }
-    public static event Action OnVolumeChanged;
 
     [SerializeField] private AudioSource _sfxAudioSourcePrefab;
     [SerializeField] private AudioSource _bgmAudioSource;
@@ -15,6 +14,7 @@ public class SoundManager : MonoBehaviour
     private Sound _sfxSound;
     private ISoundRepository _repository;
 
+    #region Unity Methods
     private void Awake()
     {
         if (Instance != null)
@@ -36,24 +36,29 @@ public class SoundManager : MonoBehaviour
         StopAllCoroutines();
     }
 
+    private void OnApplicationQuit()
+    {
+        Save();
+    }
+    
+    #endregion
+    
+    #region Public Methods
     public float GetBgmVolume() => _bgmSound.Volume;
     public float GetSfxVolume() => _sfxSound.Volume;
 
     public void SetBgmVolume(float volume)
     {
         _bgmSound.SetVolume(volume);
+        if (_bgmAudioSource == null) return;
         _bgmAudioSource.volume = _bgmSound.Volume;
-        Save();
-        OnVolumeChanged?.Invoke();
     }
 
     public void SetSfxVolume(float volume)
     {
         _sfxSound.SetVolume(volume);
-        Save();
-        OnVolumeChanged?.Invoke();
     }
-
+    
     public void PlayBgm(AudioClip clip)
     {
         if (clip == null) throw new ArgumentException("[SoundManager.cs] Try to Play Null BGM Clip");
@@ -67,7 +72,7 @@ public class SoundManager : MonoBehaviour
     {
         _bgmAudioSource.Stop();
     }
-
+    
     public void PlaySfx(AudioClip clip, float pitch = 1f)
     {
         if (clip == null)
@@ -81,7 +86,8 @@ public class SoundManager : MonoBehaviour
         audioSource.Play();
         StartCoroutine(PlaySfx_Coroutine(audioSource, clip.length / pitch));
     }
-
+    #endregion
+    
     private IEnumerator PlaySfx_Coroutine(AudioSource audioSource, float delay)
     {
         yield return new WaitForSecondsRealtime(delay);

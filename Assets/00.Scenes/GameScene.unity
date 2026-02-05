@@ -1851,7 +1851,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 720828371}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 878562451}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: CloseSettings
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &720828371
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2017,7 +2029,7 @@ GameObject:
   - component: {fileID: 754289169}
   - component: {fileID: 754289170}
   m_Layer: 5
-  m_Name: SlideBar
+  m_Name: SfxSlideBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2236,6 +2248,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 62238fbcf008c334ebfa3fb88510ba37, type: 2}
   - {fileID: 11400000, guid: d553d0015d26c7f40b3dcad26777d45b, type: 2}
   _currentPlanet: {fileID: 1915834131}
+  _uiSettings: {fileID: 2138928931}
 --- !u!4 &878562452
 Transform:
   m_ObjectHideFlags: 0
@@ -2434,7 +2447,7 @@ GameObject:
   m_Component:
   - component: {fileID: 917177412}
   m_Layer: 5
-  m_Name: Music
+  m_Name: Bgm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2542,7 +2555,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 966409868}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 878562451}
+        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
+        m_MethodName: OpenSettings
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &966409868
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2593,7 +2618,7 @@ GameObject:
   - component: {fileID: 990282919}
   - component: {fileID: 990282918}
   m_Layer: 5
-  m_Name: Image
+  m_Name: BlockImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2613,10 +2638,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 2138928928}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 351.00003}
-  m_SizeDelta: {x: 972, y: 1170}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &990282918
 MonoBehaviour:
@@ -2631,14 +2656,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 7890246350005439881, guid: 16c8095df2f27f94099b5adaea07bb18, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -4168,7 +4193,7 @@ GameObject:
   - component: {fileID: 1850601438}
   - component: {fileID: 1850601439}
   m_Layer: 5
-  m_Name: SlideBar
+  m_Name: BgmSlideBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4932,6 +4957,7 @@ GameObject:
   - component: {fileID: 2138928928}
   - component: {fileID: 2138928930}
   - component: {fileID: 2138928929}
+  - component: {fileID: 2138928931}
   m_Layer: 5
   m_Name: Setting
   m_TagString: Untagged
@@ -4998,6 +5024,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2138928927}
   m_CullTransparentMesh: 1
+--- !u!114 &2138928931
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2138928927}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99860a84cb749fa4bbc606f7b1a56464, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UI_Settings
+  _bgmVolumeSlider: {fileID: 1850601439}
+  _sfxVolumeSlider: {fileID: 754289170}
+  _returnButton: {fileID: 720828370}
+  _exitButton: {fileID: 1536035226}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
