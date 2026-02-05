@@ -40,9 +40,27 @@ public class UI_Login : MonoBehaviour
     private void AddButtonEvents()
     {
         _gotoRegisterButton.onClick.AddListener(GotoRegister);
-        _loginButton.onClick.AddListener(() => Login().Forget());
+        _loginButton.onClick.AddListener(OnLoginClicked);
         _gotoLoginButton.onClick.AddListener(GotoLogin);
-        _registerButton.onClick.AddListener(() => Register().Forget());
+        _registerButton.onClick.AddListener(OnRegisterClicked);
+    }
+
+    private void OnDestroy()
+    {
+        _gotoRegisterButton.onClick.RemoveListener(GotoRegister);
+        _loginButton.onClick.RemoveListener(OnLoginClicked);
+        _gotoLoginButton.onClick.RemoveListener(GotoLogin);
+        _registerButton.onClick.RemoveListener(OnRegisterClicked);
+    }
+
+    private void OnLoginClicked()
+    {
+        Login().Forget();
+    }
+
+    private void OnRegisterClicked()
+    {
+        Register().Forget();
     }
 
     private void Refresh()

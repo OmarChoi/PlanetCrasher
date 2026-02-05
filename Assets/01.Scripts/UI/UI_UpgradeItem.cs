@@ -23,6 +23,11 @@ public class UI_UpgradeItem : MonoBehaviour
     {
         _button.onClick.AddListener(Upgrade);
     }
+
+    private void OnDestroy()
+    {
+        _button.onClick.RemoveListener(Upgrade);
+    }
     
     public void Refresh(Upgrade upgrade)
     {

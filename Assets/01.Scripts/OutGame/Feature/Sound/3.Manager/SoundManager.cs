@@ -3,10 +3,8 @@ using System.Collections;
 using Lean.Pool;
 using UnityEngine;
 
-public class SoundManager : MonoBehaviour
+public class SoundManager : Singleton<SoundManager>
 {
-    public static SoundManager Instance { get; private set; }
-
     [SerializeField] private AudioSource _sfxAudioSourcePrefab;
     [SerializeField] private AudioSource _bgmAudioSource;
 
@@ -15,14 +13,8 @@ public class SoundManager : MonoBehaviour
     private ISoundRepository _repository;
 
     #region Unity Methods
-    private void Awake()
+    protected override void Initialize()
     {
-        if (Instance != null)
-        {
-            Destroy(gameObject);
-            return;
-        }
-        Instance = this;
         _repository = new LocalSoundRepository(AccountManager.Instance.Email);
     }
 

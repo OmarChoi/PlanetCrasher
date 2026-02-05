@@ -5,40 +5,29 @@ using System.Text;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 
-public class UpgradeManager : MonoBehaviour
+public class UpgradeManager : Singleton<UpgradeManager>
 {
-    public static UpgradeManager Instance { get; private set; }
     public static event Action OnDataChanged;
     public static event Action OnDataInitialized;
+
+    protected override bool IsPersistent => true;
 
     private readonly Dictionary<EUpgradeType, Upgrade> _upgrades = new Dictionary<EUpgradeType, Upgrade>();
     [SerializeField] private UpgradeSpecTableSO _specTable;
     [SerializeField] private EffectDescriptionTableSO _effectDescriptionTable;
 
     private IUpgradeRepository _upgradeRepository;
-    private void Awake()
+    protected override void Initialize()
     {
-        if (Instance != null)
-        {
-            Destroy(gameObject);
-            return;
-        }
-        Instance = this;
-        DontDestroyOnLoad(gameObject);
-
         // _upgradeRepository = new LocalUpgradeRepository(AccountManager.Instance.Email);
         _upgradeRepository = new FirebaseUpgradeRepository();
         InitializeUpgrades().Forget();
         OnDataChanged += SaveData;
     }
-    
-    private void OnDestroy()
+
+    protected override void Cleanup()
     {
         OnDataChanged -= SaveData;
-        if (Instance == this)
-        {
-            Instance = null;
-        }
     }
 
     private async UniTaskVoid InitializeUpgrades()

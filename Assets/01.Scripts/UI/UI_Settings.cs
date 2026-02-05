@@ -15,7 +15,7 @@ public class UI_Settings : MonoBehaviour
         _gameManager = GameManager.Instance;
         _soundManager = SoundManager.Instance;
         _bgmVolumeSlider.onValueChanged.AddListener(SetBGMVolume);
-        _bgmVolumeSlider.onValueChanged.AddListener(SetSFXVolume);
+        _sfxVolumeSlider.onValueChanged.AddListener(SetSFXVolume);
         _returnButton.onClick.AddListener(Close);
         _exitButton.onClick.AddListener(QuitGame);
     }
@@ -29,6 +29,14 @@ public class UI_Settings : MonoBehaviour
     private void OnDisable()
     {
         _gameManager.ResumeGame();
+    }
+
+    private void OnDestroy()
+    {
+        _bgmVolumeSlider.onValueChanged.RemoveListener(SetBGMVolume);
+        _sfxVolumeSlider.onValueChanged.RemoveListener(SetSFXVolume);
+        _returnButton.onClick.RemoveListener(Close);
+        _exitButton.onClick.RemoveListener(QuitGame);
     }
 
     private void Close()
