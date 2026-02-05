@@ -34,7 +34,6 @@ public class SoundManager : MonoBehaviour
     private void OnDisable()
     {
         StopAllCoroutines();
-        Save();
     }
 
     private void OnApplicationQuit()
@@ -48,10 +47,16 @@ public class SoundManager : MonoBehaviour
     public float GetBgmVolume() => _bgmSound.Volume;
     public float GetSfxVolume() => _sfxSound.Volume;
 
-    public void SetVolume(float bgmVolume, float sfxVolume)
+    public void SetBgmVolume(float volume)
     {
-        SetBgmVolume(bgmVolume);
-        SetSfxVolume(sfxVolume);
+        _bgmSound.SetVolume(volume);
+        if (_bgmAudioSource == null) return;
+        _bgmAudioSource.volume = _bgmSound.Volume;
+    }
+
+    public void SetSfxVolume(float volume)
+    {
+        _sfxSound.SetVolume(volume);
     }
     
     public void PlayBgm(AudioClip clip)
@@ -82,17 +87,6 @@ public class SoundManager : MonoBehaviour
         StartCoroutine(PlaySfx_Coroutine(audioSource, clip.length / pitch));
     }
     #endregion
-    
-    private void SetBgmVolume(float volume)
-    {
-        _bgmSound.SetVolume(volume);
-        _bgmAudioSource.volume = _bgmSound.Volume;
-    }
-
-    private void SetSfxVolume(float volume)
-    {
-        _sfxSound.SetVolume(volume);
-    }
     
     private IEnumerator PlaySfx_Coroutine(AudioSource audioSource, float delay)
     {

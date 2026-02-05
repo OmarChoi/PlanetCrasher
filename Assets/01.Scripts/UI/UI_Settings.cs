@@ -3,6 +3,8 @@ using UnityEngine.UI;
 
 public class UI_Settings : MonoBehaviour
 {
+    private SoundManager _soundManager;
+    private GameManager _gameManager;
     [SerializeField] private Slider _bgmVolumeSlider;
     [SerializeField] private Slider _sfxVolumeSlider;
     [SerializeField] private Button _returnButton;
@@ -10,33 +12,44 @@ public class UI_Settings : MonoBehaviour
 
     private void Awake()
     {
-        _returnButton.onClick.AddListener(() => gameObject.SetActive(false));
+        _gameManager = GameManager.Instance;
+        _soundManager = SoundManager.Instance;
+        _bgmVolumeSlider.onValueChanged.AddListener(SetBGMVolume);
+        _bgmVolumeSlider.onValueChanged.AddListener(SetSFXVolume);
+        _returnButton.onClick.AddListener(Close);
         _exitButton.onClick.AddListener(QuitGame);
     }
-    
+
     private void OnEnable()
     {
+        _gameManager.PauseGame();
         LoadVolume();
-        Time.timeScale = 0f;
     }
 
     private void OnDisable()
     {
-        SetVolume();
-        Time.timeScale = 1f;
+        _gameManager.ResumeGame();
+    }
+
+    private void Close()
+    {
+        gameObject.SetActive(false);
     }
     
     private void LoadVolume()
     {
-        _bgmVolumeSlider.value = SoundManager.Instance.GetBgmVolume();
-        _sfxVolumeSlider.value = SoundManager.Instance.GetSfxVolume();
+        _bgmVolumeSlider.value = _soundManager.GetBgmVolume();
+        _sfxVolumeSlider.value = _soundManager.GetSfxVolume();
     }
 
-    private void SetVolume()
+    private void SetBGMVolume(float value)
     {
-        float bgmVolume = _bgmVolumeSlider.value;
-        float sfxVolume = _sfxVolumeSlider.value;
-        SoundManager.Instance.SetVolume(bgmVolume, sfxVolume);
+        _soundManager.SetBgmVolume(value);
+    }
+
+    private void SetSFXVolume(float value)
+    {
+        _soundManager.SetSfxVolume(value);
     }
 
     private void QuitGame()
