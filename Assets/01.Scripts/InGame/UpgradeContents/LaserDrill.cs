@@ -1,12 +1,14 @@
 using UnityEngine;
 
-public class LaserDrill : MonoBehaviour
+public class LaserDrill : UpgradeContent
 {
+    protected override EUpgradeType UpgradeType => EUpgradeType.LaserDrill;
+
     [Header("Satellite")]
-    [SerializeField] private Transform _parent;
+    [SerializeField] private Transform _target;
     [SerializeField] private float _orbitSpeed = 50f;
     [SerializeField] private float _orbitDistance = 1.65f;
-    
+
     [Space(10)]
     [Header("Laser")]
     [SerializeField] private LineRenderer _beam;
@@ -16,13 +18,25 @@ public class LaserDrill : MonoBehaviour
     [SerializeField] private float _waveAmplitude = 0.1f;
     [SerializeField] private float _waveFrequency = 5f;
     [SerializeField] private float _waveSpeed = 5f;
-    
+
     [Space(10)]
-    [Header("Damage")]
-    [SerializeField] private float _damage = 20f;
-    
+    [Header("Base Settings")]
+    [SerializeField] private float _baseAttackInterval = 1.0f;
+
+    // 런타임 계산 값
+    private double _damage;
+    private float _attackInterval;
+    private float _attackTimer;
     private float _angle;
-    
+
+    protected override void RefreshStats()
+    {
+        _damage = GetEffectValue(EUpgradeEffectType.Damage);
+
+        double cooldownReduction = GetEffectValue(EUpgradeEffectType.CooldownReduction);
+        _attackInterval = _baseAttackInterval * (1f - (float)cooldownReduction);
+    }
+
     private void Start()
     {
         UpdatePosition();
@@ -31,12 +45,28 @@ public class LaserDrill : MonoBehaviour
     private void Update()
     {
         _angle += _orbitSpeed * Time.deltaTime;
-        
+
         UpdatePosition();
         UpdateRotation();
         UpdateBeam();
+        ApplyDamage();
     }
-    
+
+    private void ApplyDamage()
+    {
+        _attackTimer += Time.deltaTime;
+        if (_attackTimer < _attackInterval) return;
+        _attackTimer = 0f;
+        if (!_target.TryGetComponent(out IClickable clickObject)) return;
+        ClickInfo clickInfo = new ClickInfo
+        {
+            Type = EClickType.AutoClick,
+            Damage = _damage,
+            Position = new Vector3(_beamDistance, 0, 0),
+        };
+        clickObject.OnClick(clickInfo);
+    }
+
     private void UpdateBeam()
     {
         if (_beam == null) return;
@@ -61,18 +91,18 @@ public class LaserDrill : MonoBehaviour
 
     private void UpdateRotation()
     {
-        Vector3 direction = _parent.position - transform.position;                                 
-        float angleToParent = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;               
+        Vector3 direction = _target.position - transform.position;
+        float angleToParent = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.Euler(0, 0, angleToParent);
     }
 
     private void UpdatePosition()
     {
         float radian = _angle * Mathf.Deg2Rad;
-        
-        float x = _parent.position.x + Mathf.Cos(radian) * _orbitDistance;
-        float y = _parent.position.y + Mathf.Sin(radian) * _orbitDistance;
-        
-        transform.position = new Vector3(x, y, _parent.position.z);
+
+        float x = _target.position.x + Mathf.Cos(radian) * _orbitDistance;
+        float y = _target.position.y + Mathf.Sin(radian) * _orbitDistance;
+
+        transform.position = new Vector3(x, y, _target.position.z);
     }
 }

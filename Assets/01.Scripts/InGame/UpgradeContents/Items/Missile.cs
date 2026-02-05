@@ -15,7 +15,6 @@ public class Missile : MonoBehaviour
     [SerializeField] private float _tiltAngle = 45f;
 
     private Transform _target;
-    private IClickable _targetClickable;
     private Vector3 _destination;
     private double _damage;
     private MissileLauncher _launcher;
@@ -25,16 +24,15 @@ public class Missile : MonoBehaviour
     private float _initialDistance;
     private float _yTilt;
 
-    public void Initialize(Transform target, IClickable targetClickable, double damage, float targetRadius, MissileLauncher launcher)
+    public void Initialize(Transform target, double damage, Vector3 destination, ParticleSystem hitEffect, MissileLauncher launcher)
     {
         _target = target;
-        _targetClickable = targetClickable;
         _damage = damage;
+        _destination = destination;
+        _hitEffect = hitEffect;
         _launcher = launcher;
+        
         _isDespawned = false;
-
-        Vector2 randomOffset = Random.insideUnitCircle * targetRadius;
-        _destination = target.position + new Vector3(randomOffset.x, randomOffset.y, 0f);
 
         _startScale = transform.localScale;
         _initialDistance = Vector3.Distance(transform.position, _destination);
@@ -78,16 +76,22 @@ public class Missile : MonoBehaviour
 
     private void OnHit()
     {
-        if (_targetClickable != null)
+        if (_target == null)
+        {
+            Despawn();
+            return;
+        }
+        
+        if (_target.TryGetComponent(out IClickable clickTarget))
         {
             ClickInfo clickInfo = new ClickInfo
             {
                 Type = EClickType.AutoClick,
                 Damage = _damage,
-                Position = _destination,
+                Position = _destination + Vector3.back * 3,
                 EffectParticle = _hitEffect
             };
-            _targetClickable.OnClick(clickInfo);
+            clickTarget.OnClick(clickInfo);
         }
 
         if (_explosionSfx != null)

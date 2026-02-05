@@ -8,6 +8,7 @@ public class UpgradeManager : MonoBehaviour
 {
     public static UpgradeManager Instance { get; private set; }
     public static event Action OnDataChanged;
+    public static event Action OnDataInitialized;
 
     private readonly Dictionary<EUpgradeType, Upgrade> _upgrades = new Dictionary<EUpgradeType, Upgrade>();
     [SerializeField] private UpgradeSpecTableSO _specTable;
@@ -26,8 +27,8 @@ public class UpgradeManager : MonoBehaviour
 
         // _upgradeRepository = new LocalUpgradeRepository(AccountManager.Instance.Email);
         _upgradeRepository = new FirebaseUpgradeRepository();
-        OnDataChanged += SaveData;
         InitializeUpgrades().Forget();
+        OnDataChanged += SaveData;
     }
     
     private void OnDestroy()
@@ -75,8 +76,7 @@ public class UpgradeManager : MonoBehaviour
             int level = savedLevels.GetValueOrDefault(metaData.Type, 0);
             _upgrades.Add(metaData.Type, new Upgrade(metaData, level));
         }
-        
-        OnDataChanged?.Invoke();
+        OnDataInitialized?.Invoke();
     }
 
     public Upgrade Get(EUpgradeType type) => _upgrades[type];

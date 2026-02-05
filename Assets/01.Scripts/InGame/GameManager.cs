@@ -6,21 +6,13 @@ public class GameManager : MonoBehaviour
 {
     private static GameManager _instance;
     public static GameManager Instance => _instance;
-
-    [SerializeField] private double _manualDamage = 1;
-    [SerializeField] private double _autoDamage = 1;
+    
     [SerializeField] private ParticleSystem _explodeParticles;
     
     [Header("Planets")]
-    [SerializeField] private GameObject _planetPrefab;
     [SerializeField] private List<PlanetData> _planetDatas;
-    private Planet _currentPlanet;
+    [SerializeField] private Planet _currentPlanet;
     private int _currentPlanetIndex = 0;
-    
-    public double ManualDamage => _manualDamage;
-    public double AutoDamage => _autoDamage;
-    public static event Action<double> OnAutoDamageChanged;
-    public static event Action OnUpgradeCompleted;
     
     private void Awake()
     {
@@ -31,15 +23,7 @@ public class GameManager : MonoBehaviour
         }
         _instance = this;
         
-        _currentPlanet = Instantiate(_planetPrefab, transform).GetComponent<Planet>();
-        _currentPlanet.gameObject.SetActive(false);
         _currentPlanet.Init(_planetDatas[_currentPlanetIndex], _currentPlanetIndex);
-    }
-
-    private void Start()
-    {
-        OnAutoDamageChanged?.Invoke(_autoDamage);
-        OnUpgradeCompleted?.Invoke();
     }
 
     public void ChangePlanet()

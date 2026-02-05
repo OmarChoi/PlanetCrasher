@@ -1,36 +1,39 @@
 using Lean.Pool;
 using UnityEngine;
 
-public class ClickLaserSpawner : MonoBehaviour
+public class ClickLaserSpawner : UpgradeContent
 {
-    [Header("Spawn Settings")]
-    [SerializeField] [Range(0f, 1f)] private float _spawnChance = 0.1f;
-    [SerializeField] private double _baseDamage = 10;
+    protected override EUpgradeType UpgradeType => EUpgradeType.Laser;
 
     [Header("Audio")]
     [SerializeField] private AudioClip _laserSfx;
 
+    // 런타임 계산 값
+    private double _damage;
+    private float _spawnChance;
+
     private LeanGameObjectPool _pool;
 
-    private void Awake()
+    protected override void RefreshStats()
+    {
+        _damage = GetEffectValue(EUpgradeEffectType.Damage);
+        _spawnChance = (float)GetEffectValue(EUpgradeEffectType.SpawnProbability);
+    }
+
+    protected override void Init()
     {
         _pool = GetComponent<LeanGameObjectPool>();
     }
 
-    private void OnEnable()
+    protected override void InitializeUpgradeData()
     {
         Clicker.OnClicked += OnPlayerClicked;
-    }
-
-    private void OnDisable()
-    {
-        Clicker.OnClicked -= OnPlayerClicked;
+        base.InitializeUpgradeData();
     }
 
     private void OnPlayerClicked(ClickInfo clickInfo)
     {
         if (Random.value > _spawnChance) return;
-
         SpawnLaser();
     }
 
@@ -40,7 +43,7 @@ public class ClickLaserSpawner : MonoBehaviour
 
         GameObject laserObj = _pool.Spawn(startPos, Quaternion.identity);
         ClickLaser laser = laserObj.GetComponent<ClickLaser>();
-        laser.Initialize(startPos, endPos, _baseDamage, this);
+        laser.Initialize(startPos, endPos, _damage, this);
         SoundManager.Instance.PlaySfx(_laserSfx);
     }
 

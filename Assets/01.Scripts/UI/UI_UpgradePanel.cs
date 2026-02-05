@@ -10,11 +10,12 @@ public class UI_UpgradePanel : MonoBehaviour
 
     private void Awake()
     {
-        UpgradeManager.OnDataChanged += Init;
+        UpgradeManager.OnDataInitialized += Init;
     }
 
     private void OnDestroy()
     {
+        UpgradeManager.OnDataInitialized -= Init;
         UpgradeManager.OnDataChanged -= Refresh;
         CurrencyManager.OnDataChanged -= Refresh;
     }
@@ -29,7 +30,8 @@ public class UI_UpgradePanel : MonoBehaviour
             _upgradeItems.Add(item);
             item.Refresh(upgradeData);
         }
-        UpgradeManager.OnDataChanged -= Init;
+        UpgradeManager.OnDataInitialized -= Init;
+        
         UpgradeManager.OnDataChanged += Refresh;
         CurrencyManager.OnDataChanged += Refresh;
     }

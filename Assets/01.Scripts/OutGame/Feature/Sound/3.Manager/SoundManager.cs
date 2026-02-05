@@ -56,10 +56,7 @@ public class SoundManager : MonoBehaviour
 
     public void PlayBgm(AudioClip clip)
     {
-        if (clip == null)
-        {
-            throw new ArgumentException("[SoundManager.cs] Try to Play Null BGM Clip");
-        }
+        if (clip == null) throw new ArgumentException("[SoundManager.cs] Try to Play Null BGM Clip");
         _bgmAudioSource.clip = clip;
         _bgmAudioSource.loop = true;
         _bgmAudioSource.volume = _bgmSound.Volume;

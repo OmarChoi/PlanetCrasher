@@ -48,6 +48,7 @@ public class Bullet : MonoBehaviour
         IClickable clickable = hitTarget.GetComponent<IClickable>();
         if (clickable != null)
         {
+            
             ClickInfo clickInfo = new ClickInfo
             {
                 Type = EClickType.AutoClick,

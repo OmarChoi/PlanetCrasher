@@ -1,40 +1,42 @@
 using Lean.Pool;
 using UnityEngine;
 
-public class MissileLauncher : MonoBehaviour
+public class MissileLauncher : UpgradeContent
 {
+    protected override EUpgradeType UpgradeType => EUpgradeType.Missile;
+
     [Header("Target")]
     [SerializeField] private Transform _target;
     [SerializeField] private float _targetRadius = 1f;
 
-    [Header("Shooting")]
-    [SerializeField] private float _shootInterval = 2f;
-    [SerializeField] private double _damage = 50;
+    [Header("Base Settings")]
     [SerializeField] private AudioClip _shootSfx;
 
     [Header("Spawn Position")]
     [SerializeField] private float _viewportHeight = 0.3f;
     [SerializeField] private float _viewportMargin = 0.1f;
 
+    [SerializeField] private ParticleSystem _particleSystem;
+
+    // 런타임 계산 값
+    private double _damage;
+    private double _shootInterval;
+
     private float _shootTimer;
     private bool _spawnFromLeft = true;
     private LeanGameObjectPool _pool;
     private Camera _mainCamera;
-    private IClickable _targetClickable;
 
-    private void Awake()
+    protected override void RefreshStats()
+    {
+        _damage = GetEffectValue(EUpgradeEffectType.Damage);
+        _shootInterval = GetEffectValue(EUpgradeEffectType.CooldownReduction);
+    }
+
+    protected override void Init()
     {
         _pool = GetComponent<LeanGameObjectPool>();
         _mainCamera = Camera.main;
-        CacheTargetClickable();
-    }
-
-    private void CacheTargetClickable()
-    {
-        if (_target != null)
-        {
-            _target.TryGetComponent(out _targetClickable);
-        }
     }
 
     private void Update()
@@ -80,7 +82,10 @@ public class MissileLauncher : MonoBehaviour
         GameObject missileObj = _pool.Spawn(spawnPosition, rotation);
         if (missileObj.TryGetComponent(out Missile missile))
         {
-            missile.Initialize(_target, _targetClickable, _damage, _targetRadius, this);
+            Vector2 randomOffset = Random.insideUnitCircle * _targetRadius;
+            Vector3 destination = _target.position + new Vector3(randomOffset.x, randomOffset.y, 0f);
+
+            missile.Initialize(_target, _damage, destination, _particleSystem, this);
         }
     }
 
