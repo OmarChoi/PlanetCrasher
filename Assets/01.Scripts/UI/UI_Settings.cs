@@ -34,9 +34,8 @@ public class UI_Settings : MonoBehaviour
     
     private void LoadVolume()
     {
-        // todo: 도메인을 반환해야한다.
-        _bgmVolumeSlider.value = SoundManager.Instance.GetBgmVolume();
-        _sfxVolumeSlider.value = SoundManager.Instance.GetSfxVolume();
+        _bgmVolumeSlider.value = SoundManager.Instance.GetBgmSound().Volume;
+        _sfxVolumeSlider.value = SoundManager.Instance.GetSfxSound().Volume;
     }
 
     private void SetBGMVolume(float value)
