@@ -12,7 +12,6 @@ public class UpgradeManager : MonoBehaviour
 
     private readonly Dictionary<EUpgradeType, Upgrade> _upgrades = new Dictionary<EUpgradeType, Upgrade>();
     [SerializeField] private UpgradeSpecTableSO _specTable;
-    [SerializeField] private EffectDescriptionTableSO _effectDescriptionTable;
 
     private IUpgradeRepository _upgradeRepository;
     private void Awake()
@@ -24,6 +23,9 @@ public class UpgradeManager : MonoBehaviour
         }
         Instance = this;
         DontDestroyOnLoad(gameObject);
+        
+        // 인프라다
+        // UpgradeDescriptionBuilder.Initialize(_effectDescriptionTable);
 
         // _upgradeRepository = new LocalUpgradeRepository(AccountManager.Instance.Email);
         _upgradeRepository = new FirebaseUpgradeRepository();
@@ -82,9 +84,7 @@ public class UpgradeManager : MonoBehaviour
     public Upgrade Get(EUpgradeType type) => _upgrades[type];
 
     public List<Upgrade> GetAll() => _upgrades.Values.ToList();
-
-    public string GetDescription(Upgrade upgrade) => UpgradeDescriptionBuilder.GenerateAll(_effectDescriptionTable, upgrade);
-
+    
     public bool CanLevelUp(EUpgradeType type)
     {
         if (!_upgrades.TryGetValue(type, out Upgrade upgrade)) return false;
