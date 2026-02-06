@@ -7,7 +7,7 @@ public static class UpgradeDescriptionBuilder
     private static string Generate(EffectDescriptionTableSO table, UpgradeEffect effect, int level)
     {
         string format = table.GetFormat(effect.Type);
-        double value = UpgradeCalculator.CalculateEffect(effect, level);
+        double value = IncreaseCalculator.CalculateEffect(effect, level);
         return string.Format(format, value.ToCompactString());
     }
 
