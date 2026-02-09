@@ -44,7 +44,7 @@ jobs:
           UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
         with:
           targetPlatform: WebGL
-          buildProfile: "Assets/Settings/Build Profiles/Web-Desktop-Dev - Desktop - Development.asset"
+          buildProfile: "Assets/Settings/Build Profiles/Web - Desktop - Development.asset"
       
       # 4. 빌드 결과물 업로드
       - name: Upload Build
