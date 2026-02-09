@@ -17,11 +17,11 @@ public class UpgradeManager : Singleton<UpgradeManager>
     private IUpgradeRepository _upgradeRepository;
     protected override void Initialize()
     {
-        // 인프라다
-        // UpgradeDescriptionBuilder.Initialize(_effectDescriptionTable);
-
-        // _upgradeRepository = new LocalUpgradeRepository(AccountManager.Instance.Email);
+#if !UNITY_WEBGL || UNITY_EDITOR
         _upgradeRepository = new FirebaseUpgradeRepository();
+#else
+        _upgradeRepository = new LocalUpgradeRepository("webgl_user");
+#endif
         InitializeUpgrades().Forget();
         OnDataChanged += SaveData;
     }

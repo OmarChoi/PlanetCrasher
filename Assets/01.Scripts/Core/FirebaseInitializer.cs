@@ -1,3 +1,4 @@
+#if !UNITY_WEBGL || UNITY_EDITOR
 using System;
 using Firebase;
 using UnityEngine;
@@ -36,3 +37,4 @@ public class FirebaseInitializer : Singleton<FirebaseInitializer>
         }
     }
 }
+#endif

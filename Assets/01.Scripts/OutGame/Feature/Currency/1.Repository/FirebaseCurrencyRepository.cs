@@ -1,4 +1,5 @@
-﻿using System;
+#if !UNITY_WEBGL || UNITY_EDITOR
+using System;
 using Cysharp.Threading.Tasks;
 using Firebase;
 using Firebase.Auth;
@@ -49,3 +50,4 @@ public class FirebaseCurrencyRepository : ICurrencyRepository
         return CurrencySaveData.Default;
     }
 }
+#endif

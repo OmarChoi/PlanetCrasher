@@ -15,8 +15,11 @@ public class CurrencyManager : Singleton<CurrencyManager>
 
     protected override void Initialize()
     {
-        // _repository = new LocalCurrencyRepository(AccountManager.Instance.Email);
+#if !UNITY_WEBGL || UNITY_EDITOR
         _repository = new FirebaseCurrencyRepository();
+#else
+        _repository = new LocalCurrencyRepository("webgl_user");
+#endif
         LoadData().Forget();
         OnDataChanged += SaveData;
     }

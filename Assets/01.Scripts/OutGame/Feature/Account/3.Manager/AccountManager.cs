@@ -18,7 +18,11 @@ public class AccountManager : Singleton<AccountManager>
 
     protected override void Initialize()
     {
+#if !UNITY_WEBGL || UNITY_EDITOR
         _accountRepository = new FirebaseAccountRepository();
+#else
+        _accountRepository = new LocalAccountRepository();
+#endif
         _passwordSpecification = new PasswordSpecification();
         _emailSpecification = new EmailSpecification();
     }
