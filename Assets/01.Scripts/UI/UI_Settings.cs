@@ -11,7 +11,7 @@ public class UI_Settings : MonoBehaviour
     private void Awake()
     {
         _bgmVolumeSlider.onValueChanged.AddListener(SetBGMVolume);
-        _bgmVolumeSlider.onValueChanged.AddListener(SetSfxVolume);
+        _sfxVolumeSlider.onValueChanged.AddListener(SetSfxVolume);
         _returnButton.onClick.AddListener(Close);
         _exitButton.onClick.AddListener(QuitGame);
     }
