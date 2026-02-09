@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Data;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "EffectDescriptionTableSO", menuName = "ScriptableObjects/EffectDescriptionTableSO")]
@@ -17,8 +18,7 @@ public class EffectDescriptionTableSO : ScriptableObject
             return format;
         }
 
-        Debug.LogWarning($"[EffectDescriptionTableSO] No format found for {type}");
-        return "{0}";
+        throw new KeyNotFoundException($"[EffectDescriptionTableSO] No format found for {type}");
     }
 
     private void InitializeCacheIfNeeded()
@@ -30,8 +30,7 @@ public class EffectDescriptionTableSO : ScriptableObject
         {
             if (_formatCache.ContainsKey(entry.Type))
             {
-                Debug.LogWarning($"[EffectDescriptionTableSO] Duplicate entry for {entry.Type}");
-                continue;
+                throw new DuplicateNameException($"[EffectDescriptionTableSO] Duplicate entry for {entry.Type}");
             }
             _formatCache[entry.Type] = entry.Format;
         }

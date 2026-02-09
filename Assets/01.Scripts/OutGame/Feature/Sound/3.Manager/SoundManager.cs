@@ -36,8 +36,8 @@ public class SoundManager : Singleton<SoundManager>
     #endregion
     
     #region Public Methods
-    public float GetBgmVolume() => _bgmSound.Volume;
-    public float GetSfxVolume() => _sfxSound.Volume;
+    public Sound GetBgmSound() => _bgmSound;
+    public Sound GetSfxSound() => _sfxSound;
 
     public void SetBgmVolume(float volume)
     {

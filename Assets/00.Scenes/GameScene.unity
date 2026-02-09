@@ -149,7 +149,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UpgradeManager
   _specTable: {fileID: 11400000, guid: f0ba777d564486b408726274d0fde0a6, type: 2}
-  _effectDescriptionTable: {fileID: 11400000, guid: 228fbe83ba298b149864d63feac65f91, type: 2}
 --- !u!4 &65294137
 Transform:
   m_ObjectHideFlags: 0
@@ -1852,10 +1851,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 878562451}
-        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
-        m_MethodName: CloseSettings
-        m_Mode: 1
+      - m_Target: {fileID: 2138928927}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -2248,7 +2247,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 62238fbcf008c334ebfa3fb88510ba37, type: 2}
   - {fileID: 11400000, guid: d553d0015d26c7f40b3dcad26777d45b, type: 2}
   _currentPlanet: {fileID: 1915834131}
-  _uiSettings: {fileID: 2138928931}
 --- !u!4 &878562452
 Transform:
   m_ObjectHideFlags: 0
@@ -2556,17 +2554,17 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 878562451}
-        m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
-        m_MethodName: OpenSettings
-        m_Mode: 1
+      - m_Target: {fileID: 2138928927}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
-          m_BoolArgument: 0
+          m_BoolArgument: 1
         m_CallState: 2
 --- !u!114 &966409868
 MonoBehaviour:
@@ -4719,6 +4717,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::UI_UpgradePanel
   _contentParent: {fileID: 1837781481}
   _upgradeItemPrefab: {fileID: 8909326403451994167, guid: ac912d57125b03640bc19180a60825e1, type: 3}
+  _descriptionTable: {fileID: 11400000, guid: 228fbe83ba298b149864d63feac65f91, type: 2}
 --- !u!1001 &1972076833
 PrefabInstance:
   m_ObjectHideFlags: 0

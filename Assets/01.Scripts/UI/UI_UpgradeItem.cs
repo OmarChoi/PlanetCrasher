@@ -29,27 +29,33 @@ public class UI_UpgradeItem : MonoBehaviour
         _button.onClick.RemoveListener(Upgrade);
     }
     
-    public void Refresh(Upgrade upgrade)
+    public void Refresh(Upgrade upgrade, string description)
     {
         if (upgrade == null) return;
         _upgrade = upgrade;
         _icon.sprite = upgrade.MetaData.Icon;
         _name.text = upgrade.MetaData.Name;
         _price.text = upgrade.Cost.ToString();
-        _description.text = UpgradeManager.Instance.GetDescription(upgrade);
+        _description.text = description;
         _type.text = upgrade.MetaData.ClickType.ToString();
         _count.text = $"Lv.{upgrade.Level + 1}";
         
         bool canLevelUp = UpgradeManager.Instance.CanLevelUp(upgrade.MetaData.Type);
         _blockImage.gameObject.SetActive(!canLevelUp);
     }
-
+    
     private void Upgrade()
     {
         if (_upgrade == null) return;
 
-        if (!UpgradeManager.Instance.CanLevelUp(_upgrade.MetaData.Type)) return;
-        UpgradeManager.Instance.TryLevelUp(_upgrade.MetaData.Type);
-        // todo. 이펙트, 애니메이션, 트위닝
+        if (UpgradeManager.Instance.TryLevelUp(_upgrade.MetaData.Type))
+        {
+            // todo. 이펙트, 애니메이션, 트위닝
+
+        }
+        else
+        {
+            
+        }
     }
 }
