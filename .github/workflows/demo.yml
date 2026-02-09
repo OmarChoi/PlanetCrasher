@@ -1,0 +1,21 @@
+# ① 작업지시서 이름
+name: Unity WebGL Build
+
+# ② 언제 실행할 것인가? (트리거)
+on:
+  push:
+    branches: [ main ]
+
+# ③ 무엇을 할 것인가? (작업 목록)
+jobs:
+  build:
+    # 어디서 실행할 것인가? (실행 환경)
+    runs-on: ubuntu-latest
+
+    # 실행할 단계들
+    steps:
+      - name: 코드 가져오기
+        uses: actions/checkout@v4
+
+      - name: 유니티 빌드
+        run: echo "유니티 빌드를 합니다."
