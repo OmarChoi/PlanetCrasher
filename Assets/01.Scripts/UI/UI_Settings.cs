@@ -30,7 +30,7 @@ public class UI_Settings : MonoBehaviour
     private void OnDestroy()
     {
         _bgmVolumeSlider.onValueChanged.RemoveListener(SetBGMVolume);
-        _sfxVolumeSlider.onValueChanged.RemoveListener(SetSFXVolume);
+        _sfxVolumeSlider.onValueChanged.RemoveListener(SetSfxVolume);
         _returnButton.onClick.RemoveListener(Close);
         _exitButton.onClick.RemoveListener(QuitGame);
     }
