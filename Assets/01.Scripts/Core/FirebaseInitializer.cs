@@ -3,26 +3,15 @@ using Firebase;
 using UnityEngine;
 using Cysharp.Threading.Tasks;
 
-public class FirebaseInitializer : MonoBehaviour
+public class FirebaseInitializer : Singleton<FirebaseInitializer>
 {
-    public static FirebaseInitializer Instance { get; private set; }
-
-    private void Awake()
-    {
-        if (Instance != null)
-        {
-            Destroy(gameObject);
-            return;
-        }
-        Instance = this;
-        DontDestroyOnLoad(gameObject);
-    }
+    protected override bool IsPersistent => true;
 
     private void Start()
     {
         InitFirebase().Forget();
     }
-    
+
     private async UniTask InitFirebase()
     {
         try

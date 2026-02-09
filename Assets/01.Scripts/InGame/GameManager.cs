@@ -1,28 +1,17 @@
 using UnityEngine;
 using System.Collections.Generic;
-using System;
 
-public class GameManager : MonoBehaviour
+public class GameManager : Singleton<GameManager>
 {
-    private static GameManager _instance;
-    public static GameManager Instance => _instance;
-    
     [SerializeField] private ParticleSystem _explodeParticles;
-    
+
     [Header("Planets")]
     [SerializeField] private List<PlanetData> _planetDatas;
     [SerializeField] private Planet _currentPlanet;
     private int _currentPlanetIndex = 0;
-    
-    private void Awake()
+
+    protected override void Initialize()
     {
-        if (_instance != null)
-        {
-            Destroy(gameObject);
-            return;
-        }
-        _instance = this;
-        
         _currentPlanet.Init(_planetDatas[_currentPlanetIndex], _currentPlanetIndex);
     }
 

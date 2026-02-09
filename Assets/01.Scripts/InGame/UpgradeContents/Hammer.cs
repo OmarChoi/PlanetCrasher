@@ -29,6 +29,12 @@ public class Hammer : UpgradeContent
         }
     }
 
+    protected override void Cleanup()
+    {
+        Clicker.OnClicked -= OnPlayerClicked;
+        base.Cleanup();
+    }
+
     protected override void RefreshStats()
     {
         _damage = GetEffectValue(EUpgradeEffectType.Damage);

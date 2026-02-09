@@ -2,9 +2,8 @@ using System;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 
-public class CurrencyManager : MonoBehaviour
+public class CurrencyManager : Singleton<CurrencyManager>
 {
-    public static CurrencyManager Instance;
     // CRUD
     // 재화에 대한 생성 / 조회 / 사용 / 소모 / 이벤트
 
@@ -14,9 +13,8 @@ public class CurrencyManager : MonoBehaviour
     private readonly Currency[] _currencies = new Currency[(int)ECurrencyType.Count];
     private ICurrencyRepository _repository;
 
-    private void Awake()
+    protected override void Initialize()
     {
-        Instance = this;
         // _repository = new LocalCurrencyRepository(AccountManager.Instance.Email);
         _repository = new FirebaseCurrencyRepository();
         LoadData().Forget();

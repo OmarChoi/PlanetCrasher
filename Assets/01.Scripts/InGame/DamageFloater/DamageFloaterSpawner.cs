@@ -1,15 +1,13 @@
 using Lean.Pool;
 using UnityEngine;
 
-public class DamageFloaterSpawner : MonoBehaviour
+public class DamageFloaterSpawner : Singleton<DamageFloaterSpawner>
 {
-    public static DamageFloaterSpawner Instance { get; private set; }
     [SerializeField] private float _duration;
     private LeanGameObjectPool _pool;
-    
-    private void Awake()
+
+    protected override void Initialize()
     {
-        Instance = this;
         _pool = GetComponent<LeanGameObjectPool>();
     }
 

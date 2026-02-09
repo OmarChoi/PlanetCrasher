@@ -1,16 +1,14 @@
-# Gemini Code Assist Configuration for Unity Project
+# Gemini Code Assist Configuration for PlanetCrasher
 
 # Code Analysis Settings
 analysis:
   # Directories to analyze
   include:
-    - "Assets/02.Scripts/**/*.cs"
-    - "Assets/Editor/**/*.cs"
-    - "Assets/Plugins/**/*.cs"
-  
+    - "Assets/01.Scripts/**/*.cs"
+
   # Directories to exclude
   exclude:
-    - "Assets/Plugins/*/Editor/**"
+    - "Assets/Plugins/**"
     - "Library/**"
     - "Temp/**"
     - "Obj/**"
@@ -30,53 +28,61 @@ standards:
       variable: "camelCase"
       private_field: "_camelCase"
       constant: "PascalCase"
-    
+      interface: "IPascalCase"
+      enum: "EPascalCase"
+      ui_class: "UI_PascalCase"
+      scriptable_object: "PascalCaseSO"
+      coroutine: "MethodName_Coroutine"
+
     patterns:
-      - "Use Unity lifecycle methods appropriately (Awake, Start, Update, etc.)"
-      - "Always specify access modifiers for methods (public, private, protected)"
-      - "Use [SerializeField] only for Unity UI (uGUI) components"
-      - "Use GetComponent<T>() wisely and cache references"
-      - "Implement IDisposable for cleanup when needed"
-      - "Use coroutines for time-based operations"
+      - "Use Unity lifecycle methods appropriately (Awake, Start, Update, OnDisable)"
+      - "Always specify access modifiers for all members"
+      - "Use [SerializeField] for Inspector-exposed private fields"
+      - "Use readonly struct for Value Objects (Currency, ClickInfo, etc.)"
+      - "Separate MetaData (ScriptableObject) from Runtime data (Domain Object)"
+      - "Use static events: public static event Action OnDataChanged"
+      - "Follow 3-tier architecture for OutGame features: Repository → Domain → Manager"
 
 # AI Assistant Context
 context:
   frameworks:
     - "Unity Engine"
-    - "Unity UI (uGUI)"
-    - "Unity Input System"
+    - "LeanPool (Object Pooling)"
+    - "DOTween (Tweening/Animation)"
+    - "Firebase (Auth, Firestore)"
+    - "UniTask (Async)"
     - "TextMeshPro"
-  
+
   common_patterns:
-    - "MonoBehaviour components"
-    - "ScriptableObject data containers"
-    - "Singleton pattern for managers"
-    - "Object pooling for performance"
-    - "Event-driven architecture"
-  
+    - "Singleton pattern for managers (GameManager, CurrencyManager, UpgradeManager, SoundManager, AccountManager)"
+    - "Repository pattern with Local/Firebase implementations"
+    - "Strategy pattern (IFeedback, IClickable)"
+    - "Observer pattern with static events"
+    - "Object pooling with LeanPool"
+    - "Value Object pattern (readonly struct)"
+    - "Specification pattern for validation"
+    - "3-tier OutGame architecture: 1.Repository → 2.Domain → 3.Manager"
+
   best_practices:
     - "Avoid heavy operations in Update()"
-    - "Use object pooling for frequently instantiated objects"
-    - "Implement proper null checks"
-    - "Use coroutines instead of Update() for delayed actions"
-    - "Cache component references in Awake() or Start()"
-    - "Use layers and tags for organization"
+    - "Use LeanPool for frequently instantiated objects (Bullet, Missile, etc.)"
+    - "Cache component references in Awake()"
+    - "Use coroutines for time-based operations"
+    - "Communicate between layers via static events, not direct references"
+    - "Keep InGame (game mechanics) and OutGame (business logic) separated"
 
 # Documentation
 documentation:
-  style: "XML"
-  required_for:
-    - "public classes"
-    - "public methods"
+  style: "None"
+  required_for: []
 
 # Performance Considerations
 performance:
   optimization_level: "balanced"
   focus_areas:
     - "garbage collection reduction"
-    - "draw call optimization"
-    - "memory management"
-    - "mobile performance"
+    - "object pooling"
+    - "event-driven updates over polling"
 
 # Git Integration
 git:
@@ -85,14 +91,12 @@ git:
 
 # Custom Instructions
 custom_instructions: |
-  When suggesting code for Unity:
-  1. Always consider mobile performance implications
-  2. Suggest appropriate Unity lifecycle methods
-  3. Recommend using ScriptableObjects for game data
-  4. Consider multiplayer implications if relevant
-  5. Suggest proper error handling and null checks
-  6. Use Unity's built-in systems when available
-  7. Always include access modifiers for all methods
-  8. Use PascalCase for constants
-  9. Use [SerializeField] only for uGUI components
-  10. Provide Korean comments for better understanding (한국어 주석 포함)
+  When reviewing code for PlanetCrasher:
+  1. Verify 3-tier architecture compliance for OutGame features (Repository → Domain → Manager)
+  2. Check that InGame and OutGame layers communicate through static events, not tight coupling
+  3. Ensure MetaData (ScriptableObject) and Runtime data (Domain Object) are properly separated
+  4. Verify readonly struct usage for Value Objects
+  5. Check proper event subscription/unsubscription lifecycle
+  6. Ensure new UpgradeContent inherits from UpgradeContent base class
+  7. Verify IFeedback implementations are attached as Planet/Asteroid children
+  8. All reviews and summaries must be written in Korean (한국어)

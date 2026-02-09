@@ -31,6 +31,12 @@ public class ClickLaserSpawner : UpgradeContent
         base.InitializeUpgradeData();
     }
 
+    protected override void Cleanup()
+    {
+        Clicker.OnClicked -= OnPlayerClicked;
+        base.Cleanup();
+    }
+
     private void OnPlayerClicked(ClickInfo clickInfo)
     {
         if (Random.value > _spawnChance) return;

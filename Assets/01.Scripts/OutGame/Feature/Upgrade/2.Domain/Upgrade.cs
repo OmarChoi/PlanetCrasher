@@ -18,10 +18,10 @@ public class Upgrade
     );
 
     public bool IsMaxLevel => Level >= MetaData.MaxLevel;
-
+    
     public Upgrade(UpgradeMetaData metaData, int level = 0)
     {
-        if (level > metaData.MaxLevel) throw new ArgumentOutOfRangeException("[Upgrade.cs] Level Data exceeds MaxLevel");
+        if (level > metaData.MaxLevel) throw new ArgumentException("[Upgrade.cs] Level Data exceeds MaxLevel");
         if (metaData.Icon == null) throw new NullReferenceException("[Upgrade.cs] Icon is null");
         if (metaData.MaxLevel < 0) throw new ArgumentException("[Upgrade.cs] Max Level cannot be less than 0.");
         if (metaData.BaseCost <= 0) throw new ArgumentException("[Upgrade.cs] Base Cost must be greater than 0.");
@@ -50,4 +50,6 @@ public class Upgrade
         if (effect == null) return 0;
         return IncreaseCalculator.CalculateEffect(effect, Level);
     }
+    
+  
 }
