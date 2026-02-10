@@ -1,23 +1,16 @@
 using System;
-using System.Text.RegularExpressions;
 
 public class Account
 {
     public readonly string Email;
-    public readonly string Password;
 
-    public Account(string email, string password)
+    public Account(string email)
     {
         var emailSpec = new EmailSpecification();
-        var passwordSpec = new PasswordSpecification();
         var emailResult = emailSpec.IsSatisfiedBy(email);
         if (!emailResult.IsValid) throw new ArgumentException(emailResult.ErrorMessage);
-        
-        var passwordResult = passwordSpec.IsSatisfiedBy(password);
-        if (!passwordResult.IsValid) throw new ArgumentException(passwordResult.ErrorMessage);
-        
+
         Email = email;
-        Password = password;
     }
 }
 

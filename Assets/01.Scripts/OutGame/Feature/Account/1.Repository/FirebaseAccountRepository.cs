@@ -42,7 +42,7 @@ public class FirebaseAccountRepository : IAccountRepository
         (
             success: true,
             errorMessage: string.Empty,
-            account: new Account(email, password)
+            account: new Account(email)
         );
     }
     
@@ -56,7 +56,7 @@ public class FirebaseAccountRepository : IAccountRepository
             (
                 success: true,
                 errorMessage: errorMessage,
-                account: new Account(email, password)
+                account: new Account(email)
             );
         }
         catch (FirebaseException fe)
@@ -65,7 +65,7 @@ public class FirebaseAccountRepository : IAccountRepository
             (
                 success: false,
                 errorMessage: "Failed to sign in user " + fe.ErrorCode,
-                account: new Account(email, password)
+                account: null
             );
         }
         catch (Exception e)
@@ -74,7 +74,7 @@ public class FirebaseAccountRepository : IAccountRepository
             (
                 success: false,
                 errorMessage: "Failed to sign in user " + e.Message,
-                account: new Account(email, password)
+                account: null
             );
         }
     }

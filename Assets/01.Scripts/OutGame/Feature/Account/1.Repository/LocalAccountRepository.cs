@@ -5,6 +5,22 @@ public class LocalAccountRepository : IAccountRepository
 {
     public UniTask<AccountResult> Register(string email, string password)
     {
+        // 비밀번호 검증
+        var passwordSpec = new PasswordSpecification();
+        var passwordResult = passwordSpec.IsSatisfiedBy(password);
+        if (!passwordResult.IsValid)
+        {
+            return UniTask.FromResult
+            (
+                new AccountResult
+                (
+                    success: false,
+                    errorMessage: passwordResult.ErrorMessage,
+                    account: null
+                )
+            );
+        }
+
         if (IsExist(email))
         {
             return UniTask.FromResult
@@ -27,7 +43,7 @@ public class LocalAccountRepository : IAccountRepository
             (
                 success: true,
                 errorMessage: string.Empty,
-                account: new Account(email, hashedPassword)
+                account: new Account(email)
             )
         );
     }
@@ -56,7 +72,7 @@ public class LocalAccountRepository : IAccountRepository
                 (
                     success: true,
                     errorMessage: string.Empty,
-                    account: new Account(email, storedPassword)
+                    account: new Account(email)
                 )
             );
         }
