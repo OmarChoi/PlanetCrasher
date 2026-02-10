@@ -12,6 +12,10 @@ public abstract class UpgradeContent : MonoBehaviour
     private void Awake()
     {
         UpgradeManager.OnDataInitialized += InitializeUpgradeData;
+        if (UpgradeManager.Instance?.IsInitialized == true)
+        {
+            InitializeUpgradeData();
+        }
         Init();
     }
     

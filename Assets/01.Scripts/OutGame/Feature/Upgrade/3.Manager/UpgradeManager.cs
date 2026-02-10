@@ -14,6 +14,8 @@ public class UpgradeManager : Singleton<UpgradeManager>
     private readonly Dictionary<EUpgradeType, Upgrade> _upgrades = new Dictionary<EUpgradeType, Upgrade>();
     [SerializeField] private UpgradeSpecTableSO _specTable;
 
+    public bool IsInitialized { get; private set; }
+
     private IUpgradeRepository _upgradeRepository;
     protected override void Initialize()
     {
@@ -67,6 +69,10 @@ public class UpgradeManager : Singleton<UpgradeManager>
             int level = savedLevels.GetValueOrDefault(metaData.Type, 0);
             _upgrades.Add(metaData.Type, new Upgrade(metaData, level));
         }
+
+        await UniTask.Yield();
+
+        IsInitialized = true;
         OnDataInitialized?.Invoke();
     }
 

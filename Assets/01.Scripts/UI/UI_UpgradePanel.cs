@@ -14,6 +14,10 @@ public class UI_UpgradePanel : MonoBehaviour
     private void Awake()
     {
         UpgradeManager.OnDataInitialized += Init;
+        if (UpgradeManager.Instance?.IsInitialized == true)
+        {
+            Init();
+        }
     }
 
     private void OnDestroy()
