@@ -20,7 +20,7 @@ public class UpgradeManager : Singleton<UpgradeManager>
 #if !UNITY_WEBGL || UNITY_EDITOR
         _upgradeRepository = new FirebaseUpgradeRepository();
 #else
-        _upgradeRepository = new LocalUpgradeRepository("webgl_user");
+        _upgradeRepository = new LocalUpgradeRepository(AccountManager.Instance.Email);
 #endif
         InitializeUpgrades().Forget();
         OnDataChanged += SaveData;
