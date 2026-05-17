@@ -5,24 +5,29 @@ public class UI_Gold : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI _text;
 
-    private void Start()
-    {
-        Refresh();
-    }
-    
+    private bool _isDirty;
+
     private void OnEnable()
     {
-        CurrencyManager.OnDataChanged -= Refresh;
-        CurrencyManager.OnDataChanged += Refresh;
+        CurrencyManager.OnDataChanged -= MarkDirty;
+        CurrencyManager.OnDataChanged += MarkDirty;
+        _isDirty = true;
     }
 
     private void OnDisable()
     {
-        CurrencyManager.OnDataChanged -= Refresh;
+        CurrencyManager.OnDataChanged -= MarkDirty;
     }
 
-    private void Refresh()
+    private void LateUpdate()
     {
-        _text.text = CurrencyManager.Instance.Gold.ToString();
+        if (!_isDirty) return;
+        _isDirty = false;
+        _text.SetText(CurrencyManager.Instance.Gold.ToString());
+    }
+
+    private void MarkDirty()
+    {
+        _isDirty = true;
     }
 }
