@@ -12,6 +12,7 @@
 /[Uu]ser[Ss]ettings/
 /[Dd]ocs/
 /[Pp]rofilerCaptures/
+/[Pp]rofileAnalyzer/
 *.log
 
 # By default unity supports Blender asset imports, *.blend1 blender files do not need to be commited to version control.
