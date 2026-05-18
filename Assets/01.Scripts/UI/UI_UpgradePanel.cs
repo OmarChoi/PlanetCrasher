@@ -29,7 +29,7 @@ public class UI_UpgradePanel : MonoBehaviour
 
     private void Init()
     {
-        List<Upgrade> upgrades = UpgradeManager.Instance.GetAll();
+        IReadOnlyList<Upgrade> upgrades = UpgradeManager.Instance.GetAll();
         foreach (Upgrade upgrade in upgrades)
         {
             GameObject obj = Instantiate(_upgradeItemPrefab, _contentParent);
@@ -45,7 +45,7 @@ public class UI_UpgradePanel : MonoBehaviour
     
     private void Refresh()
     {
-        List<Upgrade> upgrades = UpgradeManager.Instance.GetAll();
+        IReadOnlyList<Upgrade> upgrades = UpgradeManager.Instance.GetAll();
         for (var i = 0; i < _upgradeItems.Count; ++i)
         {
             _upgradeItems[i].Refresh(upgrades[i], BuildDescription(upgrades[i]));

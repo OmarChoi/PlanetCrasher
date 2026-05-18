@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 
@@ -12,6 +11,7 @@ public class UpgradeManager : Singleton<UpgradeManager>
     protected override bool IsPersistent => true;
 
     private readonly Dictionary<EUpgradeType, Upgrade> _upgrades = new Dictionary<EUpgradeType, Upgrade>();
+    private readonly List<Upgrade> _upgradeList = new List<Upgrade>();
     [SerializeField] private UpgradeSpecTableSO _specTable;
 
     public bool IsInitialized { get; private set; }
@@ -36,6 +36,7 @@ public class UpgradeManager : Singleton<UpgradeManager>
     private async UniTaskVoid InitializeUpgrades()
     {
         _upgrades.Clear();
+        _upgradeList.Clear();
 
         UpgradeMetaData[] upgradeDatas = _specTable.UpgradeSpecDatas;
 
@@ -67,7 +68,9 @@ public class UpgradeManager : Singleton<UpgradeManager>
 
             // 저장된 레벨이 있으면 사용, 없으면 0
             int level = savedLevels.GetValueOrDefault(metaData.Type, 0);
-            _upgrades.Add(metaData.Type, new Upgrade(metaData, level));
+            Upgrade upgrade = new Upgrade(metaData, level);
+            _upgrades.Add(metaData.Type, upgrade);
+            _upgradeList.Add(upgrade);
         }
 
         await UniTask.Yield();
@@ -78,7 +81,7 @@ public class UpgradeManager : Singleton<UpgradeManager>
 
     public Upgrade Get(EUpgradeType type) => _upgrades[type];
 
-    public List<Upgrade> GetAll() => _upgrades.Values.ToList();
+    public IReadOnlyList<Upgrade> GetAll() => _upgradeList;
     
     public bool CanLevelUp(EUpgradeType type)
     {
