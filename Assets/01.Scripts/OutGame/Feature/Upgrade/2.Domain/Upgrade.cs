@@ -1,5 +1,4 @@
 using System;
-using System.Linq;
 
 public class Upgrade
 {
@@ -46,10 +45,12 @@ public class Upgrade
 
     public double GetEffectValue(EUpgradeEffectType effectType)
     {
-        var effect = MetaData.Effects.FirstOrDefault(e => e.Type == effectType);
-        if (effect == null) return 0;
-        return IncreaseCalculator.CalculateEffect(effect, Level);
+        UpgradeEffect[] effects = MetaData.Effects;
+        for (int i = 0; i < effects.Length; i++)
+        {
+            if (effects[i].Type == effectType)
+                return IncreaseCalculator.CalculateEffect(effects[i], Level);
+        }
+        return 0;
     }
-    
-  
 }
