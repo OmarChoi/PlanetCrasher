@@ -40,7 +40,6 @@ public class UI_UpgradePanel : MonoBehaviour
             GameObject obj = Instantiate(_upgradeItemPrefab, _contentParent);
             UI_UpgradeItem item = obj.GetComponent<UI_UpgradeItem>();
             _upgradeItems.Add(item);
-            _cachedLevels[i] = -1;
             item.Refresh(upgrade, GetDescription(i, upgrade));
         }
         UpgradeManager.OnDataInitialized -= Init;
