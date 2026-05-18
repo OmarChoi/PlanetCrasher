@@ -6,6 +6,7 @@ public class UI_Gold : MonoBehaviour
     [SerializeField] private TextMeshProUGUI _text;
 
     private bool _isDirty;
+    private double _lastDisplayedValue = double.NaN;
 
     private void OnEnable()
     {
@@ -23,7 +24,12 @@ public class UI_Gold : MonoBehaviour
     {
         if (!_isDirty) return;
         _isDirty = false;
-        _text.SetText(CurrencyManager.Instance.Gold.ToString());
+
+        Currency gold = CurrencyManager.Instance.Gold;
+        if (gold.Value == _lastDisplayedValue) return;
+
+        _lastDisplayedValue = gold.Value;
+        _text.SetText(gold.ToString());
     }
 
     private void MarkDirty()

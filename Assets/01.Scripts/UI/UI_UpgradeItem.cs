@@ -45,6 +45,10 @@ public class UI_UpgradeItem : MonoBehaviour
     public void Refresh(Upgrade upgrade, string description)
     {
         if (upgrade == null) return;
+        if (_upgrade != upgrade)
+        {
+            _staticInitialized = false;
+        }
         _upgrade = upgrade;
 
         if (!_staticInitialized)
