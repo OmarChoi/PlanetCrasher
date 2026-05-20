@@ -6,23 +6,51 @@ public class DamageFloater : MonoBehaviour
 {
     [SerializeField] private TextMeshPro _text;
     private const float Distance = 5f;
+
     private Sequence _sequence;
+    private float _sequenceDuration;
+    private float _moveProgress;
+    private Vector3 _startPosition;
     private bool _isDespawned;
 
-    public void Init()
+    public void Play(double damage, float duration)
     {
-        _sequence?.Kill();
         _isDespawned = false;
-        _text.alpha = 1;
+        _moveProgress = 0f;
+        _startPosition = transform.position;
+
+        _text.alpha = 1f;
+        _text.text = damage.ToFormattedString();
+
+        EnsureSequence(duration);
+        _sequence.Restart();
     }
 
-    public void Show(double damage, float duration)
+    private void EnsureSequence(float duration)
     {
-        _text.text = damage.ToFormattedString();
-        _sequence = DOTween.Sequence();
-        _sequence.Append(_text.DOFade(0, duration));
-        _sequence.Join(transform.DOMoveY(transform.position.y + Distance, duration).SetEase(Ease.Linear));
+        if (_sequence != null && Mathf.Approximately(_sequenceDuration, duration)) return;
+
+        _sequence?.Kill();
+        _sequenceDuration = duration;
+
+        _sequence = DOTween.Sequence()
+                           .SetAutoKill(false)
+                           .Pause();
+
+        _sequence.Append(_text.DOFade(0f, duration));
+        _sequence.Join(DOTween.To(GetMoveProgress, SetMoveProgress, 1f, duration).SetEase(Ease.Linear));
         _sequence.OnComplete(Despawn);
+    }
+
+    private float GetMoveProgress()
+    {
+        return _moveProgress;
+    }
+
+    private void SetMoveProgress(float progress)
+    {
+        _moveProgress = progress;
+        transform.position = _startPosition + Vector3.up * (Distance * progress);
     }
 
     private void Despawn()
@@ -30,5 +58,10 @@ public class DamageFloater : MonoBehaviour
         if (_isDespawned) return;
         _isDespawned = true;
         DamageFloaterSpawner.Instance.HideDamage(this);
+    }
+
+    private void OnDestroy()
+    {
+        _sequence?.Kill();
     }
 }

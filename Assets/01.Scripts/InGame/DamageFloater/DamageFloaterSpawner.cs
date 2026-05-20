@@ -15,8 +15,7 @@ public class DamageFloaterSpawner : Singleton<DamageFloaterSpawner>
     {
         GameObject floaterObject = _pool.Spawn(clickInfo.Position, Quaternion.identity);
         DamageFloater damageFloater = floaterObject.GetComponent<DamageFloater>();
-        damageFloater.Init();
-        damageFloater.Show(clickInfo.Damage, _duration);
+        damageFloater.Play(clickInfo.Damage, _duration);
     }
 
     public void HideDamage(DamageFloater damageFloater)
