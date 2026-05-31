@@ -10,7 +10,6 @@ public class Planet : MonoBehaviour, IClickable
 
     private double _health = 1;
     private double _maxHealth = 1;
-    private const double HealthGrowthRate = 1.15;
     private IFeedback[] _feedbacks;
     private Material _crackMaterialInstance;
 
@@ -20,17 +19,17 @@ public class Planet : MonoBehaviour, IClickable
         UpdateCrackProgress();
     }
 
-    private double GetMaxHealth(int currentPlanetIndex)
+    private double GetMaxHealth(int currentPlanetIndex, double healthGrowthRate)
     {
         double baseHealth = _planetData.MaxHealth;
-        return baseHealth * Math.Pow(HealthGrowthRate, currentPlanetIndex);
+        return baseHealth * Math.Pow(healthGrowthRate, currentPlanetIndex);
     }
-    
-    public void Init(PlanetData data, int currentPlanetIndex)
+
+    public void Init(PlanetData data, int currentPlanetIndex, double healthGrowthRate)
     {
         _planetData = data;
 
-        _maxHealth = GetMaxHealth(currentPlanetIndex);
+        _maxHealth = GetMaxHealth(currentPlanetIndex, healthGrowthRate);
         _health = _maxHealth;
 
         if (_spriteRenderer == null || _planetData.PlanetMaterial == null) return;

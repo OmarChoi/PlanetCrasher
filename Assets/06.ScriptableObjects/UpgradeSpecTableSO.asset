@@ -16,73 +16,78 @@ MonoBehaviour:
   - Type: 0
     ClickType: 0
     Icon: {fileID: 5393448996881579246, guid: c04ab3796fdb87745a984fe8a80641d6, type: 3}
-    MaxLevel: 20
+    MaxLevel: 1000
+    StartLevel: 1
     Name: Hammer
     BaseCost: 10
-    CostMultiplier: 100
-    CostIncreaseType: 0
+    CostMultiplier: 1.07
+    CostIncreaseType: 1
     Effects:
     - Type: 0
       BaseValue: 10
-      Multiplier: 15
-      IncreaseType: 0
+      Multiplier: 1.04
+      IncreaseType: 1
   - Type: 1
     ClickType: 0
     Icon: {fileID: -5446270416137504277, guid: 26a6568d62bf8fa47a6eb0c2962628d6, type: 3}
-    MaxLevel: 20
+    MaxLevel: 1000
+    StartLevel: 0
     Name: Laser
-    BaseCost: 100
-    CostMultiplier: 500
-    CostIncreaseType: 0
+    BaseCost: 200
+    CostMultiplier: 1.07
+    CostIncreaseType: 1
     Effects:
     - Type: 0
-      BaseValue: 50
-      Multiplier: 75
-      IncreaseType: 0
+      BaseValue: 40
+      Multiplier: 1.04
+      IncreaseType: 1
     - Type: 1
       BaseValue: 10
-      Multiplier: 2
+      Multiplier: 0.08
       IncreaseType: 0
   - Type: 2
     ClickType: 1
     Icon: {fileID: -3010401151903113755, guid: d1572aab46c25144d929638e42c752fd, type: 3}
-    MaxLevel: 20
+    MaxLevel: 1000
+    StartLevel: 0
     Name: Laser Drill
-    BaseCost: 1000
-    CostMultiplier: 2500
-    CostIncreaseType: 0
+    BaseCost: 3000
+    CostMultiplier: 1.07
+    CostIncreaseType: 1
     Effects:
     - Type: 0
-      BaseValue: 200
-      Multiplier: 300
-      IncreaseType: 0
-  - Type: 4
-    ClickType: 0
-    Icon: {fileID: -4478703775913692564, guid: 253f4f0703145df41941a32b4ec54bd5, type: 3}
-    MaxLevel: 20
-    Name: Missile
-    BaseCost: 10000
-    CostMultiplier: 12500
-    CostIncreaseType: 0
-    Effects:
-    - Type: 0
-      BaseValue: 1000
-      Multiplier: 1500
-      IncreaseType: 0
-    - Type: 2
-      BaseValue: 10.5
-      Multiplier: -0.5
-      IncreaseType: 0
+      BaseValue: 120
+      Multiplier: 1.04
+      IncreaseType: 1
   - Type: 3
     ClickType: 1
     Icon: {fileID: -7709297464541498756, guid: 5a1ce5d17f833b747b8b2760f9b4a7a4, type: 3}
-    MaxLevel: 20
+    MaxLevel: 1000
+    StartLevel: 0
     Name: Satellite
-    BaseCost: 100000
-    CostMultiplier: 62500
-    CostIncreaseType: 0
+    BaseCost: 50000
+    CostMultiplier: 1.07
+    CostIncreaseType: 1
     Effects:
     - Type: 0
-      BaseValue: 5000
-      Multiplier: 7500
+      BaseValue: 100
+      Multiplier: 1.04
+      IncreaseType: 1
+  - Type: 4
+    ClickType: 0
+    Icon: {fileID: -4478703775913692564, guid: 253f4f0703145df41941a32b4ec54bd5, type: 3}
+    MaxLevel: 1000
+    StartLevel: 0
+    Name: Missile
+    BaseCost: 800000
+    CostMultiplier: 1.07
+    CostIncreaseType: 1
+    Effects:
+    - Type: 0
+      BaseValue: 3000
+      Multiplier: 1.04
+      IncreaseType: 1
+    - Type: 2
+      BaseValue: 0
+      Multiplier: 0.0008
       IncreaseType: 0

@@ -4,12 +4,14 @@ using UnityEngine;
 public class MissileLauncher : UpgradeContent
 {
     protected override EUpgradeType UpgradeType => EUpgradeType.Missile;
+    protected override bool DeactivateWhenUnowned => true;
 
     [Header("Target")]
     [SerializeField] private Transform _target;
     [SerializeField] private float _targetRadius = 1f;
 
     [Header("Base Settings")]
+    [SerializeField] private float _baseShootInterval = 3f;
     [SerializeField] private AudioClip _shootSfx;
 
     [Header("Spawn Position")]
@@ -30,7 +32,10 @@ public class MissileLauncher : UpgradeContent
     protected override void RefreshStats()
     {
         _damage = GetEffectValue(EUpgradeEffectType.Damage);
-        _shootInterval = GetEffectValue(EUpgradeEffectType.CooldownReduction);
+
+        // CooldownReduction은 0~1 분수. _baseShootInterval에 곱해 발사 간격을 단축한다.
+        double cooldownReduction = GetEffectValue(EUpgradeEffectType.CooldownReduction);
+        _shootInterval = _baseShootInterval * (1f - Mathf.Clamp01((float)cooldownReduction));
     }
 
     protected override void Init()

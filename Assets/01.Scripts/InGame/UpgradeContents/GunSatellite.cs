@@ -4,6 +4,7 @@ using UnityEngine;
 public class GunSatellite : UpgradeContent
 {
     protected override EUpgradeType UpgradeType => EUpgradeType.Satellite;
+    protected override bool DeactivateWhenUnowned => true;
 
     [Header("Satellite")]
     [SerializeField] private Transform _target;

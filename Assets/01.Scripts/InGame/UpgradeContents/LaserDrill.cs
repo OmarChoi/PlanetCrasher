@@ -3,6 +3,7 @@ using UnityEngine;
 public class LaserDrill : UpgradeContent
 {
     protected override EUpgradeType UpgradeType => EUpgradeType.LaserDrill;
+    protected override bool DeactivateWhenUnowned => true;
 
     [Header("Satellite")]
     [SerializeField] private Transform _target;

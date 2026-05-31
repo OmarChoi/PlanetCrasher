@@ -66,8 +66,8 @@ public class UpgradeManager : Singleton<UpgradeManager>
                 );
             }
 
-            // 저장된 레벨이 있으면 사용, 없으면 0
-            int level = savedLevels.GetValueOrDefault(metaData.Type, 0);
+            // 저장된 레벨이 있으면 사용, 없으면 시작 보유 레벨(StartLevel)
+            int level = savedLevels.GetValueOrDefault(metaData.Type, metaData.StartLevel);
             Upgrade upgrade = new Upgrade(metaData, level);
             _upgrades.Add(metaData.Type, upgrade);
             _upgradeList.Add(upgrade);

@@ -18,6 +18,8 @@ public class Hammer : UpgradeContent
 
     private void OnPlayerClicked(ClickInfo clickInfo)
     {
+        if (!IsOwned) return;
+
         clickInfo.EffectParticle = _hitParticle;
         clickInfo.Damage = _damage;
 

@@ -17,7 +17,8 @@ public class ClickLaserSpawner : UpgradeContent
     protected override void RefreshStats()
     {
         _damage = GetEffectValue(EUpgradeEffectType.Damage);
-        _spawnChance = (float)GetEffectValue(EUpgradeEffectType.SpawnProbability);
+        // SpawnProbability는 퍼센트(0~100)로 기획되어 있으므로 0~1 확률로 변환
+        _spawnChance = (float)GetEffectValue(EUpgradeEffectType.SpawnProbability) / 100f;
     }
 
     protected override void Init()
@@ -39,6 +40,7 @@ public class ClickLaserSpawner : UpgradeContent
 
     private void OnPlayerClicked(ClickInfo clickInfo)
     {
+        if (!IsOwned) return;
         if (Random.value > _spawnChance) return;
         SpawnLaser();
     }

@@ -8,11 +8,13 @@ public class GameManager : Singleton<GameManager>
     [Header("Planets")]
     [SerializeField] private List<PlanetData> _planetDatas;
     [SerializeField] private Planet _currentPlanet;
+    [Tooltip("행성 체력 증가 공비. MaxHealth * 공비^행성index")]
+    [SerializeField] private double _healthGrowthRate = 1.15;
     private int _currentPlanetIndex = 0;
 
     protected override void Initialize()
     {
-        _currentPlanet.Init(_planetDatas[_currentPlanetIndex], _currentPlanetIndex);
+        _currentPlanet.Init(_planetDatas[_currentPlanetIndex], _currentPlanetIndex, _healthGrowthRate);
     }
 
     public void ChangePlanet()
@@ -21,7 +23,7 @@ public class GameManager : Singleton<GameManager>
 
         _currentPlanetIndex++;
         int planetIndex = (_currentPlanetIndex) % _planetDatas.Count;
-        _currentPlanet.Init(_planetDatas[planetIndex], _currentPlanetIndex);
+        _currentPlanet.Init(_planetDatas[planetIndex], _currentPlanetIndex, _healthGrowthRate);
     }
 
     public void PauseGame()

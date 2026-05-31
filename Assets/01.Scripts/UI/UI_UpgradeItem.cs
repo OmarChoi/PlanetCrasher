@@ -63,7 +63,7 @@ public class UI_UpgradeItem : MonoBehaviour
         {
             _cachedLevel = upgrade.Level;
             _price.text = upgrade.Cost.ToString();
-            _count.text = $"Lv.{upgrade.Level + 1}";
+            _count.text = upgrade.Level > 0 ? $"Lv.{upgrade.Level}" : "구매";
             _cachedBlockedValid = false;
         }
 
