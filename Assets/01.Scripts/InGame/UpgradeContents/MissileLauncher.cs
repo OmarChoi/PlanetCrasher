@@ -42,6 +42,7 @@ public class MissileLauncher : UpgradeContent
     {
         _pool = GetComponent<LeanGameObjectPool>();
         _mainCamera = Camera.main;
+        _shootInterval = _baseShootInterval;
     }
 
     private void Update()
