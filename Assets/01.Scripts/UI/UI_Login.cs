@@ -34,9 +34,19 @@ public class UI_Login : MonoBehaviour
     private void Start()
     {
         AddButtonEvents();
-        SetupGuestButton();
-        Refresh();
-        ClearMessage();
+
+        // 백엔드가 없는 빌드(WebGL)는 로그인/회원가입이 모두 단일 게스트 세이브로 귀결되므로,
+        // 계정 의미론을 못 받쳐주는 거짓 UX 대신 인증 폼을 숨기고 '시작하기'(게스트) 진입만 노출한다.
+        if (AppEnvironment.IsBackendless)
+        {
+            SetupGuestOnlyMode();
+        }
+        else
+        {
+            SetupGuestButton();
+            Refresh();
+            ClearMessage();
+        }
     }
 
     private void AddButtonEvents()
@@ -61,6 +71,27 @@ public class UI_Login : MonoBehaviour
     {
         if (_guestButton == null) return;
         _guestButton.gameObject.SetActive(true);
+    }
+
+    // 인증 폼(이메일/비밀번호/로그인/회원가입 전환)을 모두 숨기고 게스트 진입 버튼만 남긴다.
+    private void SetupGuestOnlyMode()
+    {
+        _passwordConfirmObject.SetActive(false);
+        _gotoRegisterButton.gameObject.SetActive(false);
+        _loginButton.gameObject.SetActive(false);
+        _gotoLoginButton.gameObject.SetActive(false);
+        _registerButton.gameObject.SetActive(false);
+
+        _emailInputField.gameObject.SetActive(false);
+        _passwordInputField.gameObject.SetActive(false);
+        _passwordConfirmInputField.gameObject.SetActive(false);
+
+        if (_guestButton != null)
+        {
+            _guestButton.gameObject.SetActive(true);
+        }
+
+        ClearMessage();
     }
 
     private void OnLoginClicked()

@@ -78,5 +78,6 @@ public class AccountManager : Singleton<AccountManager>
     public void Logout()
     {
         _accountRepository.Logout();
+        _currentAccount = null;
     }
 }
