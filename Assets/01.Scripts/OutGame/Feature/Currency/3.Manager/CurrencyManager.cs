@@ -18,7 +18,7 @@ public class CurrencyManager : Singleton<CurrencyManager>
 #if !UNITY_WEBGL || UNITY_EDITOR
         _repository = new FirebaseCurrencyRepository();
 #else
-        _repository = new LocalCurrencyRepository(AccountManager.Instance.Email);
+        _repository = new MockCurrencyRepository();
 #endif
         LoadData().Forget();
         OnDataChanged += SaveData;

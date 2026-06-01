@@ -15,7 +15,11 @@ public class SoundManager : Singleton<SoundManager>
     #region Unity Methods
     protected override void Initialize()
     {
+#if !UNITY_WEBGL || UNITY_EDITOR
         _repository = new LocalSoundRepository(AccountManager.Instance.Email);
+#else
+        _repository = new MockSoundRepository();
+#endif
     }
 
     private void Start()

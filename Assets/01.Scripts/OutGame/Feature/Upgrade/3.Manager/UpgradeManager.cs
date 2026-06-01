@@ -22,7 +22,7 @@ public class UpgradeManager : Singleton<UpgradeManager>
 #if !UNITY_WEBGL || UNITY_EDITOR
         _upgradeRepository = new FirebaseUpgradeRepository();
 #else
-        _upgradeRepository = new LocalUpgradeRepository(AccountManager.Instance.Email);
+        _upgradeRepository = new MockUpgradeRepository();
 #endif
         InitializeUpgrades().Forget();
         OnDataChanged += SaveData;

@@ -20,6 +20,7 @@ public class UI_Login : MonoBehaviour
     [SerializeField] private Button _loginButton;
     [SerializeField] private Button _gotoLoginButton;
     [SerializeField] private Button _registerButton;
+    [SerializeField] private Button _guestButton;
 
     [Header("Text")]
     [SerializeField] private TMP_InputField _emailInputField;
@@ -33,6 +34,7 @@ public class UI_Login : MonoBehaviour
     private void Start()
     {
         AddButtonEvents();
+        SetupGuestButton();
         Refresh();
         ClearMessage();
     }
@@ -43,6 +45,7 @@ public class UI_Login : MonoBehaviour
         _loginButton.onClick.AddListener(OnLoginClicked);
         _gotoLoginButton.onClick.AddListener(GotoLogin);
         _registerButton.onClick.AddListener(OnRegisterClicked);
+        _guestButton.onClick.AddListener(OnGuestClicked);
     }
 
     private void OnDestroy()
@@ -51,6 +54,13 @@ public class UI_Login : MonoBehaviour
         _loginButton.onClick.RemoveListener(OnLoginClicked);
         _gotoLoginButton.onClick.RemoveListener(GotoLogin);
         _registerButton.onClick.RemoveListener(OnRegisterClicked);
+        _guestButton.onClick.RemoveListener(OnGuestClicked);
+    }
+
+    private void SetupGuestButton()
+    {
+        if (_guestButton == null) return;
+        _guestButton.gameObject.SetActive(true);
     }
 
     private void OnLoginClicked()
@@ -61,6 +71,12 @@ public class UI_Login : MonoBehaviour
     private void OnRegisterClicked()
     {
         Register().Forget();
+    }
+
+    private void OnGuestClicked()
+    {
+        AccountManager.Instance.EnterAsGuest();
+        SceneManager.LoadScene("GameScene");
     }
 
     private void Refresh()

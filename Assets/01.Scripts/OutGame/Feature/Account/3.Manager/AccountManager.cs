@@ -21,7 +21,7 @@ public class AccountManager : Singleton<AccountManager>
 #if !UNITY_WEBGL || UNITY_EDITOR
         _accountRepository = new FirebaseAccountRepository();
 #else
-        _accountRepository = new LocalAccountRepository();
+        _accountRepository = new MockAccountRepository();
 #endif
         _passwordSpecification = new PasswordSpecification();
         _emailSpecification = new EmailSpecification();
@@ -30,6 +30,12 @@ public class AccountManager : Singleton<AccountManager>
     public ValidationResult ValidateEmail(string email)
     {
         return _emailSpecification.IsSatisfiedBy(email);
+    }
+
+    // 로그인 없이 게스트로 진입한다(WebGL 빌드 전용 흐름).
+    public void EnterAsGuest()
+    {
+        _currentAccount = new Account(GuestSession.Email);
     }
 
     public async UniTask<AccountResult> TryLogin(string email, string password)
