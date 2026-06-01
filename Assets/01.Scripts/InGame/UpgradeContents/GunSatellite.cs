@@ -35,6 +35,7 @@ public class GunSatellite : UpgradeContent
     protected override void Init()
     {
         _pool = GetComponent<LeanGameObjectPool>();
+        _shootInterval = _baseShootInterval;
     }
 
     protected override void InitializeUpgradeData()

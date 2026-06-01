@@ -37,6 +37,11 @@ public class LaserDrill : UpgradeContent
         _attackInterval = _baseAttackInterval * (1f - (float)cooldownReduction);
     }
 
+    protected override void Init()
+    {
+        _attackInterval = _baseAttackInterval;
+    }
+    
     private void Start()
     {
         UpdatePosition();
