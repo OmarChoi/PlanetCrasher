@@ -13,6 +13,7 @@ public class GunSatellite : UpgradeContent
 
     [Header("Base Settings")]
     [SerializeField] private float _baseShootInterval = 1f;
+    [SerializeField] private float _minShootInterval = 0.1f;
     [SerializeField] private Transform[] _firePoints;
     [SerializeField] private AudioClip _shootSfx;
 
@@ -28,8 +29,10 @@ public class GunSatellite : UpgradeContent
     {
         _damage = GetEffectValue(EUpgradeEffectType.Damage);
 
+        // interval이 0/음수로 떨어져 매 프레임 발사로 회귀하지 않도록 하한선을 적용한다.
         double cooldownReduction = GetEffectValue(EUpgradeEffectType.CooldownReduction);
-        _shootInterval = _baseShootInterval * (1f - (float)cooldownReduction);
+        float reducedInterval = _baseShootInterval * (1f - Mathf.Clamp01((float)cooldownReduction));
+        _shootInterval = Mathf.Max(reducedInterval, _minShootInterval);
     }
 
     protected override void Init()

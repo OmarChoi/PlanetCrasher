@@ -23,6 +23,7 @@ public class LaserDrill : UpgradeContent
     [Space(10)]
     [Header("Base Settings")]
     [SerializeField] private float _baseAttackInterval = 1.0f;
+    [SerializeField] private float _minAttackInterval = 0.1f;
 
     private double _damage;
     private float _attackInterval;
@@ -33,8 +34,10 @@ public class LaserDrill : UpgradeContent
     {
         _damage = GetEffectValue(EUpgradeEffectType.Damage);
 
+        // interval이 0/음수로 떨어져 매 프레임 공격으로 회귀하지 않도록 하한선을 적용한다.
         double cooldownReduction = GetEffectValue(EUpgradeEffectType.CooldownReduction);
-        _attackInterval = _baseAttackInterval * (1f - (float)cooldownReduction);
+        float reducedInterval = _baseAttackInterval * (1f - Mathf.Clamp01((float)cooldownReduction));
+        _attackInterval = Mathf.Max(reducedInterval, _minAttackInterval);
     }
 
     protected override void Init()
