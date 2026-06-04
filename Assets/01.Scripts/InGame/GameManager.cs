@@ -12,6 +12,10 @@ public class GameManager : Singleton<GameManager>
     [SerializeField] private double _healthGrowthRate = 1.15;
     private int _currentPlanetIndex = 0;
 
+    // 자동공격 콘텐츠가 궤도/조준 기준으로 삼는 현재 행성. ChangePlanet은 같은 인스턴스를
+    // 재-Init하므로 transform이 게임 내내 안정적이다(스포너가 1회 주입해도 영구 유효).
+    public Planet CurrentPlanet => _currentPlanet;
+
     protected override void Initialize()
     {
         _currentPlanet.Init(_planetDatas[_currentPlanetIndex], _currentPlanetIndex, _healthGrowthRate);

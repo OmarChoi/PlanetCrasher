@@ -3,10 +3,8 @@ using UnityEngine;
 public class LaserDrill : UpgradeContent
 {
     protected override EUpgradeType UpgradeType => EUpgradeType.LaserDrill;
-    protected override bool DeactivateWhenUnowned => true;
 
     [Header("Satellite")]
-    [SerializeField] private Transform _target;
     [SerializeField] private float _orbitSpeed = 50f;
     [SerializeField] private float _orbitDistance = 1.65f;
 
@@ -25,10 +23,13 @@ public class LaserDrill : UpgradeContent
     [SerializeField] private float _baseAttackInterval = 1.0f;
     [SerializeField] private float _minAttackInterval = 0.1f;
 
+    private Transform _target;
     private double _damage;
     private float _attackInterval;
     private float _attackTimer;
     private float _angle;
+
+    public override void Bind(Planet planet) => _target = planet.transform;
 
     protected override void RefreshStats()
     {

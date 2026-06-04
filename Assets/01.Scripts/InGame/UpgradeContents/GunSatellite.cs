@@ -4,10 +4,8 @@ using UnityEngine;
 public class GunSatellite : UpgradeContent
 {
     protected override EUpgradeType UpgradeType => EUpgradeType.Satellite;
-    protected override bool DeactivateWhenUnowned => true;
 
     [Header("Satellite")]
-    [SerializeField] private Transform _target;
     [SerializeField] private float _orbitSpeed;
     [SerializeField] private float _orbitDistance;
 
@@ -17,6 +15,8 @@ public class GunSatellite : UpgradeContent
     [SerializeField] private Transform[] _firePoints;
     [SerializeField] private AudioClip _shootSfx;
 
+    private Transform _target;
+
     // 런타임 계산 값
     private double _damage;
     private float _shootInterval;
@@ -24,6 +24,8 @@ public class GunSatellite : UpgradeContent
     private float _angle = 180.0f;
     private float _shootTimer;
     private LeanGameObjectPool _pool;
+
+    public override void Bind(Planet planet) => _target = planet.transform;
 
     protected override void RefreshStats()
     {
@@ -41,9 +43,9 @@ public class GunSatellite : UpgradeContent
         _shootInterval = _baseShootInterval;
     }
 
-    protected override void InitializeUpgradeData()
+    // _target은 스포너가 Bind로 주입하므로 첫 위치 계산은 Awake 체인이 아닌 Start에서 수행한다.
+    private void Start()
     {
-        base.InitializeUpgradeData();
         UpdatePosition();
     }
 

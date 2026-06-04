@@ -17,14 +17,14 @@ public class Missile : MonoBehaviour
     private Transform _target;
     private Vector3 _destination;
     private double _damage;
-    private MissileLauncher _launcher;
+    private MissileSpawner _launcher;
     private bool _isDespawned;
 
     private Vector3 _startScale;
     private float _initialDistance;
     private float _yTilt;
 
-    public void Initialize(Transform target, double damage, Vector3 destination, ParticleSystem hitEffect, MissileLauncher launcher)
+    public void Initialize(Transform target, double damage, Vector3 destination, ParticleSystem hitEffect, MissileSpawner launcher)
     {
         _target = target;
         _damage = damage;

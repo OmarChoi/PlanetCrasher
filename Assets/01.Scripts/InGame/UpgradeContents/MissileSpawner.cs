@@ -1,10 +1,9 @@
 using Lean.Pool;
 using UnityEngine;
 
-public class MissileLauncher : UpgradeContent
+public class MissileSpawner : UpgradeContent
 {
     protected override EUpgradeType UpgradeType => EUpgradeType.Missile;
-    protected override bool DeactivateWhenUnowned => true;
 
     [Header("Target")]
     [SerializeField] private Transform _target;
@@ -50,6 +49,9 @@ public class MissileLauncher : UpgradeContent
 
     private void Update()
     {
+        // 씬 상주·항상 활성. 몸체가 없으므로 미보유 시 발사만 막는다(ClickLaserSpawner와 동일한 게이트 방식).
+        if (!IsOwned) return;
+
         _shootTimer += Time.deltaTime;
         if (_shootTimer >= _shootInterval)
         {
